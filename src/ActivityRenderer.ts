@@ -16,6 +16,7 @@ export class ActivityRenderer {
     const start_date = DateTime.fromJSDate(new Date(activity.start_date)).toFormat(this.dateFormat);
 
     return Mustache.render(this.template, {
+      ...activity,
       start_date: start_date
     });
   }

@@ -30,7 +30,7 @@ export class SettingsTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Folder Date Format')
+      .setName('Folder date format')
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
@@ -49,6 +49,45 @@ export class SettingsTab extends PluginSettingTab {
           .setValue(this.plugin.settings.folderDateFormat)
           .onChange(async (value) => {
             this.plugin.settings.folderDateFormat = value
+            await this.plugin.saveSettings()
+          }),
+      )
+
+    new Setting(containerEl)
+      .setName('Filename')
+      .setDesc(
+        'Enter the filename where the data will be stored. {{id}}, {{{name}}} and {{{start_date}}} can be used in the filename',
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder('Enter the filename')
+          .setValue(this.plugin.settings.filename)
+          .onChange(async (value) => {
+            this.plugin.settings.filename = value
+            await this.plugin.saveSettings()
+          }),
+      )
+
+    new Setting(containerEl)
+      .setName('Filename date format')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'If date is used as part of file name, specify the format date for use. Format ',
+            fragment.createEl('a', {
+              text: 'reference',
+              href: 'https://moment.github.io/luxon/#/formatting?id=table-of-tokens',
+            }),
+            "."
+          )
+        }),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder('yyyy-MM-dd')
+          .setValue(this.plugin.settings.filenameDateFormat)
+          .onChange(async (value) => {
+            this.plugin.settings.filenameDateFormat = value
             await this.plugin.saveSettings()
           }),
       )

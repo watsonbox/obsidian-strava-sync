@@ -28,13 +28,16 @@ export class ActivitySerializer {
       await this.app.vault.createFolder(folderName);
     }
 
-    const fileName = normalizePath(`${folderName}/${activity.id}.md`);
+    const fileName = normalizePath(new ActivityRenderer(this.settings.filename, this.settings.filenameDateFormat).render(activity))
+      .replace(ILLEGAL_CHAR_REGEX_FILE, REPLACEMENT_CHAR);
+
+    const filePath = `${folderName}/${fileName}.md`;
 
     try {
-      await this.app.vault.create(fileName, `\`\`\`\n${JSON.stringify(activity)}\n\`\`\``);
+      await this.app.vault.create(filePath, `\`\`\`\n${JSON.stringify(activity)}\n\`\`\``);
     } catch (error) {
       if (error.toString().includes('File already exists')) {
-        new Notice(`Skipping file creation: ${fileName}. Please check if you have duplicated activity titles and delete the file if needed.`);
+        new Notice(`Skipping file creation: ${filePath}. Please check if you have duplicated activity titles and delete the file if needed.`);
       } else {
         throw error;
       }
