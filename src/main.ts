@@ -1,6 +1,8 @@
 import { addIcon, Notice, Plugin } from 'obsidian';
 import { Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
+import { Activity } from './Activity';
+import { AcitivitiesCSVImporter } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
 
 const DEFAULT_SETTINGS: Settings = {
@@ -11,6 +13,7 @@ const ICON_ID = "strava";
 
 export default class StravaSync extends Plugin {
 	settings: Settings;
+	activities: Activity[] = [];
 
 	async onload() {
 		await this.loadSettings();
@@ -40,9 +43,10 @@ export default class StravaSync extends Plugin {
 	}
 
 	async importActivitiesCSV() {
-		new FileSelector(".csv").selectContents().then((fileContents) => {
-			console.log(fileContents);
-		});
+		const fileContents = await new FileSelector(".csv").selectContents();
+		const activities = await new AcitivitiesCSVImporter(fileContents).import();
+
+		this.activities = activities;
 	}
 
 	async loadSettings() {
