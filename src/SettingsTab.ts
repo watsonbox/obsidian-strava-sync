@@ -1,5 +1,6 @@
-import StravaSync from "./main";
 import { App, PluginSettingTab, Setting } from "obsidian";
+import StravaSync from "./main";
+import { VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 
 export class SettingsTab extends PluginSettingTab {
   plugin: StravaSync;
@@ -91,5 +92,31 @@ export class SettingsTab extends PluginSettingTab {
             await this.plugin.saveSettings()
           }),
       )
+
+    containerEl.createEl('h3', { text: 'Activity' })
+
+    new Setting(containerEl)
+      .setName('Front Matter')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'Enter the metadata to be used in your note separated by commas.'
+          )
+        }),
+      )
+      .addTextArea((text) => {
+        text
+          .setPlaceholder('Enter the metadata')
+          .setValue(this.plugin.settings.frontMatterProperties.join(','))
+          .onChange(async (value) => {
+            this.plugin.settings.frontMatterProperties = value
+              .split(',')
+              .map((v) => v.trim())
+              .filter((v, i, a) => VALID_FRONT_MATTER_PROPERTIES.includes(v) && a.indexOf(v) === i)
+            await this.plugin.saveSettings()
+          })
+        text.inputEl.setAttr('rows', 4)
+        text.inputEl.setAttr('cols', 30)
+      })
   }
 }
