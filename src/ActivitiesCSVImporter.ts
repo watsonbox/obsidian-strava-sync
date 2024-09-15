@@ -1,6 +1,8 @@
 import { parse } from "csv-parse/sync";
 import { Activity } from "./Activity";
 
+const TIME_ZONE = "UTC";
+
 export class AcitivitiesCSVImporter {
   fileContents: string;
 
@@ -15,9 +17,15 @@ export class AcitivitiesCSVImporter {
     });
 
     return records.map((record: any, index: number): Activity => {
+      const startDateTimestamp = Date.parse(record["Activity Date"] + ` ${TIME_ZONE}`);
+
+      if (isNaN(startDateTimestamp)) {
+        throw new Error(`Invalid date: ${record["Activity Date"] + ` ${TIME_ZONE}`}`);
+      }
+
       return {
         id: record["Activity ID"],
-        start_date: new Date(record["Activity Date"] + " UTC"),
+        start_date: new Date(startDateTimestamp),
         name: record["Activity Name"],
         type: record["Activity Type"],
         description: record["Activity Description"],

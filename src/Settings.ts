@@ -1,5 +1,5 @@
 export const DEFAULT_SETTINGS: Settings = {
-  folder: "Strava/{{{date}}} {{{title}}}",
+  folder: "Strava/{{{start_date}}}",
   folderDateFormat: "yyyy-MM-dd"
 }
 

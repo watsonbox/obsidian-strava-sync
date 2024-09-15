@@ -4,6 +4,7 @@ import { SettingsTab } from "./SettingsTab";
 import { Activity } from './Activity';
 import { AcitivitiesCSVImporter } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
+import { ActivitySerializer } from './ActivitySerializer';
 
 const ICON_ID = "strava";
 
@@ -43,6 +44,10 @@ export default class StravaSync extends Plugin {
 		const activities = await new AcitivitiesCSVImporter(fileContents).import();
 
 		this.activities = activities;
+
+		this.activities.forEach((activity) => {
+			new ActivitySerializer(this.app, this.settings).serialize(activity)
+		});
 	}
 
 	async loadSettings() {
