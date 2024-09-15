@@ -22,6 +22,7 @@ export const DEFAULT_SETTINGS: Settings = {
   folderDateFormat: "yyyy-MM-dd",
   filename: "{{{id}}} {{{name}}}",
   filenameDateFormat: "yyyy-MM-dd",
+  contentDateFormat: "yyyy-MM-dd HH:mm:ss",
   frontMatterProperties: []
 }
 
@@ -30,5 +31,6 @@ export interface Settings {
   folderDateFormat: string;
   filename: string;
   filenameDateFormat: string;
+  contentDateFormat: string;
   frontMatterProperties: string[];
 }

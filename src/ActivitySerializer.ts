@@ -33,8 +33,14 @@ export class ActivitySerializer {
 
     const filePath = `${folderName}/${fileName}.md`;
 
+    const fileContent = new ActivityRenderer(
+      `\`\`\`\n${JSON.stringify(activity)}\n\`\`\``,
+      this.settings.contentDateFormat,
+      this.settings.frontMatterProperties
+    ).render(activity);
+
     try {
-      await this.app.vault.create(filePath, `\`\`\`\n${JSON.stringify(activity)}\n\`\`\``);
+      await this.app.vault.create(filePath, fileContent);
     } catch (error) {
       if (error.toString().includes('File already exists')) {
         new Notice(`Skipping file creation: ${filePath}. Please check if you have duplicated activity titles and delete the file if needed.`);
