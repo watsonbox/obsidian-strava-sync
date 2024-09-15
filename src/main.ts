@@ -1,13 +1,9 @@
 import { addIcon, Notice, Plugin } from 'obsidian';
-import { Settings } from "./Settings";
+import { DEFAULT_SETTINGS, Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
 import { Activity } from './Activity';
 import { AcitivitiesCSVImporter } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
-
-const DEFAULT_SETTINGS: Settings = {
-	mySetting: 'default'
-}
 
 const ICON_ID = "strava";
 

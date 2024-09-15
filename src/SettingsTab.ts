@@ -14,15 +14,43 @@ export class SettingsTab extends PluginSettingTab {
 
     containerEl.empty();
 
+    containerEl.createEl('h3', { text: 'Sync' })
+
     new Setting(containerEl)
-      .setName('Setting #1')
-      .setDesc('It\'s a secret')
+      .setName('Folder')
+      .setDesc(
+        'Enter the folder where the data will be stored. {{{title}}} and {{{start_date}}} can be used in the folder name',
+      )
       .addText(text => text
-        .setPlaceholder('Enter your secret')
-        .setValue(this.plugin.settings.mySetting)
+        .setPlaceholder('Enter the folder')
+        .setValue(this.plugin.settings.folder)
         .onChange(async (value) => {
-          this.plugin.settings.mySetting = value;
-          await this.plugin.saveSettings();
+          this.plugin.settings.folder = value
+          await this.plugin.saveSettings()
         }));
+
+    new Setting(containerEl)
+      .setName('Folder Date Format')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'If date is used as part of folder name, specify the format date for use. Format ',
+            fragment.createEl('a', {
+              text: 'reference',
+              href: 'https://moment.github.io/luxon/#/formatting?id=table-of-tokens',
+            }),
+            "."
+          )
+        }),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder('yyyy-MM-dd')
+          .setValue(this.plugin.settings.folderDateFormat)
+          .onChange(async (value) => {
+            this.plugin.settings.folderDateFormat = value
+            await this.plugin.saveSettings()
+          }),
+      )
   }
 }

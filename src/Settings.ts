@@ -1,3 +1,9 @@
+export const DEFAULT_SETTINGS: Settings = {
+  folder: "Strava/{{{date}}} {{{title}}}",
+  folderDateFormat: "yyyy-MM-dd"
+}
+
 export interface Settings {
-  mySetting: string;
+  folder: string;
+  folderDateFormat: string;
 }
