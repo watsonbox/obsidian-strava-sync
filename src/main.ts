@@ -1,6 +1,7 @@
 import { addIcon, Notice, Plugin } from 'obsidian';
 import { Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
+import { FileSelector } from './FileSelector';
 
 const DEFAULT_SETTINGS: Settings = {
 	mySetting: 'default'
@@ -39,7 +40,9 @@ export default class StravaSync extends Plugin {
 	}
 
 	async importActivitiesCSV() {
-		new Notice('Import CSV');
+		new FileSelector(".csv").selectContents().then((fileContents) => {
+			console.log(fileContents);
+		});
 	}
 
 	async loadSettings() {
