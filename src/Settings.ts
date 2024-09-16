@@ -1,3 +1,5 @@
+import { DEFAULT_TEMPLATE } from "./ActivityRenderer";
+
 export const VALID_FRONT_MATTER_PROPERTIES = [
   "id",
   "start_date",
@@ -23,7 +25,8 @@ export const DEFAULT_SETTINGS: Settings = {
   filename: "{{{id}}} {{{name}}}",
   filenameDateFormat: "yyyy-MM-dd",
   contentDateFormat: "yyyy-MM-dd HH:mm:ss",
-  frontMatterProperties: []
+  frontMatterProperties: [],
+  activityTemplate: DEFAULT_TEMPLATE
 }
 
 export interface Settings {
@@ -33,4 +36,5 @@ export interface Settings {
   filenameDateFormat: string;
   contentDateFormat: string;
   frontMatterProperties: string[];
+  activityTemplate: string;
 }

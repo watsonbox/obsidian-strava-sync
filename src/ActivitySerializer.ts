@@ -34,12 +34,13 @@ export class ActivitySerializer {
     const filePath = `${folderName}/${fileName}.md`;
 
     const fileContent = new ActivityRenderer(
-      `\`\`\`\n${JSON.stringify(activity)}\n\`\`\``,
+      this.settings.activityTemplate,
       this.settings.contentDateFormat,
       this.settings.frontMatterProperties
     ).render(activity);
 
     try {
+      //console.log(fileContent);
       await this.app.vault.create(filePath, fileContent);
     } catch (error) {
       if (error.toString().includes('File already exists')) {

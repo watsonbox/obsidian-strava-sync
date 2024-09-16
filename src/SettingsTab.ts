@@ -1,6 +1,6 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
+import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import StravaSync from "./main";
-import { VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
+import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 
 export class SettingsTab extends PluginSettingTab {
   plugin: StravaSync;
@@ -20,7 +20,7 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Folder')
       .setDesc(
-        'Enter the folder where the data will be stored. {{{title}}} and {{{start_date}}} can be used in the folder name',
+        'Enter the folder where the data will be stored. {{id}}, {{{name}}} and {{{start_date}}} can be used in the folder name',
       )
       .addText(text => text
         .setPlaceholder('Enter the folder')
@@ -46,7 +46,7 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder('yyyy-MM-dd')
+          .setPlaceholder(DEFAULT_SETTINGS.folderDateFormat)
           .setValue(this.plugin.settings.folderDateFormat)
           .onChange(async (value) => {
             this.plugin.settings.folderDateFormat = value
@@ -85,7 +85,7 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder('yyyy-MM-dd')
+          .setPlaceholder(DEFAULT_SETTINGS.filenameDateFormat)
           .setValue(this.plugin.settings.filenameDateFormat)
           .onChange(async (value) => {
             this.plugin.settings.filenameDateFormat = value
@@ -96,7 +96,7 @@ export class SettingsTab extends PluginSettingTab {
     containerEl.createEl('h3', { text: 'Activity' })
 
     new Setting(containerEl)
-      .setName('Front Matter')
+      .setName('Front matter')
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
@@ -117,6 +117,63 @@ export class SettingsTab extends PluginSettingTab {
           })
         text.inputEl.setAttr('rows', 4)
         text.inputEl.setAttr('cols', 30)
+      })
+
+    new Setting(containerEl)
+      .setName('Activity date format')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'If date is used as part of activity content, specify the format date for use. Format ',
+            fragment.createEl('a', {
+              text: 'reference',
+              href: 'https://moment.github.io/luxon/#/formatting?id=table-of-tokens',
+            }),
+            "."
+          )
+        }),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.contentDateFormat)
+          .setValue(this.plugin.settings.filenameDateFormat)
+          .onChange(async (value) => {
+            this.plugin.settings.filenameDateFormat = value
+            await this.plugin.saveSettings()
+          }),
+      )
+
+    new Setting(containerEl)
+      .setName('Activity template')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append("Enter template to render activities with")
+        }),
+      )
+      .addExtraButton((button) => {
+        // Add a button to reset template
+        button
+          .setIcon('reset')
+          .setTooltip('Reset template')
+          .onClick(async () => {
+            this.plugin.settings.activityTemplate = DEFAULT_SETTINGS.activityTemplate
+            await this.plugin.saveSettings()
+            this.display()
+            new Notice('Template reset')
+          })
+      })
+      .addTextArea((text) => {
+        text
+          .setPlaceholder('Enter the template')
+          .setValue(this.plugin.settings.activityTemplate)
+          .onChange(async (value) => {
+            this.plugin.settings.activityTemplate = value
+              ? value
+              : DEFAULT_SETTINGS.activityTemplate
+            await this.plugin.saveSettings()
+          })
+        text.inputEl.setAttr('rows', 15)
+        text.inputEl.setAttr('cols', 50)
       })
   }
 }

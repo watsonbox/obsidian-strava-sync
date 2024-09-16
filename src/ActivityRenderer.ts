@@ -4,6 +4,22 @@ import Mustache from "mustache";
 import { stringifyYaml } from "obsidian";
 import { Activity } from "./Activity";
 
+export const DEFAULT_TEMPLATE = `# {{{name}}}
+
+[https://www.strava.com/activities/{{{id}}}](https://www.strava.com/activities/{{{id}}})
+{{#description}}
+
+Description: {{{description}}}
+{{/description}}
+{{#private_note}}
+
+> [!NOTE] Private note
+> {{{private_note}}}
+{{/private_note}}
+
+#Strava
+`
+
 export class ActivityRenderer {
   template: string;
   dateFormat: string;
