@@ -2,11 +2,13 @@ import { addIcon, Notice, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
 import { Activity } from './Activity';
-import { AcitivitiesCSVImporter } from './ActivitiesCSVImporter';
+import { AcitivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
 import { ActivitySerializer } from './ActivitySerializer';
 
 const ICON_ID = "strava";
+const SUCCESS_NOTICE_DURATION = 4000;
+const ERROR_NOTICE_DURATION = 8000;
 
 export default class StravaSync extends Plugin {
 	settings: Settings;
@@ -40,25 +42,34 @@ export default class StravaSync extends Plugin {
 	}
 
 	async importActivitiesCSV() {
-		const fileContents = await new FileSelector(".csv").selectContents();
-		const activities = await new AcitivitiesCSVImporter(fileContents).import();
+		try {
+			const fileContents = await new FileSelector(".csv").selectContents();
+			const activities = await new AcitivitiesCSVImporter(fileContents).import();
 
-		this.activities = activities;
+			this.activities = activities;
 
-		let createdCount = 0;
-		let updatedCount = 0;
+			let createdCount = 0;
+			let updatedCount = 0;
 
-		await Promise.all(
-			this.activities.map(async (activity) => {
-				if (await new ActivitySerializer(this.app, this.settings).serialize(activity)) {
-					createdCount++;
-				} else {
-					updatedCount++;
-				}
-			})
-		);
+			await Promise.all(
+				this.activities.map(async (activity) => {
+					if (await new ActivitySerializer(this.app, this.settings).serialize(activity)) {
+						createdCount++;
+					} else {
+						updatedCount++;
+					}
+				})
+			);
 
-		new Notice(`🏃 ${createdCount} activities created, ${updatedCount} already existing.`);
+			new Notice(`🏃 ${createdCount} activities created, ${updatedCount} already existing.`, SUCCESS_NOTICE_DURATION);
+		} catch (error) {
+			if (error instanceof CSVImportError) {
+				new Notice(`🛑 CSV Import Error:\n\n${error.message}`, ERROR_NOTICE_DURATION);
+			} else {
+				console.error("Unexpected error during CSV import:", error);
+				new Notice(`🛑 An unexpected error occurred during import. Check the console for details.`, ERROR_NOTICE_DURATION);
+			}
+		}
 	}
 
 	async loadSettings() {
