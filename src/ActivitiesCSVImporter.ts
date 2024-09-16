@@ -65,7 +65,7 @@ export class AcitivitiesCSVImporter {
       }
 
       return {
-        id: record["Activity ID"],
+        id: parseInt(record["Activity ID"]),
         start_date: new Date(startDateTimestamp),
         name: record["Activity Name"],
         type: record["Activity Type"],

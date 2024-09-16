@@ -13,9 +13,14 @@ const ERROR_NOTICE_DURATION = 8000;
 export default class StravaSync extends Plugin {
 	settings: Settings;
 	activities: Activity[] = [];
+	fileSelector: FileSelector;
+	activitySerializer: ActivitySerializer;
 
 	async onload() {
 		await this.loadSettings();
+
+		this.fileSelector = new FileSelector(".csv");
+		this.activitySerializer = new ActivitySerializer(this.app, this.settings);
 
 		addIcon(
 			ICON_ID,
@@ -43,7 +48,7 @@ export default class StravaSync extends Plugin {
 
 	async importActivitiesCSV() {
 		try {
-			const fileContents = await new FileSelector(".csv").selectContents();
+			const fileContents = await this.fileSelector.selectContents();
 			const activities = await new AcitivitiesCSVImporter(fileContents).import();
 
 			this.activities = activities;
@@ -53,7 +58,7 @@ export default class StravaSync extends Plugin {
 
 			await Promise.all(
 				this.activities.map(async (activity) => {
-					if (await new ActivitySerializer(this.app, this.settings).serialize(activity)) {
+					if (await this.activitySerializer.serialize(activity)) {
 						createdCount++;
 					} else {
 						updatedCount++;
