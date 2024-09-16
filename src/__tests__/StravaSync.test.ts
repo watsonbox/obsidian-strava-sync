@@ -1,36 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Mock Obsidian API
-jest.mock('obsidian', () => ({
-  Plugin: class {
-    loadData = jest.fn().mockResolvedValue({});
-    saveData = jest.fn().mockResolvedValue({});
-    addRibbonIcon = jest.fn();
-    addCommand = jest.fn();
-    addSettingTab = jest.fn();
-  },
-  App: class { },
-  TFile: class { },
-  Vault: class {
-    create = jest.fn();
-    getAbstractFileByPath = jest.fn();
-  },
-  Notice: jest.fn(),
-  addIcon: jest.fn(),
-  normalizePath: jest.fn().mockImplementation((path) => path),
-  PluginSettingTab: class { },
-  Setting: class {
-    setName = jest.fn().mockReturnThis();
-    setDesc = jest.fn().mockReturnThis();
-    addText = jest.fn().mockReturnThis();
-    addTextArea = jest.fn().mockReturnThis();
-  },
-}), { virtual: true });
-
-// Import after mocking
-import { App, TFile, Vault, PluginManifest, PluginSettingTab, Notice } from 'obsidian';
+import { App, Vault, PluginManifest, Notice } from 'obsidian';
 import StravaSync from '../main';
+
+jest.mock('obsidian');
 
 jest.mock('../FileSelector', () => ({
   FileSelector: jest.fn().mockImplementation(() => ({

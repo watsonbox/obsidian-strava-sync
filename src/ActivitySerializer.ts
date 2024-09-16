@@ -1,4 +1,4 @@
-import { App, normalizePath, TFolder, Notice } from "obsidian";
+import { App, normalizePath, TFolder } from "obsidian";
 import { Settings } from "./Settings";
 import { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
