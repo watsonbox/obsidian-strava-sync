@@ -45,9 +45,20 @@ export default class StravaSync extends Plugin {
 
 		this.activities = activities;
 
-		this.activities.forEach((activity) => {
-			new ActivitySerializer(this.app, this.settings).serialize(activity)
-		});
+		let createdCount = 0;
+		let updatedCount = 0;
+
+		await Promise.all(
+			this.activities.map(async (activity) => {
+				if (await new ActivitySerializer(this.app, this.settings).serialize(activity)) {
+					createdCount++;
+				} else {
+					updatedCount++;
+				}
+			})
+		);
+
+		new Notice(`🏃 ${createdCount} activities created, ${updatedCount} already existing.`);
 	}
 
 	async loadSettings() {

@@ -44,10 +44,12 @@ export class ActivitySerializer {
       await this.app.vault.create(filePath, fileContent);
     } catch (error) {
       if (error.toString().includes('File already exists')) {
-        new Notice(`Skipping file creation: ${filePath}. Please check if you have duplicated activity titles and delete the file if needed.`);
+        return false;
       } else {
         throw error;
       }
     }
+
+    return true;
   }
 }
