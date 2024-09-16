@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { App, Vault, PluginManifest, Notice } from 'obsidian';
-import StravaSync from '../main';
+import StravaSync from '../StravaSync';
 
 jest.mock('obsidian');
 

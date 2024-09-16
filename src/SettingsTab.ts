@@ -1,5 +1,5 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
-import StravaSync from "./main";
+import StravaSync from "./StravaSync";
 import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 
 export class SettingsTab extends PluginSettingTab {
