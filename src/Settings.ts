@@ -20,21 +20,49 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
 ]
 
 export const DEFAULT_SETTINGS: Settings = {
-  folder: "Strava/{{{start_date}}}",
-  folderDateFormat: "yyyy-MM-dd",
-  filename: "{{{id}}} {{{name}}}",
-  filenameDateFormat: "yyyy-MM-dd",
-  contentDateFormat: "yyyy-MM-dd HH:mm:ss",
-  frontMatterProperties: [],
-  activityTemplate: DEFAULT_TEMPLATE
+  authentication: {
+    stravaClientId: '',
+    stravaClientSecret: '',
+    stravaAccessToken: undefined,
+    stravaRefreshToken: undefined,
+    stravaTokenExpiresAt: undefined
+  },
+  syncLocation: {
+    folder: "Strava/{{{start_date}}}",
+    folderDateFormat: "yyyy-MM-dd",
+    filename: "{{{id}}} {{{name}}}",
+    filenameDateFormat: "yyyy-MM-dd"
+  },
+  activity: {
+    contentDateFormat: "yyyy-MM-dd HH:mm:ss",
+    frontMatterProperties: [],
+    template: DEFAULT_TEMPLATE
+  }
 }
 
-export interface Settings {
+export interface AuthenticationSettings {
+  stravaClientId: string;
+  stravaClientSecret: string;
+  stravaAccessToken?: string;
+  stravaRefreshToken?: string;
+  stravaTokenExpiresAt?: number;
+}
+
+interface SyncLocationSettings {
   folder: string;
   folderDateFormat: string;
   filename: string;
   filenameDateFormat: string;
+}
+
+interface ActivitySettings {
   contentDateFormat: string;
   frontMatterProperties: string[];
-  activityTemplate: string;
+  template: string;
+}
+
+export interface Settings {
+  authentication: AuthenticationSettings;
+  syncLocation: SyncLocationSettings;
+  activity: ActivitySettings;
 }

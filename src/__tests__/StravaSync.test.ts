@@ -20,6 +20,12 @@ jest.mock('../ActivitySerializer', () => ({
   })),
 }));
 
+jest.mock('strava-v3', () => ({
+  default: {
+    config: jest.fn(),
+  },
+}));
+
 describe('StravaSync', () => {
   let plugin: StravaSync;
   let app: App;
@@ -43,7 +49,6 @@ describe('StravaSync', () => {
     };
 
     plugin = new StravaSync(app, mockManifest);
-    plugin.settings = { ...plugin.settings, folder: 'Strava' };
 
     // Call onload to initialize fileSelector and activitySerializer
     plugin.onload();

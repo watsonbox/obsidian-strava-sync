@@ -1,6 +1,7 @@
 import { addIcon, Notice, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
+import { Authentication } from './Authentication';
 import { Activity } from './Activity';
 import { AcitivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
@@ -12,6 +13,7 @@ const ERROR_NOTICE_DURATION = 8000;
 
 export default class StravaSync extends Plugin {
 	settings: Settings;
+	authentication: Authentication;
 	activities: Activity[] = [];
 	fileSelector: FileSelector;
 	activitySerializer: ActivitySerializer;
@@ -19,6 +21,7 @@ export default class StravaSync extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
+		this.authentication = new Authentication(this.settings.authentication);
 		this.fileSelector = new FileSelector(".csv");
 		this.activitySerializer = new ActivitySerializer(this.app, this.settings);
 
@@ -30,6 +33,18 @@ export default class StravaSync extends Plugin {
 		this.addRibbonIcon(ICON_ID, 'Import Strava Activities CSV', (evt: MouseEvent) => {
 			this.importActivitiesCSV();
 		});
+
+		this.registerObsidianProtocolHandler(
+			'obsidian-strava-sync',
+			async (args) => {
+				await this.authentication.exchangeCodeForToken(args.code);
+				this.settings.authentication = this.authentication.settings;
+				await this.saveSettings();
+
+				new Notice('✅ Successfully authenticated with Strava!', SUCCESS_NOTICE_DURATION);
+				console.log(this.settings.authentication.stravaAccessToken);
+			}
+		)
 
 		this.addCommand({
 			id: 'import-csv',

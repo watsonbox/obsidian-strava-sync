@@ -12,6 +12,7 @@ export class Plugin {
   addRibbonIcon = jest.fn();
   addCommand = jest.fn();
   addSettingTab = jest.fn();
+  registerObsidianProtocolHandler = jest.fn();
 }
 
 export const App = jest.fn().mockImplementation(() => ({

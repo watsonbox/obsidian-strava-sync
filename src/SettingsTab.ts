@@ -15,7 +15,40 @@ export class SettingsTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    containerEl.createEl('h3', { text: 'Sync' })
+    containerEl.createEl('h3', { text: 'Authentication' });
+
+    new Setting(containerEl)
+      .setName('Strava Client ID')
+      .setDesc('Enter your Strava API Client ID')
+      .addText(text => text
+        .setPlaceholder('Enter Client ID')
+        .setValue(this.plugin.settings.authentication.stravaClientId)
+        .onChange(async (value) => {
+          this.plugin.settings.authentication.stravaClientId = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName('Strava Client Secret')
+      .setDesc('Enter your Strava API Client Secret')
+      .addText(text => text
+        .setPlaceholder('Enter Client Secret')
+        .setValue(this.plugin.settings.authentication.stravaClientSecret)
+        .onChange(async (value) => {
+          this.plugin.settings.authentication.stravaClientSecret = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName('Authenticate with Strava')
+      .setDesc('Click to start the OAuth flow with Strava')
+      .addButton(button => button
+        .setButtonText('Authenticate')
+        .onClick(() => {
+          this.plugin.authentication.initiateOAuthFlow();
+        }));
+
+    containerEl.createEl('h3', { text: 'Sync Location' });
 
     new Setting(containerEl)
       .setName('Folder')
@@ -24,9 +57,9 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText(text => text
         .setPlaceholder('Enter the folder')
-        .setValue(this.plugin.settings.folder)
+        .setValue(this.plugin.settings.syncLocation.folder)
         .onChange(async (value) => {
-          this.plugin.settings.folder = value
+          this.plugin.settings.syncLocation.folder = value
           await this.plugin.saveSettings()
         }));
 
@@ -46,10 +79,10 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.folderDateFormat)
-          .setValue(this.plugin.settings.folderDateFormat)
+          .setPlaceholder(DEFAULT_SETTINGS.syncLocation.folderDateFormat)
+          .setValue(this.plugin.settings.syncLocation.folderDateFormat)
           .onChange(async (value) => {
-            this.plugin.settings.folderDateFormat = value
+            this.plugin.settings.syncLocation.folderDateFormat = value
             await this.plugin.saveSettings()
           }),
       )
@@ -62,9 +95,9 @@ export class SettingsTab extends PluginSettingTab {
       .addText((text) =>
         text
           .setPlaceholder('Enter the filename')
-          .setValue(this.plugin.settings.filename)
+          .setValue(this.plugin.settings.syncLocation.filename)
           .onChange(async (value) => {
-            this.plugin.settings.filename = value
+            this.plugin.settings.syncLocation.filename = value
             await this.plugin.saveSettings()
           }),
       )
@@ -85,10 +118,10 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.filenameDateFormat)
-          .setValue(this.plugin.settings.filenameDateFormat)
+          .setPlaceholder(DEFAULT_SETTINGS.syncLocation.filenameDateFormat)
+          .setValue(this.plugin.settings.syncLocation.filenameDateFormat)
           .onChange(async (value) => {
-            this.plugin.settings.filenameDateFormat = value
+            this.plugin.settings.syncLocation.filenameDateFormat = value
             await this.plugin.saveSettings()
           }),
       )
@@ -107,9 +140,9 @@ export class SettingsTab extends PluginSettingTab {
       .addTextArea((text) => {
         text
           .setPlaceholder('Enter the metadata')
-          .setValue(this.plugin.settings.frontMatterProperties.join(','))
+          .setValue(this.plugin.settings.activity.frontMatterProperties.join(','))
           .onChange(async (value) => {
-            this.plugin.settings.frontMatterProperties = value
+            this.plugin.settings.activity.frontMatterProperties = value
               .split(',')
               .map((v) => v.trim())
               .filter((v, i, a) => VALID_FRONT_MATTER_PROPERTIES.includes(v) && a.indexOf(v) === i)
@@ -135,10 +168,10 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.contentDateFormat)
-          .setValue(this.plugin.settings.filenameDateFormat)
+          .setPlaceholder(DEFAULT_SETTINGS.activity.contentDateFormat)
+          .setValue(this.plugin.settings.activity.contentDateFormat)
           .onChange(async (value) => {
-            this.plugin.settings.filenameDateFormat = value
+            this.plugin.settings.activity.contentDateFormat = value
             await this.plugin.saveSettings()
           }),
       )
@@ -156,7 +189,7 @@ export class SettingsTab extends PluginSettingTab {
           .setIcon('reset')
           .setTooltip('Reset template')
           .onClick(async () => {
-            this.plugin.settings.activityTemplate = DEFAULT_SETTINGS.activityTemplate
+            this.plugin.settings.activity.template = DEFAULT_SETTINGS.activity.template
             await this.plugin.saveSettings()
             this.display()
             new Notice('Template reset')
@@ -165,11 +198,11 @@ export class SettingsTab extends PluginSettingTab {
       .addTextArea((text) => {
         text
           .setPlaceholder('Enter the template')
-          .setValue(this.plugin.settings.activityTemplate)
+          .setValue(this.plugin.settings.activity.template)
           .onChange(async (value) => {
-            this.plugin.settings.activityTemplate = value
+            this.plugin.settings.activity.template = value
               ? value
-              : DEFAULT_SETTINGS.activityTemplate
+              : DEFAULT_SETTINGS.activity.template
             await this.plugin.saveSettings()
           })
         text.inputEl.setAttr('rows', 15)

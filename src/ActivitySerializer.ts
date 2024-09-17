@@ -20,7 +20,7 @@ export class ActivitySerializer {
   }
 
   async serialize(activity: Activity) {
-    const folderName = normalizePath(new ActivityRenderer(this.settings.folder, this.settings.folderDateFormat).render(activity))
+    const folderName = normalizePath(new ActivityRenderer(this.settings.syncLocation.folder, this.settings.syncLocation.folderDateFormat).render(activity))
       .replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR);
 
     const folder = this.app.vault.getAbstractFileByPath(folderName);
@@ -28,15 +28,15 @@ export class ActivitySerializer {
       await this.app.vault.createFolder(folderName);
     }
 
-    const fileName = normalizePath(new ActivityRenderer(this.settings.filename, this.settings.filenameDateFormat).render(activity))
+    const fileName = normalizePath(new ActivityRenderer(this.settings.syncLocation.filename, this.settings.syncLocation.filenameDateFormat).render(activity))
       .replace(ILLEGAL_CHAR_REGEX_FILE, REPLACEMENT_CHAR);
 
     const filePath = `${folderName}/${fileName}.md`;
 
     const fileContent = new ActivityRenderer(
-      this.settings.activityTemplate,
-      this.settings.contentDateFormat,
-      this.settings.frontMatterProperties
+      this.settings.activity.template,
+      this.settings.activity.contentDateFormat,
+      this.settings.activity.frontMatterProperties
     ).render(activity);
 
     try {

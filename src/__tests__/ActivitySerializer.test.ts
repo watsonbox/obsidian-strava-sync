@@ -19,13 +19,24 @@ describe('ActivitySerializer', () => {
     (app as any).vault = vault;
 
     settings = {
-      folder: 'Strava/{{{start_date}}}',
-      folderDateFormat: 'yyyy-MM-dd',
-      filename: '{{{id}}} {{{name}}}',
-      filenameDateFormat: 'yyyy-MM-dd',
-      contentDateFormat: 'yyyy-MM-dd HH:mm:ss',
-      frontMatterProperties: [],
-      activityTemplate: '# {{{name}}}'
+      authentication: {
+        stravaClientId: '',
+        stravaClientSecret: '',
+        stravaAccessToken: undefined,
+        stravaRefreshToken: undefined,
+        stravaTokenExpiresAt: undefined
+      },
+      syncLocation: {
+        folder: 'Strava/{{{start_date}}}',
+        folderDateFormat: 'yyyy-MM-dd',
+        filename: '{{{id}}} {{{name}}}',
+        filenameDateFormat: 'yyyy-MM-dd'
+      },
+      activity: {
+        contentDateFormat: 'yyyy-MM-dd HH:mm:ss',
+        frontMatterProperties: [],
+        template: '# {{{name}}}'
+      }
     };
 
     activitySerializer = new ActivitySerializer(app, settings);
@@ -85,8 +96,8 @@ describe('ActivitySerializer', () => {
   });
 
   test('should replace illegal characters in folder and file names', async () => {
-    settings.folder = 'Strava/<{{{start_date}}}>';
-    settings.filename = '{{{id}}} {{{name}}}?';
+    settings.syncLocation.folder = 'Strava/<{{{start_date}}}>';
+    settings.syncLocation.filename = '{{{id}}} {{{name}}}?';
     activitySerializer = new ActivitySerializer(app, settings);
 
     const expectedFolderName = 'Rendered Strava/-{{{start_date}}}-';
