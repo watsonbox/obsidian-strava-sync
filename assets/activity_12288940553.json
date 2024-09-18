@@ -1,0 +1,121 @@
+{
+  "resource_state": 3,
+  "athlete": {
+    "id": 10219106,
+    "resource_state": 1
+  },
+  "name": "Dynamo Challenge 2024",
+  "distance": 154081.0,
+  "moving_time": 26010,
+  "elapsed_time": 38846,
+  "total_elevation_gain": 1338.0,
+  "type": "Ride",
+  "sport_type": "Ride",
+  "workout_type": 10,
+  "id": 12288940553,
+  "start_date": "2024-08-28T05:07:43Z",
+  "start_date_local": "2024-08-28T07:07:43Z",
+  "timezone": "(GMT+01:00) Europe/Paris",
+  "utc_offset": 7200.0,
+  "location_city": null,
+  "location_state": null,
+  "location_country": "France",
+  "achievement_count": 153,
+  "kudos_count": 2,
+  "comment_count": 1,
+  "athlete_count": 7,
+  "photo_count": 0,
+  "map": {
+    "id": "a12288940553",
+    "polyline": "encoded_polyline",
+    "resource_state": 3,
+    "summary_polyline": "encoded_polyline"
+  },
+  "trainer": false,
+  "commute": false,
+  "manual": false,
+  "private": false,
+  "visibility": "followers_only",
+  "flagged": false,
+  "gear_id": "b10137313",
+  "start_latlng": [
+    51.50735188790750,
+    0.127758879597427
+  ],
+  "end_latlng": [
+    51.50735188790750,
+    0.127758879597427
+  ],
+  "average_speed": 5.924,
+  "max_speed": 15.392,
+  "average_temp": 14,
+  "average_watts": 94.6,
+  "kilojoules": 2459.4,
+  "device_watts": false,
+  "has_heartrate": true,
+  "average_heartrate": 125.5,
+  "max_heartrate": 185.0,
+  "heartrate_opt_out": false,
+  "display_hide_heartrate_option": true,
+  "elev_high": 186.6,
+  "elev_low": 25.0,
+  "upload_id": 13233177093,
+  "upload_id_str": "13233177093",
+  "external_id": "garmin_ping_370003305800",
+  "from_accepted_tag": false,
+  "pr_count": 76,
+  "total_photo_count": 0,
+  "has_kudoed": false,
+  "suffer_score": 193.0,
+  "description": "Cut short by storms ⛈️\n\nhttps://www.dynamochallenge.org/calendrier/51vPPbtbZ5xSrW71FNxjC6",
+  "calories": 2468.0,
+  "perceived_exertion": null,
+  "prefer_perceived_exertion": false,
+  "segment_efforts": [],
+  "splits_metric": [],
+  "laps": [],
+  "gear": {
+    "id": "b10137313",
+    "primary": false,
+    "name": "2021 Cannondale Synapse",
+    "nickname": "2021 Cannondale Synapse",
+    "resource_state": 2,
+    "retired": false,
+    "distance": 6602403,
+    "converted_distance": 6602.4
+  },
+  "photos": {
+    "primary": null,
+    "count": 0
+  },
+  "stats_visibility": [
+    {
+      "type": "heart_rate",
+      "visibility": "everyone"
+    },
+    {
+      "type": "pace",
+      "visibility": "everyone"
+    },
+    {
+      "type": "power",
+      "visibility": "everyone"
+    },
+    {
+      "type": "speed",
+      "visibility": "everyone"
+    },
+    {
+      "type": "calories",
+      "visibility": "everyone"
+    }
+  ],
+  "hide_from_home": false,
+  "device_name": "Garmin Edge 830",
+  "embed_token": "42db41db128afd81c5e39bd122a4acc4ca74935f",
+  "private_note": "Hand numbness 4/10.",
+  "available_zones": [
+    "heartrate",
+    "power"
+  ]
+}

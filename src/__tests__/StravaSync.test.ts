@@ -84,22 +84,33 @@ describe('StravaSync', () => {
     await plugin.importActivitiesFromCSV();
 
     expect(plugin.fileSelector.selectContents).toHaveBeenCalledTimes(1);
-    expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(7);
+    expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(3);
 
     const serializedActivities = (plugin.activitySerializer.serialize as jest.Mock).mock.calls.map(call => call[0]);
 
     expect(serializedActivities[0]).toMatchObject({
-      id: 12237768989,
-      name: 'Badminton',
-      type: 'Workout',
+      id: 12271989718,
+      name: 'Lunch Run',
+      type: 'Run',
       start_date: expect.any(Date),
-      elapsed_time: 5347,
-      distance: 0,
-      max_heart_rate: 152,
-      private_note: 'Tweaked right knee in last game.',
+      elapsed_time: 1955,
+      distance: 4551.31982421875,
+      max_heart_rate: 165,
+      private_note: 'Light run. Knee pain 2/10.',
     });
 
-    expect(serializedActivities[6]).toMatchObject({
+    expect(serializedActivities[1]).toMatchObject({
+      id: 12288940553,
+      name: 'Dynamo Challenge 2024',
+      type: 'Ride',
+      start_date: expect.any(Date),
+      elapsed_time: 23198,
+      distance: 93131.53125,
+      max_heart_rate: 182,
+      private_note: 'Hand numbness 4/10.',
+    });
+
+    expect(serializedActivities[2]).toMatchObject({
       id: 12315055573,
       name: 'Lunch Swim',
       type: 'Swim',
@@ -110,7 +121,7 @@ describe('StravaSync', () => {
     });
 
     expect(Notice).toHaveBeenCalledWith(
-      '🏃 7 activities created, 0 already existing.',
+      '🏃 3 activities created, 0 already existing.',
       expect.any(Number)
     );
   });

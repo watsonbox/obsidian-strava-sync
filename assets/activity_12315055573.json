@@ -1,0 +1,98 @@
+{
+  "resource_state": 3,
+  "athlete": {
+    "id": 10219106,
+    "resource_state": 1
+  },
+  "name": "Lunch Swim",
+  "distance": 1000.0,
+  "moving_time": 1692,
+  "elapsed_time": 1697,
+  "total_elevation_gain": 0,
+  "type": "Swim",
+  "sport_type": "Swim",
+  "id": 12315055573,
+  "start_date": "2024-09-09T10:23:12Z",
+  "start_date_local": "2024-09-09T12:23:12Z",
+  "timezone": "(GMT+02:00) Africa/Blantyre",
+  "utc_offset": 7200.0,
+  "location_city": null,
+  "location_state": null,
+  "location_country": "France",
+  "achievement_count": 0,
+  "kudos_count": 0,
+  "comment_count": 0,
+  "athlete_count": 1,
+  "photo_count": 0,
+  "map": {
+    "id": "a12315055573",
+    "polyline": "",
+    "resource_state": 3,
+    "summary_polyline": ""
+  },
+  "trainer": true,
+  "commute": false,
+  "manual": false,
+  "private": false,
+  "visibility": "followers_only",
+  "flagged": false,
+  "gear_id": null,
+  "start_latlng": [],
+  "end_latlng": [],
+  "average_speed": 0.591,
+  "max_speed": 0.696,
+  "has_heartrate": true,
+  "average_heartrate": 145.2,
+  "max_heartrate": 158.0,
+  "heartrate_opt_out": false,
+  "display_hide_heartrate_option": true,
+  "elev_high": 0.0,
+  "elev_low": 0.0,
+  "upload_id": 13123378702,
+  "upload_id_str": "13123378702",
+  "external_id": "garmin_ping_367406745100",
+  "from_accepted_tag": false,
+  "pr_count": 0,
+  "total_photo_count": 0,
+  "has_kudoed": false,
+  "suffer_score": 55.0,
+  "description": null,
+  "calories": 217.0,
+  "perceived_exertion": null,
+  "prefer_perceived_exertion": null,
+  "segment_efforts": [],
+  "splits_metric": [],
+  "laps": [],
+  "photos": {
+    "primary": null,
+    "count": 0
+  },
+  "stats_visibility": [
+    {
+      "type": "heart_rate",
+      "visibility": "everyone"
+    },
+    {
+      "type": "pace",
+      "visibility": "everyone"
+    },
+    {
+      "type": "power",
+      "visibility": "everyone"
+    },
+    {
+      "type": "speed",
+      "visibility": "everyone"
+    },
+    {
+      "type": "calories",
+      "visibility": "everyone"
+    }
+  ],
+  "hide_from_home": false,
+  "device_name": "Garmin Forerunner 255",
+  "embed_token": "78a470bc8b71efcf8734ae8cf1013c0d015d45d4",
+  "available_zones": [
+    "heartrate"
+  ]
+}
