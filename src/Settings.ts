@@ -28,9 +28,9 @@ export const DEFAULT_SETTINGS: Settings = {
     stravaTokenExpiresAt: undefined
   },
   syncLocation: {
-    folder: "Strava/{{{start_date}}}",
+    folder: "Strava/{{start_date}}",
     folderDateFormat: "yyyy-MM-dd",
-    filename: "{{{id}}} {{{name}}}",
+    filename: "{{id}} {{name}}",
     filenameDateFormat: "yyyy-MM-dd"
   },
   activity: {

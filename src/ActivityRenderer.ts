@@ -1,21 +1,20 @@
 import { DateTime } from "luxon";
-// @ts-ignore: Not default export error
-import Mustache from "mustache";
+import * as Handlebars from "handlebars";
 import { stringifyYaml } from "obsidian";
 import { Activity } from "./Activity";
 
-export const DEFAULT_TEMPLATE = `# {{{name}}}
+export const DEFAULT_TEMPLATE = `# {{name}}
 
-[https://www.strava.com/activities/{{{id}}}](https://www.strava.com/activities/{{{id}}})
-{{#description}}
+[https://www.strava.com/activities/{{id}}](https://www.strava.com/activities/{{id}})
+{{#if description}}
 
-Description: {{{description}}}
-{{/description}}
-{{#private_note}}
+Description: {{description}}
+{{/if}}
+{{#if private_note}}
 
 > [!NOTE] Private note
-> {{{private_note}}}
-{{/private_note}}
+> {{private_note}}
+{{/if}}
 
 #Strava
 `
@@ -34,7 +33,7 @@ export class ActivityRenderer {
   render(activity: Activity) {
     const start_date = DateTime.fromJSDate(new Date(activity.start_date)).toFormat(this.dateFormat);
 
-    const bodyContent = Mustache.render(this.template, {
+    const bodyContent = Handlebars.compile(this.template)({
       ...activity,
       start_date: start_date
     });

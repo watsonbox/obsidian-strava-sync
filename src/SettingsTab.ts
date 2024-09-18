@@ -53,7 +53,7 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Folder')
       .setDesc(
-        'Enter the folder where the data will be stored. {{id}}, {{{name}}} and {{{start_date}}} can be used in the folder name',
+        'Enter the folder where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the folder name',
       )
       .addText(text => text
         .setPlaceholder('Enter the folder')
@@ -90,7 +90,7 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Filename')
       .setDesc(
-        'Enter the filename where the data will be stored. {{id}}, {{{name}}} and {{{start_date}}} can be used in the filename',
+        'Enter the filename where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the filename',
       )
       .addText((text) =>
         text

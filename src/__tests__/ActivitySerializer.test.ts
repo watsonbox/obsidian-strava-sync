@@ -27,15 +27,15 @@ describe('ActivitySerializer', () => {
         stravaTokenExpiresAt: undefined
       },
       syncLocation: {
-        folder: 'Strava/{{{start_date}}}',
+        folder: 'Strava/{{start_date}}',
         folderDateFormat: 'yyyy-MM-dd',
-        filename: '{{{id}}} {{{name}}}',
+        filename: '{{id}} {{name}}',
         filenameDateFormat: 'yyyy-MM-dd'
       },
       activity: {
         contentDateFormat: 'yyyy-MM-dd HH:mm:ss',
         frontMatterProperties: [],
-        template: '# {{{name}}}'
+        template: '# {{name}}'
       }
     };
 
@@ -62,10 +62,10 @@ describe('ActivitySerializer', () => {
   });
 
   test('should create a new folder and file for the activity', async () => {
-    const expectedFolderName = 'Rendered Strava/{{{start_date}}}';
-    const expectedFileName = 'Rendered {{{id}}} {{{name}}}';
+    const expectedFolderName = 'Rendered Strava/{{start_date}}';
+    const expectedFileName = 'Rendered {{id}} {{name}}';
     const expectedFilePath = `${expectedFolderName}/${expectedFileName}.md`;
-    const expectedFileContent = 'Rendered # {{{name}}}';
+    const expectedFileContent = 'Rendered # {{name}}';
 
     (vault.getAbstractFileByPath as jest.Mock).mockReturnValue(null);
     (normalizePath as jest.Mock).mockImplementation((path) => path);
@@ -79,8 +79,8 @@ describe('ActivitySerializer', () => {
   });
 
   test('should not create a new file if it already exists', async () => {
-    const expectedFolderName = 'Rendered Strava/{{{start_date}}}';
-    const expectedFileName = 'Rendered {{{id}}} {{{name}}}';
+    const expectedFolderName = 'Rendered Strava/{{start_date}}';
+    const expectedFileName = 'Rendered {{id}} {{name}}';
     const expectedFilePath = `${expectedFolderName}/${expectedFileName}.md`;
 
     (vault.getAbstractFileByPath as jest.Mock).mockReturnValue(new TFolder());
@@ -96,12 +96,12 @@ describe('ActivitySerializer', () => {
   });
 
   test('should replace illegal characters in folder and file names', async () => {
-    settings.syncLocation.folder = 'Strava/<{{{start_date}}}>';
-    settings.syncLocation.filename = '{{{id}}} {{{name}}}?';
+    settings.syncLocation.folder = 'Strava/<{{start_date}}>';
+    settings.syncLocation.filename = '{{id}} {{name}}?';
     activitySerializer = new ActivitySerializer(app, settings);
 
-    const expectedFolderName = 'Rendered Strava/-{{{start_date}}}-';
-    const expectedFileName = 'Rendered {{{id}}} {{{name}}}-';
+    const expectedFolderName = 'Rendered Strava/-{{start_date}}-';
+    const expectedFileName = 'Rendered {{id}} {{name}}-';
     const expectedFilePath = `${expectedFolderName}/${expectedFileName}.md`;
 
     (vault.getAbstractFileByPath as jest.Mock).mockReturnValue(null);
