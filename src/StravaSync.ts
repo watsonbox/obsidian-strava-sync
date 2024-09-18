@@ -3,7 +3,7 @@ import { DEFAULT_SETTINGS, Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
 import { Authentication } from './Authentication';
 import { Activity } from './Activity';
-import { AcitivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
+import { ActivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
 import { ActivitySerializer } from './ActivitySerializer';
 import { ActivityImporter } from './ActivityImporter';
@@ -73,7 +73,7 @@ export default class StravaSync extends Plugin {
 	async importActivitiesFromCSV() {
 		try {
 			const fileContents = await this.fileSelector.selectContents();
-			const activities = await new AcitivitiesCSVImporter(fileContents).import();
+			const activities = await new ActivitiesCSVImporter(fileContents).import();
 
 			this.activities = activities;
 

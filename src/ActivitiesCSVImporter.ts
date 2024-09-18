@@ -29,7 +29,7 @@ export class CSVImportError extends Error {
   }
 }
 
-export class AcitivitiesCSVImporter {
+export class ActivitiesCSVImporter {
   fileContents: string;
 
   constructor(fileContents: string) {
