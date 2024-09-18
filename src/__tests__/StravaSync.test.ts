@@ -6,6 +6,31 @@ import StravaSync from '../StravaSync';
 
 jest.mock('obsidian');
 
+jest.mock('../ActivityImporter', () => ({
+  ActivityImporter: jest.fn().mockImplementation(() => ({
+    importLatestActivities: jest.fn().mockResolvedValue([
+      {
+        id: 12345678,
+        name: 'Morning Run',
+        type: 'Run',
+        start_date: new Date('2023-04-16T08:00:00Z'),
+        elapsed_time: 1800,
+        distance: 5000,
+        max_heart_rate: 175,
+      },
+      {
+        id: 12345679,
+        name: 'Evening Ride',
+        type: 'Ride',
+        start_date: new Date('2023-04-16T18:00:00Z'),
+        elapsed_time: 3600,
+        distance: 20000,
+        max_heart_rate: 165,
+      },
+    ]),
+  })),
+}));
+
 jest.mock('../FileSelector', () => ({
   FileSelector: jest.fn().mockImplementation(() => ({
     selectContents: jest.fn().mockResolvedValue(
@@ -23,6 +48,7 @@ jest.mock('../ActivitySerializer', () => ({
 jest.mock('strava-v3', () => ({
   default: {
     config: jest.fn(),
+    client: jest.fn()
   },
 }));
 
@@ -55,7 +81,7 @@ describe('StravaSync', () => {
   });
 
   test('Import activities CSV', async () => {
-    await plugin.importActivitiesCSV();
+    await plugin.importActivitiesFromCSV();
 
     expect(plugin.fileSelector.selectContents).toHaveBeenCalledTimes(1);
     expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(7);
@@ -85,6 +111,22 @@ describe('StravaSync', () => {
 
     expect(Notice).toHaveBeenCalledWith(
       '🏃 7 activities created, 0 already existing.',
+      expect.any(Number)
+    );
+  });
+
+  test('Import new activities', async () => {
+    jest.spyOn(plugin.activitySerializer, 'serialize').mockImplementation((activity) => {
+      return Promise.resolve(activity.id === 12345678);
+    });
+
+    await plugin.importNewActivities();
+
+    expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(2);
+    expect(plugin.settings.sync.lastActivityTimestamp).toBe(Math.floor(new Date('2023-04-16T18:00:00Z').getTime() / 1000));
+
+    expect(Notice).toHaveBeenCalledWith(
+      '🏃 1 new activities created, 1 already existing.',
       expect.any(Number)
     );
   });

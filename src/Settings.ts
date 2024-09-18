@@ -27,7 +27,7 @@ export const DEFAULT_SETTINGS: Settings = {
     stravaRefreshToken: undefined,
     stravaTokenExpiresAt: undefined
   },
-  syncLocation: {
+  sync: {
     folder: "Strava/{{start_date}}",
     folderDateFormat: "yyyy-MM-dd",
     filename: "{{id}} {{name}}",
@@ -48,11 +48,12 @@ export interface AuthenticationSettings {
   stravaTokenExpiresAt?: number;
 }
 
-interface SyncLocationSettings {
+interface SyncSettings {
   folder: string;
   folderDateFormat: string;
   filename: string;
   filenameDateFormat: string;
+  lastActivityTimestamp?: number;
 }
 
 interface ActivitySettings {
@@ -63,6 +64,6 @@ interface ActivitySettings {
 
 export interface Settings {
   authentication: AuthenticationSettings;
-  syncLocation: SyncLocationSettings;
+  sync: SyncSettings;
   activity: ActivitySettings;
 }

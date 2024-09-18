@@ -116,4 +116,43 @@ Description: Great run in the park
 
     expect(result).toBe(expected);
   });
+
+  test('renders activity with missing description', () => {
+    const activityWithoutDescription = { ...activity };
+    activityWithoutDescription.description = '';
+
+    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss');
+    const result = renderer.render(activityWithoutDescription);
+
+    const expected = `# Morning Run
+
+[https://www.strava.com/activities/123456789](https://www.strava.com/activities/123456789)
+
+> [!NOTE] Private note
+> Felt strong today
+
+#Strava
+`;
+
+    expect(result).toBe(expected);
+  });
+
+  test('renders activity with missing private note', () => {
+    const activityWithoutPrivateNote = { ...activity };
+    activityWithoutPrivateNote.private_note = '';
+
+    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss');
+    const result = renderer.render(activityWithoutPrivateNote);
+
+    const expected = `# Morning Run
+
+[https://www.strava.com/activities/123456789](https://www.strava.com/activities/123456789)
+
+Description: Great run in the park
+
+#Strava
+`;
+
+    expect(result).toBe(expected);
+  });
 });

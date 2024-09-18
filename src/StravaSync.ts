@@ -6,6 +6,7 @@ import { Activity } from './Activity';
 import { AcitivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
 import { ActivitySerializer } from './ActivitySerializer';
+import { ActivityImporter } from './ActivityImporter';
 
 const ICON_ID = "strava";
 const SUCCESS_NOTICE_DURATION = 4000;
@@ -30,8 +31,8 @@ export default class StravaSync extends Plugin {
 			`<svg fill="currentColor" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>`,
 		)
 
-		this.addRibbonIcon(ICON_ID, 'Import Strava Activities CSV', (evt: MouseEvent) => {
-			this.importActivitiesCSV();
+		this.addRibbonIcon(ICON_ID, 'Import new activities from Strava', (evt: MouseEvent) => {
+			this.importNewActivities();
 		});
 
 		this.registerObsidianProtocolHandler(
@@ -47,10 +48,18 @@ export default class StravaSync extends Plugin {
 		)
 
 		this.addCommand({
-			id: 'import-csv',
-			name: 'Import activities CSV',
+			id: 'import-new',
+			name: 'Import new activities from Strava',
 			callback: () => {
-				this.importActivitiesCSV();
+				this.importNewActivities();
+			}
+		});
+
+		this.addCommand({
+			id: 'import-csv',
+			name: 'Import Strava activities from CSV export',
+			callback: () => {
+				this.importActivitiesFromCSV();
 			}
 		});
 
@@ -61,7 +70,7 @@ export default class StravaSync extends Plugin {
 
 	}
 
-	async importActivitiesCSV() {
+	async importActivitiesFromCSV() {
 		try {
 			const fileContents = await this.fileSelector.selectContents();
 			const activities = await new AcitivitiesCSVImporter(fileContents).import();
@@ -89,6 +98,40 @@ export default class StravaSync extends Plugin {
 				console.error("Unexpected error during CSV import:", error);
 				new Notice(`🛑 An unexpected error occurred during import. Check the console for details.`, ERROR_NOTICE_DURATION);
 			}
+		}
+	}
+
+	async importNewActivities() {
+		try {
+			const activities = await new ActivityImporter(
+				this.authentication,
+				this.settings.sync.lastActivityTimestamp
+			).importLatestActivities();
+
+			let createdCount = 0;
+			let updatedCount = 0;
+
+			await Promise.all(
+				activities.map(async (activity) => {
+					if (await this.activitySerializer.serialize(activity)) {
+						createdCount++;
+					} else {
+						updatedCount++;
+					}
+				})
+			);
+
+			if (activities.length > 0) {
+				this.settings.sync.lastActivityTimestamp = Math.max(...activities.map(activity => activity.start_date.getTime() / 1000));
+			}
+
+			await this.saveSettings();
+
+			// FIXME: Improve messages
+			new Notice(`🏃 ${createdCount} new activities created, ${updatedCount} already existing.`, SUCCESS_NOTICE_DURATION);
+		} catch (error) {
+			console.error("Unexpected error during Strava import:", error);
+			new Notice(`🛑 An unexpected error occurred during import. Check the console for details.`, ERROR_NOTICE_DURATION);
 		}
 	}
 

@@ -48,7 +48,7 @@ export class SettingsTab extends PluginSettingTab {
           this.plugin.authentication.initiateOAuthFlow();
         }));
 
-    containerEl.createEl('h3', { text: 'Sync Location' });
+    containerEl.createEl('h3', { text: 'Sync' });
 
     new Setting(containerEl)
       .setName('Folder')
@@ -57,9 +57,9 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText(text => text
         .setPlaceholder('Enter the folder')
-        .setValue(this.plugin.settings.syncLocation.folder)
+        .setValue(this.plugin.settings.sync.folder)
         .onChange(async (value) => {
-          this.plugin.settings.syncLocation.folder = value
+          this.plugin.settings.sync.folder = value
           await this.plugin.saveSettings()
         }));
 
@@ -79,10 +79,10 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.syncLocation.folderDateFormat)
-          .setValue(this.plugin.settings.syncLocation.folderDateFormat)
+          .setPlaceholder(DEFAULT_SETTINGS.sync.folderDateFormat)
+          .setValue(this.plugin.settings.sync.folderDateFormat)
           .onChange(async (value) => {
-            this.plugin.settings.syncLocation.folderDateFormat = value
+            this.plugin.settings.sync.folderDateFormat = value
             await this.plugin.saveSettings()
           }),
       )
@@ -95,9 +95,9 @@ export class SettingsTab extends PluginSettingTab {
       .addText((text) =>
         text
           .setPlaceholder('Enter the filename')
-          .setValue(this.plugin.settings.syncLocation.filename)
+          .setValue(this.plugin.settings.sync.filename)
           .onChange(async (value) => {
-            this.plugin.settings.syncLocation.filename = value
+            this.plugin.settings.sync.filename = value
             await this.plugin.saveSettings()
           }),
       )
@@ -118,10 +118,10 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.syncLocation.filenameDateFormat)
-          .setValue(this.plugin.settings.syncLocation.filenameDateFormat)
+          .setPlaceholder(DEFAULT_SETTINGS.sync.filenameDateFormat)
+          .setValue(this.plugin.settings.sync.filenameDateFormat)
           .onChange(async (value) => {
-            this.plugin.settings.syncLocation.filenameDateFormat = value
+            this.plugin.settings.sync.filenameDateFormat = value
             await this.plugin.saveSettings()
           }),
       )

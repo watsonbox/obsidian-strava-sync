@@ -37,6 +37,10 @@ export class Authentication {
   }
 
   async refreshTokenIfExpired() {
+    if (!this.isAuthenticated()) {
+      throw new Error("Not authenticated. Please authenticate with Strava first.");
+    }
+
     if (this.isAuthenticated() && Date.now() / 1000 > this.settings.stravaTokenExpiresAt!) {
       await this.refreshToken();
     }
@@ -63,5 +67,6 @@ export class Authentication {
       client_secret: this.settings.stravaClientSecret,
       redirect_uri: this.REDIRECT_URI
     });
+    strava.client(this.settings.stravaAccessToken!);
   }
 }
