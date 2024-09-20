@@ -14,6 +14,7 @@ const ERROR_NOTICE_DURATION = 8000;
 
 export default class StravaSync extends Plugin {
 	settings: Settings;
+	settingsTab: SettingsTab;
 	authentication: Authentication;
 	activities: Activity[] = [];
 	fileSelector: FileSelector;
@@ -22,6 +23,7 @@ export default class StravaSync extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
+		this.settingsTab = new SettingsTab(this.app, this);
 		this.authentication = new Authentication(this.settings.authentication);
 		this.fileSelector = new FileSelector(".csv");
 		this.activitySerializer = new ActivitySerializer(this.app, this.settings);
@@ -44,6 +46,9 @@ export default class StravaSync extends Plugin {
 
 				new Notice('✅ Successfully authenticated with Strava!', SUCCESS_NOTICE_DURATION);
 				console.log(this.settings.authentication.stravaAccessToken);
+
+				// Refresh the settings tab to update the authentication status
+				this.settingsTab.display();
 			}
 		)
 
@@ -63,7 +68,7 @@ export default class StravaSync extends Plugin {
 			}
 		});
 
-		this.addSettingTab(new SettingsTab(this.app, this));
+		this.addSettingTab(this.settingsTab);
 	}
 
 	onunload() {

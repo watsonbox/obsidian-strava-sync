@@ -42,11 +42,23 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Authenticate with Strava')
       .setDesc('Click to start the OAuth flow with Strava')
-      .addButton(button => button
-        .setButtonText('Authenticate')
-        .onClick(() => {
-          this.plugin.authentication.initiateOAuthFlow();
-        }));
+      .setClass('strava-sync-authenticate')
+      .addButton(button => {
+        if (!this.plugin.settings.authentication.stravaAccessToken) {
+          button.setCta();
+        }
+        button
+          .setButtonText('Authenticate')
+          .onClick(() => {
+            this.plugin.authentication.initiateOAuthFlow();
+          });
+      });
+
+    if (this.plugin.settings.authentication.stravaAccessToken) {
+      let el = containerEl.createEl("div");
+      el.setText("✅");
+      containerEl.find(".strava-sync-authenticate > .setting-item-control ").prepend(el);
+    }
 
     containerEl.createEl('h3', { text: 'Sync' });
 
@@ -142,6 +154,7 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addButton(button => button
         .setButtonText('Import CSV')
+        .setCta()
         .onClick(async () => {
           try {
             await this.plugin.importActivitiesFromCSV();
