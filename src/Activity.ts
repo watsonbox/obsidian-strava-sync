@@ -2,7 +2,7 @@ export interface Activity {
   id: number;
   start_date: Date;
   name: string;
-  type: string;
+  sport_type: string;
   description: string;
   private_note: string;
   elapsed_time: number;

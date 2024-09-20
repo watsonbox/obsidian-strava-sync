@@ -68,7 +68,7 @@ export class ActivitiesCSVImporter {
         id: parseInt(record["Activity ID"]),
         start_date: new Date(startDateTimestamp),
         name: record["Activity Name"],
-        type: record["Activity Type"],
+        sport_type: record["Activity Type"],
         description: record["Activity Description"],
         private_note: record["Activity Private Note"],
         elapsed_time: parseFloat(record["Elapsed Time"]),           // s

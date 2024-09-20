@@ -45,7 +45,7 @@ describe('ActivitySerializer', () => {
       id: 123,
       start_date: new Date('2023-10-01T10:00:00Z'),
       name: 'Morning Run',
-      type: 'Run',
+      sport_type: 'Run',
       description: 'A nice morning run.',
       private_note: 'Felt great!',
       elapsed_time: 3600,

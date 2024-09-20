@@ -24,7 +24,7 @@ describe('ActivityRenderer', () => {
       id: 123456789,
       start_date: new Date('2023-04-15T10:30:00Z'),
       name: 'Morning Run',
-      type: 'Run',
+      sport_type: 'Run',
       description: 'Great run in the park',
       private_note: 'Felt strong today',
       elapsed_time: 3600,
@@ -63,7 +63,7 @@ Description: Great run in the park
     const customTemplate = `
 Activity: {{name}}
 Date: {{start_date}}
-Type: {{type}}
+Sport Type: {{sport_type}}
 Distance: {{distance}} meters
 Time: {{elapsed_time}} seconds
 Description: {{description}}
@@ -74,7 +74,7 @@ Description: {{description}}
     const expected = `
 Activity: Morning Run
 Date: 2023-04-15 10:30:00
-Type: Run
+Sport Type: Run
 Distance: 10000 meters
 Time: 3600 seconds
 Description: Great run in the park
@@ -84,13 +84,13 @@ Description: Great run in the park
   });
 
   test('renders front matter', () => {
-    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss', ['id', 'name', 'type', 'distance']);
+    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss', ['id', 'name', 'sport_type', 'distance']);
     const result = renderer.render(activity);
 
     const expected = `---
 id: 123456789
 name: Morning Run
-type: Run
+sport_type: Run
 distance: 10000
 ---
 # Morning Run
@@ -154,5 +154,50 @@ Description: Great run in the park
 `;
 
     expect(result).toBe(expected);
+  });
+
+  test('renders activity icon in frontmatter and content', () => {
+    const customTemplate = `
+# {{icon}} {{name}}
+Sport Type: {{sport_type}}
+`;
+    const renderer = new ActivityRenderer(customTemplate, 'yyyy-MM-dd HH:mm:ss', ['icon']);
+    const result = renderer.render(activity);
+
+    const expected = `---
+id: 123456789
+icon: 🏃
+---
+
+# 🏃 Morning Run
+Sport Type: Run
+`;
+
+    expect(result).toBe(expected);
+  });
+
+  test('renders correct icons for different sport types', () => {
+    const template = '{{icon}} {{sport_type}}';
+    const renderer = new ActivityRenderer(template, 'yyyy-MM-dd HH:mm:ss');
+
+    const testCases = [
+      { sport_type: 'Run', expectedIcon: '🏃' },
+      { sport_type: 'Ride', expectedIcon: '🚴' },
+      { sport_type: 'Swim', expectedIcon: '🏊' },
+      { sport_type: 'AlpineSki', expectedIcon: '⛷️' },
+      { sport_type: 'Golf', expectedIcon: '⛳' },
+      { sport_type: 'Hike', expectedIcon: '🥾' },
+      { sport_type: 'Walk', expectedIcon: '🚶' },
+      { sport_type: 'Snowboard', expectedIcon: '🏂' },
+      { sport_type: 'Workout', expectedIcon: '🏋️' },
+      { sport_type: 'Yoga', expectedIcon: '🧘' },
+      { sport_type: 'UnknownActivity', expectedIcon: '🏅' },
+    ];
+
+    testCases.forEach(({ sport_type, expectedIcon }) => {
+      const testActivity = { ...activity, sport_type };
+      const result = renderer.render(testActivity);
+      expect(result).toBe(`${expectedIcon} ${sport_type}`);
+    });
   });
 });

@@ -47,7 +47,7 @@ export class ActivityImporter {
       id: stravaActivity.id,
       start_date: new Date(stravaActivity.start_date),
       name: stravaActivity.name,
-      type: stravaActivity.type,
+      sport_type: stravaActivity.sport_type,
       description: stravaActivity.description || '',
       private_note: stravaActivity.private_note || '',
       elapsed_time: stravaActivity.elapsed_time,

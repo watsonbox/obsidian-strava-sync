@@ -4,7 +4,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "id",
   "start_date",
   "name",
-  "type",
+  "sport_type",
   "description",
   "private_note",
   "elapsed_time",

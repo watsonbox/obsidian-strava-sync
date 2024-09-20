@@ -91,7 +91,7 @@ describe('StravaSync', () => {
     expect(serializedActivities[0]).toMatchObject({
       id: 12271989718,
       name: 'Lunch Run',
-      type: 'Run',
+      sport_type: 'Run',
       start_date: expect.any(Date),
       elapsed_time: 1955,
       distance: 4551.31982421875,
@@ -102,7 +102,7 @@ describe('StravaSync', () => {
     expect(serializedActivities[1]).toMatchObject({
       id: 12288940553,
       name: 'Dynamo Challenge 2024',
-      type: 'Ride',
+      sport_type: 'Ride',
       start_date: expect.any(Date),
       elapsed_time: 23198,
       distance: 93131.53125,
@@ -113,7 +113,7 @@ describe('StravaSync', () => {
     expect(serializedActivities[2]).toMatchObject({
       id: 12315055573,
       name: 'Lunch Swim',
-      type: 'Swim',
+      sport_type: 'Swim',
       start_date: expect.any(Date),
       elapsed_time: 1697,
       distance: 1000,
