@@ -57,7 +57,7 @@ export default class StravaSync extends Plugin {
 
 		this.addCommand({
 			id: 'import-csv',
-			name: 'Import Strava activities from CSV export',
+			name: 'Import Strava activities from bulk export CSV',
 			callback: () => {
 				this.importActivitiesFromCSV();
 			}

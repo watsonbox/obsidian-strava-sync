@@ -124,9 +124,35 @@ export class SettingsTab extends PluginSettingTab {
             this.plugin.settings.sync.filenameDateFormat = value
             await this.plugin.saveSettings()
           }),
-      )
+    );
 
-    containerEl.createEl('h3', { text: 'Activity' })
+    new Setting(containerEl)
+      .setName('Import Strava bulk export')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'Import activities.csv from a Strava bulk export CSV file following ',
+            fragment.createEl('a', {
+              text: 'these instructions',
+              href: 'https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#h_01GG58HC4F1BGQ9PQZZVANN6WF',
+            }),
+            " to generate the export."
+          )
+        }),
+      )
+      .addButton(button => button
+        .setButtonText('Import CSV')
+        .onClick(async () => {
+          try {
+            await this.plugin.importActivitiesFromCSV();
+            new Notice('Strava bulk export import completed successfully', 4000);
+          } catch (error) {
+            console.error('Error importing Strava bulk export:', error);
+            new Notice('Error importing Strava bulk export. Check the console for details.', 8000);
+          }
+        }));
+
+    containerEl.createEl('h3', { text: 'Activity' });
 
     new Setting(containerEl)
       .setName('Front matter')

@@ -16,7 +16,8 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "total_elevation_gain",
   "elev_low",
   "elev_high",
-  "calories"
+  "calories",
+  "icon"
 ]
 
 export const DEFAULT_SETTINGS: Settings = {
