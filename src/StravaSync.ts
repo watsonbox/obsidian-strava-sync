@@ -108,6 +108,11 @@ export default class StravaSync extends Plugin {
 
 	async importNewActivities() {
 		try {
+			if (!this.authentication.isAuthenticated()) {
+				new Notice(`🛑 Please authenticate with Strava first in the plugin settings.`, ERROR_NOTICE_DURATION);
+				return;
+			}
+
 			const activities = await new ActivityImporter(
 				this.authentication,
 				this.settings.sync.lastActivityTimestamp
