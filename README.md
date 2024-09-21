@@ -27,7 +27,7 @@ This plugin is currently only available for manual installation.
 
 ### Manually installing the plugin
 
-Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/obsidian-strava-sync/`.
+Copy over `main.js`, `styles.css`, `manifest.json` from [the latest release](https://github.com/watsonbox/obsidian-strava-sync/releases) to your vault `VaultFolder/.obsidian/plugins/obsidian-strava-sync/`.
 
 ### Sync Configuration
 
