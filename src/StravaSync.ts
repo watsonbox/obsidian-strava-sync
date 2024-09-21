@@ -113,6 +113,8 @@ export default class StravaSync extends Plugin {
 				return;
 			}
 
+			new Notice(`🔄 Importing new activities from Strava...`, SUCCESS_NOTICE_DURATION);
+
 			const activities = await new ActivityImporter(
 				this.authentication,
 				this.settings.sync.lastActivityTimestamp

@@ -4,7 +4,7 @@ import { default as strava } from 'strava-v3';
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
 export class ActivityImporter {
-  private readonly PER_PAGE = 5; // FIXME
+  private readonly PER_PAGE = 30; // Strava API default
 
   private authentication: Authentication;
   private lastActivityTimestamp?: number;

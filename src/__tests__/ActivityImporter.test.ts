@@ -41,7 +41,7 @@ describe('ActivityImporter', () => {
     const activities = await activityImporter.importLatestActivities();
 
     expect(mockAuthentication.refreshTokenIfExpired).toHaveBeenCalled();
-    expect(strava.athlete.listActivities).toHaveBeenCalledWith({ per_page: 5 });
+    expect(strava.athlete.listActivities).toHaveBeenCalledWith({ per_page: 30 });
     expect(strava.activities.get).toHaveBeenCalledTimes(3);
 
     expect(activities).toHaveLength(3);
