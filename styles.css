@@ -1,8 +1,24 @@
-/*
+.mod-settings .setting-item.strava-sync-authenticate button {
+  cursor: pointer;
+  border: none;
+  appearance: none;
+  height: 48px;
+  width: 193px;
+  box-shadow: none;
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.mod-settings .setting-item.strava-sync-authenticate button img {
+  width: 193px;
+  height: 48px;
+}
 
-If your plugin does not need CSS, delete this file.
+.strava-powered-by {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
 
-*/
+.strava-powered-by img {
+  width: 200px;
+}
