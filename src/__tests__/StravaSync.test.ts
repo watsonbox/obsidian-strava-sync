@@ -52,6 +52,12 @@ jest.mock('strava-v3', () => ({
   },
 }));
 
+jest.mock('../Authentication', () => ({
+  Authentication: jest.fn().mockImplementation(() => ({
+    isAuthenticated: jest.fn().mockReturnValue(true)
+  })),
+}));
+
 describe('StravaSync', () => {
   let plugin: StravaSync;
   let app: App;
@@ -133,6 +139,7 @@ describe('StravaSync', () => {
 
     await plugin.importNewActivities();
 
+    expect(plugin.authentication.isAuthenticated).toHaveBeenCalled();
     expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(2);
     expect(plugin.settings.sync.lastActivityTimestamp).toBe(Math.floor(new Date('2023-04-16T18:00:00Z').getTime() / 1000));
 
