@@ -5,8 +5,8 @@ import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 export class SettingsTab extends PluginSettingTab {
   plugin: StravaSync;
 
-  readonly STRAVA_CONNECT_BUTTON_IMAGE_URL = "https://raw.githubusercontent.com/watsonbox/obsidian-strava-sync/refs/heads/master/assets/btn_strava_connectwith_orange@2x.png";
-  readonly STRAVA_POWERED_BY_IMAGE_URL = "https://raw.githubusercontent.com/watsonbox/obsidian-strava-sync/refs/heads/master/assets/api_logo_pwrdBy_strava_horiz_light.png";
+  readonly STRAVA_CONNECT_BUTTON_IMAGE_URL = "https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/btn_strava_connectwith_orange.png";
+  readonly STRAVA_POWERED_BY_IMAGE_URL = "https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/api_logo_pwrdBy_strava_horiz_light.png";
 
   constructor(app: App, plugin: StravaSync) {
     super(app, plugin);
