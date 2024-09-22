@@ -1,4 +1,4 @@
-import { parse } from "csv-parse/sync";
+import { parse } from "csv-parse/browser/esm/sync";
 import { Activity } from "./Activity";
 
 const TIME_ZONE = "UTC";
