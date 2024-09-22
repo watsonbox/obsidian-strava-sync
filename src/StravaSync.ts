@@ -1,12 +1,12 @@
 import { addIcon, Notice, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
-import { Authentication } from './Authentication';
 import { Activity } from './Activity';
 import { ActivitiesCSVImporter, CSVImportError } from './ActivitiesCSVImporter';
 import { FileSelector } from './FileSelector';
 import { ActivitySerializer } from './ActivitySerializer';
 import { ActivityImporter } from './ActivityImporter';
+import { StravaApi } from './StravaApi';
 
 const ICON_ID = "strava";
 const SUCCESS_NOTICE_DURATION = 4000;
@@ -15,7 +15,7 @@ const ERROR_NOTICE_DURATION = 8000;
 export default class StravaSync extends Plugin {
 	settings: Settings;
 	settingsTab: SettingsTab;
-	authentication: Authentication;
+	stravaApi: StravaApi;
 	activities: Activity[] = [];
 	fileSelector: FileSelector;
 	activitySerializer: ActivitySerializer;
@@ -24,7 +24,7 @@ export default class StravaSync extends Plugin {
 		await this.loadSettings();
 
 		this.settingsTab = new SettingsTab(this.app, this);
-		this.authentication = new Authentication(this.settings.authentication);
+		this.stravaApi = new StravaApi(this.settings.authentication);
 		this.fileSelector = new FileSelector(".csv");
 		this.activitySerializer = new ActivitySerializer(this.app, this.settings);
 
@@ -40,12 +40,11 @@ export default class StravaSync extends Plugin {
 		this.registerObsidianProtocolHandler(
 			'obsidian-strava-sync',
 			async (args) => {
-				await this.authentication.exchangeCodeForToken(args.code);
-				this.settings.authentication = this.authentication.settings;
+				await this.stravaApi.exchangeCodeForToken(args.code);
+				this.settings.authentication = this.stravaApi.settings;
 				await this.saveSettings();
 
 				new Notice('✅ Successfully authenticated with Strava!', SUCCESS_NOTICE_DURATION);
-				console.log(this.settings.authentication.stravaAccessToken);
 
 				// Refresh the settings tab to update the authentication status
 				this.settingsTab.display();
@@ -108,7 +107,7 @@ export default class StravaSync extends Plugin {
 
 	async importNewActivities() {
 		try {
-			if (!this.authentication.isAuthenticated()) {
+			if (!this.stravaApi.isAuthenticated()) {
 				new Notice(`🛑 Please authenticate with Strava first in the plugin settings.`, ERROR_NOTICE_DURATION);
 				return;
 			}
@@ -116,7 +115,7 @@ export default class StravaSync extends Plugin {
 			new Notice(`🔄 Importing new activities from Strava...`, SUCCESS_NOTICE_DURATION);
 
 			const activities = await new ActivityImporter(
-				this.authentication,
+				this.stravaApi,
 				this.settings.sync.lastActivityTimestamp
 			).importLatestActivities();
 

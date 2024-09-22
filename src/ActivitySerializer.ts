@@ -40,7 +40,6 @@ export class ActivitySerializer {
     ).render(activity);
 
     try {
-      //console.log(fileContent);
       await this.app.vault.create(filePath, fileContent);
     } catch (error) {
       if (error.toString().includes('File already exists')) {

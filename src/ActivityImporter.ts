@@ -1,21 +1,20 @@
-import { Authentication } from './Authentication';
+import { StravaApi } from './StravaApi';
 import { Activity } from './Activity';
-import { default as strava } from 'strava-v3';
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
 export class ActivityImporter {
   private readonly PER_PAGE = 30; // Strava API default
 
-  private authentication: Authentication;
+  private stravaApi: StravaApi;
   private lastActivityTimestamp?: number;
 
-  constructor(authentication: Authentication, lastActivityTimestamp?: number) {
-    this.authentication = authentication;
+  constructor(stravaApi: StravaApi, lastActivityTimestamp?: number) {
+    this.stravaApi = stravaApi;
     this.lastActivityTimestamp = lastActivityTimestamp;
   }
 
   async importLatestActivities(): Promise<Activity[]> {
-    await this.authentication.refreshTokenIfExpired();
+    await this.stravaApi.refreshTokenIfExpired();
 
     try {
       let params: { per_page: number; after?: number } = {
@@ -26,11 +25,11 @@ export class ActivityImporter {
         params.after = this.lastActivityTimestamp;
       }
 
-      const activities = await strava.athlete.listActivities(params);
+      const activities = await this.stravaApi.listActivities(params);
 
       const detailedActivities = await Promise.all(
         activities.map(async (activity: any) => {
-          const detailedActivity = await strava.activities.get({ id: activity.id });
+          const detailedActivity = await this.stravaApi.getActivity(activity.id);
           return this.mapStravaActivityToActivity(detailedActivity);
         })
       );

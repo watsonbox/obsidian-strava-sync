@@ -1,29 +1,18 @@
-import { default as strava } from 'strava-v3';
 import { ActivityImporter } from '../ActivityImporter';
-import { Authentication } from '../Authentication';
+import { StravaApi } from '../StravaApi';
 import * as fs from 'fs';
 import * as path from 'path';
 
-jest.mock('../Authentication');
-jest.mock('strava-v3', () => ({
-  default: {
-    athlete: {
-      listActivities: jest.fn(),
-    },
-    activities: {
-      get: jest.fn(),
-    },
-  },
-}));
+jest.mock('../StravaApi');
 
 describe('ActivityImporter', () => {
   let activityImporter: ActivityImporter;
-  let mockAuthentication: jest.Mocked<Authentication>;
+  let mockStravaApi: jest.Mocked<StravaApi>;
 
   beforeEach(() => {
-    mockAuthentication = new Authentication({} as any) as jest.Mocked<Authentication>;
-    mockAuthentication.refreshTokenIfExpired = jest.fn().mockResolvedValue(undefined);
-    activityImporter = new ActivityImporter(mockAuthentication);
+    mockStravaApi = new StravaApi({} as any) as jest.Mocked<StravaApi>;
+    mockStravaApi.refreshTokenIfExpired = jest.fn().mockResolvedValue(undefined);
+    activityImporter = new ActivityImporter(mockStravaApi);
   });
 
   it('should import latest activities', async () => {
@@ -32,17 +21,17 @@ describe('ActivityImporter', () => {
     const mockActivity2 = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/activity_12288940553.json'), 'utf8'));
     const mockActivity3 = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/activity_12315055573.json'), 'utf8'));
 
-    (strava.athlete.listActivities as jest.Mock).mockResolvedValue(mockActivitiesList);
-    (strava.activities.get as jest.Mock)
+    (mockStravaApi.listActivities as jest.Mock).mockResolvedValue(mockActivitiesList);
+    (mockStravaApi.getActivity as jest.Mock)
       .mockResolvedValueOnce(mockActivity1)
       .mockResolvedValueOnce(mockActivity2)
       .mockResolvedValueOnce(mockActivity3);
 
     const activities = await activityImporter.importLatestActivities();
 
-    expect(mockAuthentication.refreshTokenIfExpired).toHaveBeenCalled();
-    expect(strava.athlete.listActivities).toHaveBeenCalledWith({ per_page: 30 });
-    expect(strava.activities.get).toHaveBeenCalledTimes(3);
+    expect(mockStravaApi.refreshTokenIfExpired).toHaveBeenCalled();
+    expect(mockStravaApi.listActivities).toHaveBeenCalledWith({ per_page: 30 });
+    expect(mockStravaApi.getActivity).toHaveBeenCalledTimes(3);
 
     expect(activities).toHaveLength(3);
     expect(activities[0]).toMatchObject({

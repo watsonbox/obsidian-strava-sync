@@ -50,7 +50,7 @@ export class SettingsTab extends PluginSettingTab {
         button.buttonEl.innerHTML = `<img src="${this.STRAVA_CONNECT_BUTTON_IMAGE_URL}" />`;
         button
           .onClick(() => {
-            this.plugin.authentication.initiateOAuthFlow();
+            window.open(this.plugin.stravaApi.buildAuthorizeUrl(), '_blank');
           });
       });
 
