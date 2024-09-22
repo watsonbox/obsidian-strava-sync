@@ -43,11 +43,11 @@ export class ActivityRenderer {
   }
 
   renderFrontMatter(activity: Activity) {
-    let frontMatter: { [id: string]: unknown } = {
+    const frontMatter: { [id: string]: unknown } = {
       id: activity.id
     };
 
-    this.frontMatterProperties!.forEach((property) => {
+    this.frontMatterProperties?.forEach((property) => {
       frontMatter[property] = property === "icon" ? this.getActivityIcon(activity.sport_type) : activity[property];
     });
 

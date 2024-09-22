@@ -17,7 +17,7 @@ export class ActivityImporter {
     await this.stravaApi.refreshTokenIfExpired();
 
     try {
-      let params: { per_page: number; after?: number } = {
+      const params: { per_page: number; after?: number } = {
         per_page: this.PER_PAGE
       };
 

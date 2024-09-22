@@ -82,7 +82,7 @@ export class SettingsTab extends PluginSettingTab {
       });
 
     if (this.plugin.settings.authentication.stravaAccessToken) {
-      let el = containerEl.createEl("div");
+      const el = containerEl.createEl("div");
       el.setText("✅");
       containerEl.find(".strava-sync-authenticate > .setting-item-control ").prepend(el);
     }
@@ -271,7 +271,7 @@ export class SettingsTab extends PluginSettingTab {
         text.inputEl.setAttr('cols', 50)
       })
 
-    let el = containerEl.createEl("div");
+    const el = containerEl.createEl("div");
     el.innerHTML = `<img src="${this.STRAVA_POWERED_BY_IMAGE_URL}" />`;
     el.classList.add("strava-powered-by");
     containerEl.appendChild(el);
