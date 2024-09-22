@@ -22,7 +22,18 @@ export class SettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Strava Client ID')
-      .setDesc('Enter your Strava API Client ID')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'Enter your Strava API Client ID (',
+            fragment.createEl('a', {
+              text: 'instructions',
+              href: 'https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration',
+            }),
+            ")"
+          )
+        }),
+      )
       .addText(text => text
         .setPlaceholder('Enter Client ID')
         .setValue(this.plugin.settings.authentication.stravaClientId)
@@ -33,7 +44,18 @@ export class SettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Strava Client Secret')
-      .setDesc('Enter your Strava API Client Secret')
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'Enter your Strava API Client Secret (',
+            fragment.createEl('a', {
+              text: 'instructions',
+              href: 'https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration',
+            }),
+            ")"
+          )
+        }),
+      )
       .addText(text => text
         .setPlaceholder('Enter Client Secret')
         .setValue(this.plugin.settings.authentication.stravaClientSecret)
@@ -50,6 +72,11 @@ export class SettingsTab extends PluginSettingTab {
         button.buttonEl.innerHTML = `<img src="${this.STRAVA_CONNECT_BUTTON_IMAGE_URL}" />`;
         button
           .onClick(() => {
+            if (!this.plugin.settings.authentication.stravaClientId || !this.plugin.settings.authentication.stravaClientSecret) {
+              new Notice('🛑 Please enter your Strava Client ID and Client Secret first.', 8000);
+              return;
+            }
+
             window.open(this.plugin.stravaApi.buildAuthorizeUrl(), '_blank');
           });
       });
@@ -217,11 +244,7 @@ export class SettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Activity template')
-      .setDesc(
-        createFragment((fragment) => {
-          fragment.append("Enter template to render activities with")
-        }),
-      )
+      .setDesc("Enter template to render activities with")
       .addExtraButton((button) => {
         // Add a button to reset template
         button
