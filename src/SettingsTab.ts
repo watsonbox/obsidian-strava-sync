@@ -18,7 +18,7 @@ export class SettingsTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    containerEl.createEl('h3', { text: 'Authentication' });
+    new Setting(containerEl).setName('Authentication').setHeading();
 
     new Setting(containerEl)
       .setName('Strava Client ID')
@@ -87,7 +87,7 @@ export class SettingsTab extends PluginSettingTab {
       containerEl.find(".strava-sync-authenticate > .setting-item-control ").prepend(el);
     }
 
-    containerEl.createEl('h3', { text: 'Sync' });
+    new Setting(containerEl).setName('Sync').setHeading();
 
     new Setting(containerEl)
       .setName('Folder')
@@ -192,7 +192,7 @@ export class SettingsTab extends PluginSettingTab {
           }
         }));
 
-    containerEl.createEl('h3', { text: 'Activity' });
+    new Setting(containerEl).setName('Activity').setHeading();
 
     new Setting(containerEl)
       .setName('Properties / Front matter')
@@ -244,7 +244,19 @@ export class SettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Activity template')
-      .setDesc("Enter template to render activities with")
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            'Enter template to render activities with.',
+            fragment.createEl('br'),
+            fragment.createEl('br'),
+            fragment.createEl('a', {
+              text: 'More information',
+              href: 'https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#content',
+            })
+          )
+        }),
+      )
       .addExtraButton((button) => {
         // Add a button to reset template
         button
