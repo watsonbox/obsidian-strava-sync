@@ -195,7 +195,7 @@ export class SettingsTab extends PluginSettingTab {
     containerEl.createEl('h3', { text: 'Activity' });
 
     new Setting(containerEl)
-      .setName('Front matter')
+      .setName('Properties / Front matter')
       .setDesc(
         createFragment((fragment) => {
           fragment.append(

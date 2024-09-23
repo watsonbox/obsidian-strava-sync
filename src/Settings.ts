@@ -36,7 +36,17 @@ export const DEFAULT_SETTINGS: Settings = {
   },
   activity: {
     contentDateFormat: "yyyy-MM-dd HH:mm:ss",
-    frontMatterProperties: [],
+    frontMatterProperties: [
+      "name",
+      "start_date",
+      "sport_type",
+      "description",
+      "private_note",
+      "elapsed_time",
+      "moving_time",
+      "distance",
+      "icon"
+    ],
     template: DEFAULT_TEMPLATE
   }
 }
