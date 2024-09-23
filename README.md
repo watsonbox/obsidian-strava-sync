@@ -25,9 +25,16 @@ These are some examples of what can be achieved along with the [Dataview](https:
 
 ## Installation
 
-This plugin is currently only available for manual installation.
+This plugin is currently in beta testing phase. The recommended installation method is via the [BRAT plugin](https://tfthacker.com/brat-quick-guide#Adding+a+beta+plugin):
+
+1. Install BRAT from the Community Plugins in Obsidian
+2. Open the command palette and run the command "BRAT: Add a beta plugin for testing"
+3. Paste `https://github.com/watsonbox/obsidian-strava-sync` into the modal that opens up
+4. Click on Add Plugin 🎉
 
 ### Manually installing the plugin
+
+It's also possible to install the plugin manually:
 
 1. Download the latest release from [the releases page](https://github.com/watsonbox/obsidian-strava-sync/releases).
 2. Copy `main.js`, `styles.css`, and `manifest.json` to your vault's `VaultFolder/.obsidian/plugins/obsidian-strava-sync/` directory.
