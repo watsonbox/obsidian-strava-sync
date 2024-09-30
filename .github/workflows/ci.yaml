@@ -22,6 +22,8 @@ jobs:
           cache: 'yarn'
       - name: 📦 Install dependencies
         run: yarn install
+      - name: ☢️ Biome
+        run: yarn biome ci
       - name: 🧪 Test
         run: yarn test
       - name: 🔨 Build
