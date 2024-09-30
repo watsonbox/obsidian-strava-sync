@@ -10,18 +10,19 @@ This plugin syncronizes activities from [Strava](https://www.strava.com/) into [
 - 📅 Sync recent activities from Strava via the [Strava API](https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities)
 - 📝 [Handlebars.js](https://handlebarsjs.com/guide/) templates for imported activities
 - 💿 Customizable properties / front matter allowing for [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/) integration
+- 🏃 Per-sport icons for use with [Iconize](https://florianwoelki.github.io/obsidian-iconize/)
 
-The purpose of this plugin is not to provide a data backup, or to replace the functionality of the Strava apps. It's simply to allow activities to be more easily referenced, tracked and visualized within Obsidian, for example through integration with the [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) and [Charts](https://charts.phib.ro/Meta/Charts/Charts+Documentation) plugins.
+The purpose of this plugin is not to provide a data backup, or to replace the functionality of the Strava apps. It's simply to allow activities to be more easily referenced, tracked and visualized within Obsidian, especially through integration with existing plugins like [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/).
 
 ## Examples
 
 <p align="center">
-  <img src="./assets/screenshot_settings.png" height="275px" />
-  <img src="./assets/screenshot_activities_this_month.png" height="275px" />
-  <img src="./assets/screenshot_charts_by_activity_type.png" height="275px" />
+  <img src="./assets/screenshot_activities_this_month.png" height="295px" />
+  <img src="./assets/screenshot_charts_by_activity_type.png" height="295px" />
+  <img src="./assets/screenshot_contribution_graph.png" height="295px" />
 </p>
 
-These are some examples of what can be achieved along with the [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) and [Charts](https://charts.phib.ro/Meta/Charts/Charts+Documentation) plugins. See the [Dataview Integration](#dataview-integration) section below for more ideas.
+These are some examples of what can be achieved along with the [Dataview](https://blacksmithgu.github.io/obsidian-dataview/), [Charts](https://charts.phib.ro/Meta/Charts/Charts+Documentation) and [Contribution Graph](https://github.com/vran-dev/obsidian-contribution-graph) plugins. See the [Dataview Integration](#dataview-integration) section below for more ideas.
 
 ## Installation
 
@@ -52,6 +53,8 @@ Once that's done, copy the Client ID and Client Secret into the plugin settings,
 Typically, once the plugin is enabled and configured, you'll want to set up templates for the activities as you import them. This can be done for the file path, the content itself, and the properties to be added.
 
 ### Templating
+
+Templates can be set up in the plugin settings.
 
 The default file path template is `Strava/{{start_date}}/{{id}} {{name}}`, which will create a folder for each day, and a file for each activity within that folder for example `Strava/2024-02-20/1234567890 Running with the bears.md`.
 
@@ -233,6 +236,53 @@ const chartData = {
 }
 window.renderChart(chartData, this.container)
 ```
+    ```
+
+### Display a contribution heat map with Contribution Graph
+
+Not technically a Dataview integration. This example requires that the [Contribution Graph plugin](https://github.com/vran-dev/obsidian-contribution-graph) first be installed and enabled.
+
+    ```contributionGraph
+    graphType: default
+    dateRangeValue: 365
+    dateRangeType: LATEST_DAYS
+    startOfWeek: "1"
+    showCellRuleIndicators: true
+    titleStyle:
+      textAlign: left
+      fontSize: 15px
+      fontWeight: normal
+    dataSource:
+      type: PAGE
+      value: "#Strava"
+      dateField:
+        type: PAGE_PROPERTY
+        value: start_date
+      countField:
+        type: PAGE_PROPERTY
+        value: elapsed_time
+    fillTheScreen: false
+    enableMainContainerShadow: false
+    cellStyleRules:
+      - id: Ocean_a
+        color: "#8dd1e2"
+        min: 1
+        max: 3600
+      - id: Ocean_b
+        color: "#63a1be"
+        min: 3600
+        max: 7800
+      - id: Ocean_c
+        color: "#376d93"
+        min: 7800
+        max: 21600
+      - id: Ocean_d
+        color: "#012f60"
+        min: 21600
+        max: 100000
+    cellStyle:
+      minWidth: 10px
+      minHeight: 10px
     ```
 
 ## Development Guidelines
