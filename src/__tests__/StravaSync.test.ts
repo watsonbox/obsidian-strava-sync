@@ -121,7 +121,7 @@ describe('StravaSync', () => {
     });
 
     expect(Notice).toHaveBeenCalledWith(
-      '🏃 3 activities created, 0 already existing.',
+      '🏃 3 activities created.',
       expect.any(Number)
     );
   });
