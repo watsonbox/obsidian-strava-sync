@@ -1,7 +1,7 @@
-import { ActivityImporter } from "../ActivityImporter";
-import { StravaApi } from "../StravaApi";
 import * as fs from "fs";
 import * as path from "path";
+import { ActivityImporter } from "../ActivityImporter";
+import { StravaApi } from "../StravaApi";
 
 jest.mock("../StravaApi");
 

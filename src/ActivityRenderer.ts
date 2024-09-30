@@ -1,5 +1,5 @@
-import { DateTime } from "luxon";
 import * as Handlebars from "handlebars";
+import { DateTime } from "luxon";
 import { stringifyYaml } from "obsidian";
 import type { Activity } from "./Activity";
 

@@ -1,7 +1,7 @@
-import { type App, normalizePath, TFolder } from "obsidian";
-import type { Settings } from "./Settings";
+import { type App, TFolder, normalizePath } from "obsidian";
 import type { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
+import type { Settings } from "./Settings";
 
 // On Unix-like systems / is reserved and <>:"/\|?* as well as non-printable characters \u0000-\u001F on Windows
 // credit: https://github.com/sindresorhus/filename-reserved-regex

@@ -1,6 +1,6 @@
 import { type App, Notice, PluginSettingTab, Setting } from "obsidian";
-import type StravaSync from "./StravaSync";
 import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
+import type StravaSync from "./StravaSync";
 
 export class SettingsTab extends PluginSettingTab {
   plugin: StravaSync;

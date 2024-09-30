@@ -1,7 +1,7 @@
-import { App, Vault, TFolder, normalizePath } from "obsidian";
+import { App, TFolder, Vault, normalizePath } from "obsidian";
+import type { Activity } from "../Activity";
 import { ActivitySerializer } from "../ActivitySerializer";
 import type { Settings } from "../Settings";
-import type { Activity } from "../Activity";
 
 jest.mock("obsidian");
 jest.mock("../ActivityRenderer");

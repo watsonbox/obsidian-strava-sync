@@ -1,11 +1,11 @@
-import { addIcon, Notice, Plugin } from "obsidian";
+import { Notice, Plugin, addIcon } from "obsidian";
+import { ActivitiesCSVImporter, CSVImportError } from "./ActivitiesCSVImporter";
+import type { Activity } from "./Activity";
+import { ActivityImporter } from "./ActivityImporter";
+import { ActivitySerializer } from "./ActivitySerializer";
+import { FileSelector } from "./FileSelector";
 import { DEFAULT_SETTINGS, type Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
-import type { Activity } from "./Activity";
-import { ActivitiesCSVImporter, CSVImportError } from "./ActivitiesCSVImporter";
-import { FileSelector } from "./FileSelector";
-import { ActivitySerializer } from "./ActivitySerializer";
-import { ActivityImporter } from "./ActivityImporter";
 import { StravaApi } from "./StravaApi";
 
 const ICON_ID = "strava";
