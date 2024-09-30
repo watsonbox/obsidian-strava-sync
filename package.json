@@ -17,6 +17,7 @@
 	"authorUrl": "https://github.com/watsonbox",
 	"license": "MIT",
 	"devDependencies": {
+		"@biomejs/biome": "1.9.2",
 		"@types/jest": "^29.5.13",
 		"@types/luxon": "^3.4.2",
 		"@types/mustache": "^4.2.5",
