@@ -65,12 +65,12 @@ export class ActivitiesCSVImporter {
 
     return records.map((record: any): Activity => {
       const startDateTimestamp = Date.parse(
-        record["Activity Date"] + ` ${TIME_ZONE}`,
+        `${record["Activity Date"]} ${TIME_ZONE}`,
       );
 
-      if (isNaN(startDateTimestamp)) {
+      if (Number.isNaN(startDateTimestamp)) {
         throw new CSVImportError(
-          `Invalid date: ${record["Activity Date"] + ` ${TIME_ZONE}`}`,
+          `Invalid date: ${record["Activity Date"]} ${TIME_ZONE}`,
         );
       }
 

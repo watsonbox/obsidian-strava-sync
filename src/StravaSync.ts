@@ -94,7 +94,7 @@ export default class StravaSync extends Plugin {
       } else {
         console.error("Unexpected error during CSV import:", error);
         new Notice(
-          `🛑 An unexpected error occurred during import. Check the console for details.`,
+          "🛑 An unexpected error occurred during import. Check the console for details.",
           ERROR_NOTICE_DURATION,
         );
       }
@@ -105,14 +105,14 @@ export default class StravaSync extends Plugin {
     try {
       if (!this.stravaApi.isAuthenticated()) {
         new Notice(
-          `🛑 Please authenticate with Strava first in the plugin settings.`,
+          "🛑 Please authenticate with Strava first in the plugin settings.",
           ERROR_NOTICE_DURATION,
         );
         return;
       }
 
       new Notice(
-        `🔄 Importing new activities from Strava...`,
+        "🔄 Importing new activities from Strava...",
         SUCCESS_NOTICE_DURATION,
       );
 
@@ -135,7 +135,7 @@ export default class StravaSync extends Plugin {
     } catch (error) {
       console.error("Unexpected error during Strava import:", error);
       new Notice(
-        `🛑 An unexpected error occurred during import. Check the console for details.`,
+        "🛑 An unexpected error occurred during import. Check the console for details.",
         ERROR_NOTICE_DURATION,
       );
     }

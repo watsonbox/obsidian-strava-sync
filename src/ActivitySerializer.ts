@@ -53,9 +53,9 @@ export class ActivitySerializer {
     } catch (error) {
       if (error.toString().includes("File already exists")) {
         return false;
-      } else {
-        throw error;
       }
+
+      throw error;
     }
 
     return true;

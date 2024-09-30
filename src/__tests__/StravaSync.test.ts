@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 import { App, Notice, type PluginManifest, Vault } from "obsidian";
 import StravaSync from "../StravaSync";

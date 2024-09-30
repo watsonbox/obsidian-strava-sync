@@ -15,12 +15,25 @@
     "ignore": ["main.js"]
   },
   "organizeImports": {
+    "ignore": ["main.js"],
     "enabled": true
   },
   "linter": {
+    "ignore": ["main.js"],
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noControlCharactersInRegex": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "warn"
+      },
+      "complexity": {
+        "useLiteralKeys": "off",
+        "noForEach": "off"
+      }
     }
   },
   "javascript": {
