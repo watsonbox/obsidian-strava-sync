@@ -6,9 +6,7 @@ import type { Settings } from "./Settings";
 // On Unix-like systems / is reserved and <>:"/\|?* as well as non-printable characters \u0000-\u001F on Windows
 // credit: https://github.com/sindresorhus/filename-reserved-regex
 const REPLACEMENT_CHAR = "-";
-// eslint-disable-next-line no-control-regex
 const ILLEGAL_CHAR_REGEX_FILE = /[<>:"/\\|?*\u0000-\u001F]/g;
-// eslint-disable-next-line no-control-regex
 const ILLEGAL_CHAR_REGEX_FOLDER = /[<>:"\\|?*\u0000-\u001F]/g;
 
 export class ActivitySerializer {
