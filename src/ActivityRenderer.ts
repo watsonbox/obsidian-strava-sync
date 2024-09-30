@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import * as Handlebars from "handlebars";
 import { stringifyYaml } from "obsidian";
-import { Activity } from "./Activity";
+import type { Activity } from "./Activity";
 
 export const DEFAULT_TEMPLATE = `# {{name}}
 

@@ -1,6 +1,6 @@
-import { App, normalizePath, TFolder } from "obsidian";
-import { Settings } from "./Settings";
-import { Activity } from "./Activity";
+import { type App, normalizePath, TFolder } from "obsidian";
+import type { Settings } from "./Settings";
+import type { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
 
 // On Unix-like systems / is reserved and <>:"/\|?* as well as non-printable characters \u0000-\u001F on Windows

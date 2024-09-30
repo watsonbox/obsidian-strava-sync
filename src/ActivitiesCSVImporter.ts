@@ -1,5 +1,5 @@
 import { parse } from "csv-parse/browser/esm/sync";
-import { Activity } from "./Activity";
+import type { Activity } from "./Activity";
 
 const TIME_ZONE = "UTC";
 
@@ -75,22 +75,22 @@ export class ActivitiesCSVImporter {
       }
 
       return {
-        id: parseInt(record["Activity ID"]),
+        id: Number.parseInt(record["Activity ID"]),
         start_date: new Date(startDateTimestamp),
         name: record["Activity Name"],
         sport_type: record["Activity Type"],
         description: record["Activity Description"],
         private_note: record["Activity Private Note"],
-        elapsed_time: parseFloat(record["Elapsed Time"]), // s
-        moving_time: parseFloat(record["Moving Time"]), // s
-        distance: parseFloat(record["Distance"]), // m
-        max_heart_rate: parseFloat(record["Max Heart Rate"]), // bpm
-        max_speed: parseFloat(record["Max Speed"]), // m/s (not kph)
-        average_speed: parseFloat(record["Average Speed"]), // m/s (not kph)
-        total_elevation_gain: parseFloat(record["Elevation Gain"]), // m
-        elev_low: parseFloat(record["Elevation Low"]), // m
-        elev_high: parseFloat(record["Elevation High"]), // m
-        calories: parseFloat(record["Calories"]),
+        elapsed_time: Number.parseFloat(record["Elapsed Time"]), // s
+        moving_time: Number.parseFloat(record["Moving Time"]), // s
+        distance: Number.parseFloat(record["Distance"]), // m
+        max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
+        max_speed: Number.parseFloat(record["Max Speed"]), // m/s (not kph)
+        average_speed: Number.parseFloat(record["Average Speed"]), // m/s (not kph)
+        total_elevation_gain: Number.parseFloat(record["Elevation Gain"]), // m
+        elev_low: Number.parseFloat(record["Elevation Low"]), // m
+        elev_high: Number.parseFloat(record["Elevation High"]), // m
+        calories: Number.parseFloat(record["Calories"]),
       };
     });
   }

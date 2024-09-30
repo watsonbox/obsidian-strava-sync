@@ -1,4 +1,4 @@
-import { AuthenticationSettings } from "./Settings";
+import type { AuthenticationSettings } from "./Settings";
 
 export class StravaApi {
   private readonly SCOPES = "read,activity:read_all";

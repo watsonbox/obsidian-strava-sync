@@ -1,5 +1,5 @@
-import { StravaApi } from "./StravaApi";
-import { Activity } from "./Activity";
+import type { StravaApi } from "./StravaApi";
+import type { Activity } from "./Activity";
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
 export class ActivityImporter {

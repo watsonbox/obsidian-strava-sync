@@ -1,7 +1,7 @@
 import { addIcon, Notice, Plugin } from "obsidian";
-import { DEFAULT_SETTINGS, Settings } from "./Settings";
+import { DEFAULT_SETTINGS, type Settings } from "./Settings";
 import { SettingsTab } from "./SettingsTab";
-import { Activity } from "./Activity";
+import type { Activity } from "./Activity";
 import { ActivitiesCSVImporter, CSVImportError } from "./ActivitiesCSVImporter";
 import { FileSelector } from "./FileSelector";
 import { ActivitySerializer } from "./ActivitySerializer";

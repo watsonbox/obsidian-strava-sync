@@ -1,5 +1,5 @@
 import { ActivityRenderer, DEFAULT_TEMPLATE } from "../ActivityRenderer";
-import { Activity } from "../Activity";
+import type { Activity } from "../Activity";
 
 jest.mock("obsidian", () => ({
   stringifyYaml: jest.fn().mockImplementation((obj) => {
