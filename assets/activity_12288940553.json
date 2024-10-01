@@ -38,14 +38,8 @@
   "visibility": "followers_only",
   "flagged": false,
   "gear_id": "b10137313",
-  "start_latlng": [
-    51.50735188790750,
-    0.127758879597427
-  ],
-  "end_latlng": [
-    51.50735188790750,
-    0.127758879597427
-  ],
+  "start_latlng": [51.5073518879075, 0.127758879597427],
+  "end_latlng": [51.5073518879075, 0.127758879597427],
   "average_speed": 5.924,
   "max_speed": 15.392,
   "average_temp": 14,
@@ -114,8 +108,5 @@
   "device_name": "Garmin Edge 830",
   "embed_token": "42db41db128afd81c5e39bd122a4acc4ca74935f",
   "private_note": "Hand numbness 4/10.",
-  "available_zones": [
-    "heartrate",
-    "power"
-  ]
+  "available_zones": ["heartrate", "power"]
 }

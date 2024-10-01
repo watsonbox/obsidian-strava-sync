@@ -1,32 +1,34 @@
-import { ActivityRenderer, DEFAULT_TEMPLATE } from '../ActivityRenderer';
-import { Activity } from '../Activity';
+import type { Activity } from "../Activity";
+import { ActivityRenderer, DEFAULT_TEMPLATE } from "../ActivityRenderer";
 
-jest.mock('obsidian', () => ({
+jest.mock("obsidian", () => ({
   stringifyYaml: jest.fn().mockImplementation((obj) => {
     // Simple YAML-like string representation
-    return Object.entries(obj).map(([key, value]) => `${key}: ${value}\n`).join('');
-  })
+    return Object.entries(obj)
+      .map(([key, value]) => `${key}: ${value}\n`)
+      .join("");
+  }),
 }));
 
-jest.mock('luxon', () => ({
+jest.mock("luxon", () => ({
   DateTime: {
     fromJSDate: jest.fn().mockReturnValue({
-      toFormat: jest.fn().mockReturnValue('2023-04-15 10:30:00')
-    })
-  }
+      toFormat: jest.fn().mockReturnValue("2023-04-15 10:30:00"),
+    }),
+  },
 }));
 
-describe('ActivityRenderer', () => {
+describe("ActivityRenderer", () => {
   let activity: Activity;
 
   beforeEach(() => {
     activity = {
       id: 123456789,
-      start_date: new Date('2023-04-15T10:30:00Z'),
-      name: 'Morning Run',
-      sport_type: 'Run',
-      description: 'Great run in the park',
-      private_note: 'Felt strong today',
+      start_date: new Date("2023-04-15T10:30:00Z"),
+      name: "Morning Run",
+      sport_type: "Run",
+      description: "Great run in the park",
+      private_note: "Felt strong today",
       elapsed_time: 3600,
       moving_time: 3500,
       distance: 10000,
@@ -36,12 +38,15 @@ describe('ActivityRenderer', () => {
       total_elevation_gain: 100,
       elev_low: 50,
       elev_high: 150,
-      calories: 500
+      calories: 500,
     };
   });
 
-  test('renders activity with default template', () => {
-    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss');
+  test("renders activity with default template", () => {
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+    );
     const result = renderer.render(activity);
 
     const expected = `# Morning Run
@@ -59,7 +64,7 @@ Description: Great run in the park
     expect(result).toBe(expected);
   });
 
-  test('renders activity with custom template', () => {
+  test("renders activity with custom template", () => {
     const customTemplate = `
 Activity: {{name}}
 Date: {{start_date}}
@@ -68,7 +73,10 @@ Distance: {{distance}} meters
 Time: {{elapsed_time}} seconds
 Description: {{description}}
 `;
-    const renderer = new ActivityRenderer(customTemplate, 'yyyy-MM-dd HH:mm:ss');
+    const renderer = new ActivityRenderer(
+      customTemplate,
+      "yyyy-MM-dd HH:mm:ss",
+    );
     const result = renderer.render(activity);
 
     const expected = `
@@ -83,8 +91,12 @@ Description: Great run in the park
     expect(result).toBe(expected);
   });
 
-  test('renders front matter', () => {
-    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss', ['id', 'name', 'sport_type', 'distance']);
+  test("renders front matter", () => {
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+      ["id", "name", "sport_type", "distance"],
+    );
     const result = renderer.render(activity);
 
     const expected = `---
@@ -108,20 +120,26 @@ Description: Great run in the park
     expect(result).toBe(expected);
   });
 
-  test('formats date correctly', () => {
-    const renderer = new ActivityRenderer('{{start_date}}', 'yyyy-MM-dd HH:mm:ss');
+  test("formats date correctly", () => {
+    const renderer = new ActivityRenderer(
+      "{{start_date}}",
+      "yyyy-MM-dd HH:mm:ss",
+    );
     const result = renderer.render(activity);
 
-    const expected = '2023-04-15 10:30:00';
+    const expected = "2023-04-15 10:30:00";
 
     expect(result).toBe(expected);
   });
 
-  test('renders activity with missing description', () => {
+  test("renders activity with missing description", () => {
     const activityWithoutDescription = { ...activity };
-    activityWithoutDescription.description = '';
+    activityWithoutDescription.description = "";
 
-    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss');
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+    );
     const result = renderer.render(activityWithoutDescription);
 
     const expected = `# Morning Run
@@ -137,11 +155,14 @@ Description: Great run in the park
     expect(result).toBe(expected);
   });
 
-  test('renders activity with missing private note', () => {
+  test("renders activity with missing private note", () => {
     const activityWithoutPrivateNote = { ...activity };
-    activityWithoutPrivateNote.private_note = '';
+    activityWithoutPrivateNote.private_note = "";
 
-    const renderer = new ActivityRenderer(DEFAULT_TEMPLATE, 'yyyy-MM-dd HH:mm:ss');
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+    );
     const result = renderer.render(activityWithoutPrivateNote);
 
     const expected = `# Morning Run
@@ -156,12 +177,16 @@ Description: Great run in the park
     expect(result).toBe(expected);
   });
 
-  test('renders activity icon in frontmatter and content', () => {
+  test("renders activity icon in frontmatter and content", () => {
     const customTemplate = `
 # {{icon}} {{name}}
 Sport Type: {{sport_type}}
 `;
-    const renderer = new ActivityRenderer(customTemplate, 'yyyy-MM-dd HH:mm:ss', ['icon']);
+    const renderer = new ActivityRenderer(
+      customTemplate,
+      "yyyy-MM-dd HH:mm:ss",
+      ["icon"],
+    );
     const result = renderer.render(activity);
 
     const expected = `---
@@ -176,22 +201,22 @@ Sport Type: Run
     expect(result).toBe(expected);
   });
 
-  test('renders correct icons for different sport types', () => {
-    const template = '{{icon}} {{sport_type}}';
-    const renderer = new ActivityRenderer(template, 'yyyy-MM-dd HH:mm:ss');
+  test("renders correct icons for different sport types", () => {
+    const template = "{{icon}} {{sport_type}}";
+    const renderer = new ActivityRenderer(template, "yyyy-MM-dd HH:mm:ss");
 
     const testCases = [
-      { sport_type: 'Run', expectedIcon: '🏃' },
-      { sport_type: 'Ride', expectedIcon: '🚴' },
-      { sport_type: 'Swim', expectedIcon: '🏊' },
-      { sport_type: 'AlpineSki', expectedIcon: '⛷️' },
-      { sport_type: 'Golf', expectedIcon: '⛳' },
-      { sport_type: 'Hike', expectedIcon: '🥾' },
-      { sport_type: 'Walk', expectedIcon: '🚶' },
-      { sport_type: 'Snowboard', expectedIcon: '🏂' },
-      { sport_type: 'Workout', expectedIcon: '🏋️' },
-      { sport_type: 'Yoga', expectedIcon: '🧘' },
-      { sport_type: 'UnknownActivity', expectedIcon: '🏅' },
+      { sport_type: "Run", expectedIcon: "🏃" },
+      { sport_type: "Ride", expectedIcon: "🚴" },
+      { sport_type: "Swim", expectedIcon: "🏊" },
+      { sport_type: "AlpineSki", expectedIcon: "⛷️" },
+      { sport_type: "Golf", expectedIcon: "⛳" },
+      { sport_type: "Hike", expectedIcon: "🥾" },
+      { sport_type: "Walk", expectedIcon: "🚶" },
+      { sport_type: "Snowboard", expectedIcon: "🏂" },
+      { sport_type: "Workout", expectedIcon: "🏋️" },
+      { sport_type: "Yoga", expectedIcon: "🧘" },
+      { sport_type: "UnknownActivity", expectedIcon: "🏅" },
     ];
 
     testCases.forEach(({ sport_type, expectedIcon }) => {

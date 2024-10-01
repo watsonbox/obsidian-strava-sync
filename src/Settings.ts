@@ -17,22 +17,22 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elev_low",
   "elev_high",
   "calories",
-  "icon"
-]
+  "icon",
+];
 
 export const DEFAULT_SETTINGS: Settings = {
   authentication: {
-    stravaClientId: '',
-    stravaClientSecret: '',
+    stravaClientId: "",
+    stravaClientSecret: "",
     stravaAccessToken: undefined,
     stravaRefreshToken: undefined,
-    stravaTokenExpiresAt: undefined
+    stravaTokenExpiresAt: undefined,
   },
   sync: {
     folder: "Strava/{{start_date}}",
     folderDateFormat: "yyyy-MM-dd",
     filename: "{{id}} {{name}}",
-    filenameDateFormat: "yyyy-MM-dd"
+    filenameDateFormat: "yyyy-MM-dd",
   },
   activity: {
     contentDateFormat: "yyyy-MM-dd HH:mm:ss",
@@ -45,11 +45,11 @@ export const DEFAULT_SETTINGS: Settings = {
       "elapsed_time",
       "moving_time",
       "distance",
-      "icon"
+      "icon",
     ],
-    template: DEFAULT_TEMPLATE
-  }
-}
+    template: DEFAULT_TEMPLATE,
+  },
+};
 
 export interface AuthenticationSettings {
   stravaClientId: string;

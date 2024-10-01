@@ -38,14 +38,8 @@
     "visibility": "followers_only",
     "flagged": false,
     "gear_id": "g10510480",
-    "start_latlng": [
-      51.50735188790750,
-      0.127758879597427
-    ],
-    "end_latlng": [
-      51.50735188790750,
-      0.127758879597427
-    ],
+    "start_latlng": [51.5073518879075, 0.127758879597427],
+    "end_latlng": [51.5073518879075, 0.127758879597427],
     "average_speed": 2.557,
     "max_speed": 4.864,
     "average_cadence": 79.4,
@@ -104,14 +98,8 @@
     "visibility": "followers_only",
     "flagged": false,
     "gear_id": "b10137313",
-    "start_latlng": [
-      51.50735188790750,
-      0.127758879597427
-    ],
-    "end_latlng": [
-      51.50735188790750,
-      0.127758879597427
-    ],
+    "start_latlng": [51.5073518879075, 0.127758879597427],
+    "end_latlng": [51.5073518879075, 0.127758879597427],
     "average_speed": 5.924,
     "max_speed": 15.392,
     "average_temp": 14,

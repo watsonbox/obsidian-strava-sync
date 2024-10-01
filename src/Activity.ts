@@ -16,5 +16,5 @@ export interface Activity {
   elev_high: number;
   calories: number;
 
-  [propName: string]: any
+  [propName: string]: any;
 }

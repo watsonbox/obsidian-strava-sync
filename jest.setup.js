@@ -1,5 +1,5 @@
-jest.mock('csv-parse/browser/esm/sync', () => {
+jest.mock("csv-parse/browser/esm/sync", () => {
   return {
-    parse: require('csv-parse/sync').parse
+    parse: require("csv-parse/sync").parse,
   };
 });

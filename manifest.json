@@ -1,10 +1,10 @@
 {
-	"id": "strava-sync",
-	"name": "Strava Sync",
-	"version": "0.2.0",
-	"minAppVersion": "0.15.0",
-	"description": "Sync activities from Strava.",
-	"author": "Obsidian",
-	"authorUrl": "https://github.com/watsonbox",
-	"isDesktopOnly": false
+  "id": "strava-sync",
+  "name": "Strava Sync",
+  "version": "0.2.0",
+  "minAppVersion": "0.15.0",
+  "description": "Sync activities from Strava.",
+  "author": "Obsidian",
+  "authorUrl": "https://github.com/watsonbox",
+  "isDesktopOnly": false
 }
