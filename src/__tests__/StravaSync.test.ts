@@ -1,28 +1,28 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
-import { App, Vault, PluginManifest, Notice } from 'obsidian';
-import StravaSync from '../StravaSync';
+import { App, Vault, PluginManifest, Notice } from "obsidian";
+import StravaSync from "../StravaSync";
 
-jest.mock('obsidian');
+jest.mock("obsidian");
 
-jest.mock('../ActivityImporter', () => ({
+jest.mock("../ActivityImporter", () => ({
   ActivityImporter: jest.fn().mockImplementation(() => ({
     importLatestActivities: jest.fn().mockResolvedValue([
       {
         id: 12345678,
-        name: 'Morning Run',
-        type: 'Run',
-        start_date: new Date('2023-04-16T08:00:00Z'),
+        name: "Morning Run",
+        type: "Run",
+        start_date: new Date("2023-04-16T08:00:00Z"),
         elapsed_time: 1800,
         distance: 5000,
         max_heart_rate: 175,
       },
       {
         id: 12345679,
-        name: 'Evening Ride',
-        type: 'Ride',
-        start_date: new Date('2023-04-16T18:00:00Z'),
+        name: "Evening Ride",
+        type: "Ride",
+        start_date: new Date("2023-04-16T18:00:00Z"),
         elapsed_time: 3600,
         distance: 20000,
         max_heart_rate: 165,
@@ -31,28 +31,33 @@ jest.mock('../ActivityImporter', () => ({
   })),
 }));
 
-jest.mock('../FileSelector', () => ({
+jest.mock("../FileSelector", () => ({
   FileSelector: jest.fn().mockImplementation(() => ({
-    selectContents: jest.fn().mockResolvedValue(
-      fs.readFileSync(path.join(__dirname, '../../assets/activities.csv'), 'utf8')
-    ),
+    selectContents: jest
+      .fn()
+      .mockResolvedValue(
+        fs.readFileSync(
+          path.join(__dirname, "../../assets/activities.csv"),
+          "utf8",
+        ),
+      ),
   })),
 }));
 
-jest.mock('../ActivitySerializer', () => ({
+jest.mock("../ActivitySerializer", () => ({
   ActivitySerializer: jest.fn().mockImplementation(() => ({
     serialize: jest.fn().mockResolvedValue(true),
   })),
 }));
 
-jest.mock('../StravaApi', () => ({
+jest.mock("../StravaApi", () => ({
   StravaApi: jest.fn().mockImplementation(() => ({
     isAuthenticated: jest.fn().mockReturnValue(true),
     listActivities: jest.fn().mockResolvedValue([]),
   })),
 }));
 
-describe('StravaSync', () => {
+describe("StravaSync", () => {
   let plugin: StravaSync;
   let app: App;
   let vault: Vault;
@@ -64,13 +69,13 @@ describe('StravaSync', () => {
     (app as any).vault = vault;
 
     mockManifest = {
-      id: 'strava-sync',
-      name: 'Strava Sync',
-      version: '1.0.0',
-      minAppVersion: '0.15.0',
-      description: 'Sync Strava activities to Obsidian',
-      author: 'Your Name',
-      authorUrl: 'https://github.com/yourusername',
+      id: "strava-sync",
+      name: "Strava Sync",
+      version: "1.0.0",
+      minAppVersion: "0.15.0",
+      description: "Sync Strava activities to Obsidian",
+      author: "Your Name",
+      authorUrl: "https://github.com/yourusername",
       isDesktopOnly: false,
     };
 
@@ -80,40 +85,42 @@ describe('StravaSync', () => {
     plugin.onload();
   });
 
-  test('Import activities CSV', async () => {
+  test("Import activities CSV", async () => {
     await plugin.importActivitiesFromCSV();
 
     expect(plugin.fileSelector.selectContents).toHaveBeenCalledTimes(1);
     expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(3);
 
-    const serializedActivities = (plugin.activitySerializer.serialize as jest.Mock).mock.calls.map(call => call[0]);
+    const serializedActivities = (
+      plugin.activitySerializer.serialize as jest.Mock
+    ).mock.calls.map((call) => call[0]);
 
     expect(serializedActivities[0]).toMatchObject({
       id: 12271989718,
-      name: 'Lunch Run',
-      sport_type: 'Run',
+      name: "Lunch Run",
+      sport_type: "Run",
       start_date: expect.any(Date),
       elapsed_time: 1955,
       distance: 4551.31982421875,
       max_heart_rate: 165,
-      private_note: 'Light run. Knee pain 2/10.',
+      private_note: "Light run. Knee pain 2/10.",
     });
 
     expect(serializedActivities[1]).toMatchObject({
       id: 12288940553,
-      name: 'Dynamo Challenge 2024',
-      sport_type: 'Ride',
+      name: "Dynamo Challenge 2024",
+      sport_type: "Ride",
       start_date: expect.any(Date),
       elapsed_time: 23198,
       distance: 93131.53125,
       max_heart_rate: 182,
-      private_note: 'Hand numbness 4/10.',
+      private_note: "Hand numbness 4/10.",
     });
 
     expect(serializedActivities[2]).toMatchObject({
       id: 12315055573,
-      name: 'Lunch Swim',
-      sport_type: 'Swim',
+      name: "Lunch Swim",
+      sport_type: "Swim",
       start_date: expect.any(Date),
       elapsed_time: 1697,
       distance: 1000,
@@ -121,25 +128,29 @@ describe('StravaSync', () => {
     });
 
     expect(Notice).toHaveBeenCalledWith(
-      '🏃 3 activities created.',
-      expect.any(Number)
+      "🏃 3 activities created.",
+      expect.any(Number),
     );
   });
 
-  test('Import new activities', async () => {
-    jest.spyOn(plugin.activitySerializer, 'serialize').mockImplementation((activity) => {
-      return Promise.resolve(activity.id === 12345678);
-    });
+  test("Import new activities", async () => {
+    jest
+      .spyOn(plugin.activitySerializer, "serialize")
+      .mockImplementation((activity) => {
+        return Promise.resolve(activity.id === 12345678);
+      });
 
     await plugin.importNewActivities();
 
     expect(plugin.stravaApi.isAuthenticated).toHaveBeenCalled();
     expect(plugin.activitySerializer.serialize).toHaveBeenCalledTimes(2);
-    expect(plugin.settings.sync.lastActivityTimestamp).toBe(Math.floor(new Date('2023-04-16T18:00:00Z').getTime() / 1000));
+    expect(plugin.settings.sync.lastActivityTimestamp).toBe(
+      Math.floor(new Date("2023-04-16T18:00:00Z").getTime() / 1000),
+    );
 
     expect(Notice).toHaveBeenCalledWith(
-      '🏃 1 new activities created, 1 already existing.',
-      expect.any(Number)
+      "🏃 1 new activities created, 1 already existing.",
+      expect.any(Number),
     );
   });
 });

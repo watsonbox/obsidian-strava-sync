@@ -19,7 +19,7 @@ const REQUIRED_COLUMNS = [
   "Elevation Gain",
   "Elevation Low",
   "Elevation High",
-  "Calories"
+  "Calories",
 ];
 
 export class CSVImportError extends Error {
@@ -42,26 +42,36 @@ export class ActivitiesCSVImporter {
     try {
       records = parse(this.fileContents, {
         columns: true,
-        skip_empty_lines: true
+        skip_empty_lines: true,
       });
     } catch (error) {
       throw new CSVImportError(`Failed to parse CSV: ${error.message}`);
     }
 
     if (records.length === 0) {
-      throw new CSVImportError("The CSV file is empty or contains no valid data.");
+      throw new CSVImportError(
+        "The CSV file is empty or contains no valid data.",
+      );
     }
 
-    const missingColumns = REQUIRED_COLUMNS.filter(col => !(col in records[0]));
+    const missingColumns = REQUIRED_COLUMNS.filter(
+      (col) => !(col in records[0]),
+    );
     if (missingColumns.length > 0) {
-      throw new CSVImportError(`Missing required column(s): ${missingColumns.join(", ")}`);
+      throw new CSVImportError(
+        `Missing required column(s): ${missingColumns.join(", ")}`,
+      );
     }
 
     return records.map((record: any): Activity => {
-      const startDateTimestamp = Date.parse(record["Activity Date"] + ` ${TIME_ZONE}`);
+      const startDateTimestamp = Date.parse(
+        record["Activity Date"] + ` ${TIME_ZONE}`,
+      );
 
       if (isNaN(startDateTimestamp)) {
-        throw new CSVImportError(`Invalid date: ${record["Activity Date"] + ` ${TIME_ZONE}`}`);
+        throw new CSVImportError(
+          `Invalid date: ${record["Activity Date"] + ` ${TIME_ZONE}`}`,
+        );
       }
 
       return {
@@ -71,16 +81,16 @@ export class ActivitiesCSVImporter {
         sport_type: record["Activity Type"],
         description: record["Activity Description"],
         private_note: record["Activity Private Note"],
-        elapsed_time: parseFloat(record["Elapsed Time"]),           // s
-        moving_time: parseFloat(record["Moving Time"]),             // s
-        distance: parseFloat(record["Distance"]),                   // m
-        max_heart_rate: parseFloat(record["Max Heart Rate"]),       // bpm
-        max_speed: parseFloat(record["Max Speed"]),                 // m/s (not kph)
-        average_speed: parseFloat(record["Average Speed"]),         // m/s (not kph)
+        elapsed_time: parseFloat(record["Elapsed Time"]), // s
+        moving_time: parseFloat(record["Moving Time"]), // s
+        distance: parseFloat(record["Distance"]), // m
+        max_heart_rate: parseFloat(record["Max Heart Rate"]), // bpm
+        max_speed: parseFloat(record["Max Speed"]), // m/s (not kph)
+        average_speed: parseFloat(record["Average Speed"]), // m/s (not kph)
         total_elevation_gain: parseFloat(record["Elevation Gain"]), // m
-        elev_low: parseFloat(record["Elevation Low"]),              // m
-        elev_high: parseFloat(record["Elevation High"]),            // m
-        calories: parseFloat(record["Calories"])
+        elev_low: parseFloat(record["Elevation Low"]), // m
+        elev_high: parseFloat(record["Elevation High"]), // m
+        calories: parseFloat(record["Calories"]),
       };
     });
   }

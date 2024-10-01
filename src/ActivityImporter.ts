@@ -1,5 +1,5 @@
-import { StravaApi } from './StravaApi';
-import { Activity } from './Activity';
+import { StravaApi } from "./StravaApi";
+import { Activity } from "./Activity";
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
 export class ActivityImporter {
@@ -18,7 +18,7 @@ export class ActivityImporter {
 
     try {
       const params: { per_page: number; after?: number } = {
-        per_page: this.PER_PAGE
+        per_page: this.PER_PAGE,
       };
 
       if (this.lastActivityTimestamp) {
@@ -29,15 +29,17 @@ export class ActivityImporter {
 
       const detailedActivities = await Promise.all(
         activities.map(async (activity: any) => {
-          const detailedActivity = await this.stravaApi.getActivity(activity.id);
+          const detailedActivity = await this.stravaApi.getActivity(
+            activity.id,
+          );
           return this.mapStravaActivityToActivity(detailedActivity);
-        })
+        }),
       );
 
       return detailedActivities;
     } catch (error) {
-      console.error('Error fetching activities from Strava:', error);
-      throw new Error('Failed to import activities from Strava');
+      console.error("Error fetching activities from Strava:", error);
+      throw new Error("Failed to import activities from Strava");
     }
   }
 
@@ -47,8 +49,8 @@ export class ActivityImporter {
       start_date: new Date(stravaActivity.start_date),
       name: stravaActivity.name,
       sport_type: stravaActivity.sport_type,
-      description: stravaActivity.description || '',
-      private_note: stravaActivity.private_note || '',
+      description: stravaActivity.description || "",
+      private_note: stravaActivity.private_note || "",
       elapsed_time: stravaActivity.elapsed_time,
       moving_time: stravaActivity.moving_time,
       distance: stravaActivity.distance,
@@ -58,7 +60,7 @@ export class ActivityImporter {
       total_elevation_gain: stravaActivity.total_elevation_gain || 0,
       elev_low: stravaActivity.elev_low || 0,
       elev_high: stravaActivity.elev_high || 0,
-      calories: stravaActivity.calories || 0
+      calories: stravaActivity.calories || 0,
     };
   }
 }

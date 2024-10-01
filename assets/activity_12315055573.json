@@ -92,7 +92,5 @@
   "hide_from_home": false,
   "device_name": "Garmin Forerunner 255",
   "embed_token": "78a470bc8b71efcf8734ae8cf1013c0d015d45d4",
-  "available_zones": [
-    "heartrate"
-  ]
+  "available_zones": ["heartrate"]
 }
