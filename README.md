@@ -4,7 +4,7 @@
 
 # Obsidian Strava Sync
 
-This plugin syncronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
+This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
 
 - 🗄️ Import [Strava bulk export](https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#h_01GG58HC4F1BGQ9PQZZVANN6WF) CSV files for historical activities
 - 📅 Sync recent activities from Strava via the [Strava API](https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities)
@@ -151,7 +151,7 @@ Strava allows you to download your activities as a bulk export as described [her
 > Note that the [Strava bulk export CSV format](./assets/activities.csv) is not the same as the [Web API activity format (JSON)](./assets/activity_12271989718.json). This plugin allows both formats to be imported, but some fields that are not common to both formats are not imported.
 
 > [!TIP]
-> You may prefer to exclude imported activities from the Obsidian search and graph views by adding the sync folder to "Options -> Files and linkes -> Excluded files" in the settings.
+> You may prefer to exclude imported activities from the Obsidian search and graph views by adding the sync folder to "Options -> Files and links -> Excluded files" in the settings.
 
 ## Dataview Integration
 
