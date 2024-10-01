@@ -12,7 +12,7 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "ignore": ["main.js"]
+    "ignore": ["main.js", "package.json"]
   },
   "organizeImports": {
     "ignore": ["main.js"],
