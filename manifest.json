@@ -1,7 +1,7 @@
 {
   "id": "strava-sync",
   "name": "Strava Sync",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "minAppVersion": "0.15.0",
   "description": "Sync activities from Strava.",
   "author": "Obsidian",
