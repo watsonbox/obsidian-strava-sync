@@ -2,14 +2,11 @@
   cursor: pointer;
   border: none;
   appearance: none;
-  height: 48px;
-  width: 193px;
+  height: 40px;
+  width: 160px;
   box-shadow: none;
-}
-
-.mod-settings .setting-item.strava-sync-authenticate button img {
-  width: 193px;
-  height: 48px;
+  background-image: url(https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/btn_strava_connectwith_orange.png);
+  background-size: 160px;
 }
 
 .strava-powered-by {
@@ -17,8 +14,9 @@
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-}
-
-.strava-powered-by img {
-  width: 200px;
+  background-image: url(https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/api_logo_pwrdBy_strava_horiz_light.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 200px;
+  height: 50px;
 }

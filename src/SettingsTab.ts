@@ -5,11 +5,6 @@ import type StravaSync from "./StravaSync";
 export class SettingsTab extends PluginSettingTab {
   plugin: StravaSync;
 
-  readonly STRAVA_CONNECT_BUTTON_IMAGE_URL =
-    "https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/btn_strava_connectwith_orange.png";
-  readonly STRAVA_POWERED_BY_IMAGE_URL =
-    "https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/api_logo_pwrdBy_strava_horiz_light.png";
-
   constructor(app: App, plugin: StravaSync) {
     super(app, plugin);
     this.plugin = plugin;
@@ -75,7 +70,6 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc("Click to start the OAuth flow with Strava")
       .setClass("strava-sync-authenticate")
       .addButton((button) => {
-        button.buttonEl.innerHTML = `<img src="${this.STRAVA_CONNECT_BUTTON_IMAGE_URL}" />`;
         button.onClick(() => {
           if (
             !this.plugin.settings.authentication.stravaClientId ||
@@ -313,9 +307,8 @@ export class SettingsTab extends PluginSettingTab {
         text.inputEl.setAttr("cols", 50);
       });
 
-    const el = containerEl.createEl("div");
-    el.innerHTML = `<img src="${this.STRAVA_POWERED_BY_IMAGE_URL}" />`;
-    el.classList.add("strava-powered-by");
-    containerEl.appendChild(el);
+    containerEl.appendChild(
+      containerEl.createEl("div", { cls: "strava-powered-by" }),
+    );
   }
 }
