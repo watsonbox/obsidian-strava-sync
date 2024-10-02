@@ -1,3 +1,4 @@
+import { requestUrl } from "obsidian";
 import type { AuthenticationSettings } from "./Settings";
 
 export class StravaApi {
@@ -65,7 +66,8 @@ export class StravaApi {
   }
 
   private async tokenRequest(params: Record<string, string>): Promise<any> {
-    const response = await fetch("https://www.strava.com/oauth/token", {
+    const response = await requestUrl({
+      url: "https://www.strava.com/oauth/token",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +79,7 @@ export class StravaApi {
       }),
     });
 
-    return response.json();
+    return response.json;
   }
 
   private updateTokens(response: any) {
@@ -91,29 +93,25 @@ export class StravaApi {
   > {
     await this.refreshTokenIfExpired();
     const queryParams = new URLSearchParams(params as any).toString();
-    const response = await fetch(
-      `https://www.strava.com/api/v3/athlete/activities?${queryParams}`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.settings.stravaAccessToken}`,
-        },
+    const response = await requestUrl({
+      url: `https://www.strava.com/api/v3/athlete/activities?${queryParams}`,
+      headers: {
+        Authorization: `Bearer ${this.settings.stravaAccessToken}`,
       },
-    );
+    });
 
-    return response.json();
+    return response.json;
   }
 
   async getActivity(id: number): Promise<any> {
     await this.refreshTokenIfExpired();
-    const response = await fetch(
-      `https://www.strava.com/api/v3/activities/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.settings.stravaAccessToken}`,
-        },
+    const response = await requestUrl({
+      url: `https://www.strava.com/api/v3/activities/${id}`,
+      headers: {
+        Authorization: `Bearer ${this.settings.stravaAccessToken}`,
       },
-    );
+    });
 
-    return response.json();
+    return response.json;
   }
 }
