@@ -18,11 +18,11 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl).setName("Authentication").setHeading();
 
     new Setting(containerEl)
-      .setName("Strava Client ID")
+      .setName("Strava client ID")
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "Enter your Strava API Client ID (",
+            "Enter your Strava API client ID (",
             fragment.createEl("a", {
               text: "instructions",
               href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
@@ -33,7 +33,7 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder("Enter Client ID")
+          .setPlaceholder("Enter client ID")
           .setValue(this.plugin.settings.authentication.stravaClientId)
           .onChange(async (value) => {
             this.plugin.settings.authentication.stravaClientId = value;
@@ -42,11 +42,11 @@ export class SettingsTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Strava Client Secret")
+      .setName("Strava client secret")
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "Enter your Strava API Client Secret (",
+            "Enter your Strava API client secret (",
             fragment.createEl("a", {
               text: "instructions",
               href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
@@ -57,7 +57,7 @@ export class SettingsTab extends PluginSettingTab {
       )
       .addText((text) =>
         text
-          .setPlaceholder("Enter Client Secret")
+          .setPlaceholder("Enter client secret")
           .setValue(this.plugin.settings.authentication.stravaClientSecret)
           .onChange(async (value) => {
             this.plugin.settings.authentication.stravaClientSecret = value;
@@ -76,7 +76,7 @@ export class SettingsTab extends PluginSettingTab {
             !this.plugin.settings.authentication.stravaClientSecret
           ) {
             new Notice(
-              "🛑 Please enter your Strava Client ID and Client Secret first.",
+              "🛑 Please enter your Strava client ID and client secret first.",
               8000,
             );
             return;

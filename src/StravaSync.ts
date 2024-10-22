@@ -41,22 +41,19 @@ export default class StravaSync extends Plugin {
       },
     );
 
-    this.registerObsidianProtocolHandler(
-      "obsidian-strava-sync",
-      async (args) => {
-        await this.stravaApi.exchangeCodeForToken(args.code);
-        this.settings.authentication = this.stravaApi.settings;
-        await this.saveSettings();
+    this.registerObsidianProtocolHandler("strava-sync", async (args) => {
+      await this.stravaApi.exchangeCodeForToken(args.code);
+      this.settings.authentication = this.stravaApi.settings;
+      await this.saveSettings();
 
-        new Notice(
-          "✅ Successfully authenticated with Strava!",
-          SUCCESS_NOTICE_DURATION,
-        );
+      new Notice(
+        "✅ Successfully authenticated with Strava!",
+        SUCCESS_NOTICE_DURATION,
+      );
 
-        // Refresh the settings tab to update the authentication status
-        this.settingsTab.display();
-      },
-    );
+      // Refresh the settings tab to update the authentication status
+      this.settingsTab.display();
+    });
 
     this.addCommand({
       id: "import-new",

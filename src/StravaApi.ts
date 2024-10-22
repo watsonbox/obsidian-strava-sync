@@ -3,7 +3,7 @@ import type { AuthenticationSettings } from "./Settings";
 
 export class StravaApi {
   private readonly SCOPES = "read,activity:read_all";
-  private readonly REDIRECT_URI = "obsidian://obsidian-strava-sync";
+  private readonly REDIRECT_URI = "obsidian://strava-sync";
 
   settings: AuthenticationSettings;
 
