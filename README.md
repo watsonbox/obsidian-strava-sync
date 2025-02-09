@@ -2,7 +2,14 @@
  ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/watsonbox/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/watsonbox/obsidian-strava-sync/total)
 
 
-# Obsidian Strava Sync
+# Obsidian Strava Sync Fork
+
+This is a fork of [Obsidian Strava Sync ](https://github.com/watsonbox/obsidian-strava-sync) by watsonbox.
+Maintained by jcochran93.
+
+This fork adds the following improvements:
+- Gear name attributes synced from activities
+- improved folder structure for import
 
 This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
 
