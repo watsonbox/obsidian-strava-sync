@@ -13,8 +13,8 @@
     "obsidian",
     "strava"
   ],
-  "author": "Howard Wilson",
-  "authorUrl": "https://github.com/watsonbox",
+  "author": "Jarred Cochran",
+  "authorUrl": "https://github.com/jcochran93",
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "1.9.2",
