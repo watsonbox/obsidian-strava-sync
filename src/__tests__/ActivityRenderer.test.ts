@@ -39,6 +39,10 @@ describe("ActivityRenderer", () => {
       elev_low: 50,
       elev_high: 150,
       calories: 500,
+      gear_name: "Altra Torin",
+      workout_type: "General",
+      distance_miles: 6.21371,
+      avg_pace_min_per_mile: 9.5,
     };
   });
 
