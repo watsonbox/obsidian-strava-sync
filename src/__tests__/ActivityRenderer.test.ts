@@ -39,6 +39,8 @@ describe("ActivityRenderer", () => {
       elev_low: 50,
       elev_high: 150,
       calories: 500,
+	  gear_name: "Altra Torin",
+	  workout_type: "General"
     };
   });
 

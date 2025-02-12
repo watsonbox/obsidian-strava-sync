@@ -22,10 +22,10 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "Enter your Strava API client ID (",
+            "BETA: Enter your Strava API client ID (",
             fragment.createEl("a", {
               text: "instructions",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
             }),
             ")",
           );
@@ -49,7 +49,7 @@ export class SettingsTab extends PluginSettingTab {
             "Enter your Strava API client secret (",
             fragment.createEl("a", {
               text: "instructions",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
             }),
             ")",
           );
@@ -275,7 +275,7 @@ export class SettingsTab extends PluginSettingTab {
             fragment.createEl("br"),
             fragment.createEl("a", {
               text: "More information",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#content",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#content",
             }),
           );
         }),

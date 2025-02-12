@@ -1,5 +1,6 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import type { Activity } from "./Activity";
+import WorkoutTypes from "./WorkoutTypes";
 
 const TIME_ZONE = "UTC";
 
@@ -20,6 +21,7 @@ const REQUIRED_COLUMNS = [
   "Elevation Low",
   "Elevation High",
   "Calories",
+  "Activity Gear",
 ];
 
 export class CSVImportError extends Error {
@@ -91,6 +93,8 @@ export class ActivitiesCSVImporter {
         elev_low: Number.parseFloat(record["Elevation Low"]), // m
         elev_high: Number.parseFloat(record["Elevation High"]), // m
         calories: Number.parseFloat(record["Calories"]),
+		gear_name: record["Gear Name"],
+		workout_type: WorkoutTypes[0],
       };
     });
   }

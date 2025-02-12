@@ -15,6 +15,8 @@ export interface Activity {
   elev_low: number;
   elev_high: number;
   calories: number;
+  gear_name: string;
+  workout_type: string;
 
   [propName: string]: any;
 }

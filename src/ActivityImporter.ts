@@ -1,4 +1,6 @@
+import { sortSearchResults } from "obsidian";
 import type { Activity } from "./Activity";
+import WorkoutTypes  from "./WorkoutTypes";
 import type { StravaApi } from "./StravaApi";
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
@@ -61,6 +63,8 @@ export class ActivityImporter {
       elev_low: stravaActivity.elev_low || 0,
       elev_high: stravaActivity.elev_high || 0,
       calories: stravaActivity.calories || 0,
+	  gear_name: stravaActivity.gear.name || "",
+	  workout_type: WorkoutTypes[stravaActivity.workout_type] || ""
     };
   }
 }
