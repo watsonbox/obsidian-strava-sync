@@ -65,6 +65,8 @@ describe("ActivityImporter", () => {
       start_date: new Date("2024-08-24T10:47:26Z"),
       elapsed_time: 1955,
       distance: 4551.3,
+      gear_name: "Nike Zoom Vomero 11",
+      workout_type: "General",
     });
 
     expect(activities[1]).toMatchObject({
@@ -74,6 +76,8 @@ describe("ActivityImporter", () => {
       start_date: new Date("2024-08-28T05:07:43Z"),
       elapsed_time: 38846,
       distance: 154081.0,
+      gear_name: "2021 Cannondale Synapse",
+      workout_type: "General",
     });
 
     expect(activities[2]).toMatchObject({
