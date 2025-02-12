@@ -38,16 +38,16 @@
     "visibility": "followers_only",
     "flagged": false,
     "gear_id": "g10510480",
-  "gear": {
-    "id": "g10510480",
-    "primary": false,
-    "name": "Nike Zoom Vomero 11",
-    "nickname": "",
-    "resource_state": 2,
-    "retired": false,
-    "distance": 910770,
-    "converted_distance": 910.8
-  },
+    "gear": {
+      "id": "g10510480",
+      "primary": false,
+      "name": "Nike Zoom Vomero 11",
+      "nickname": "",
+      "resource_state": 2,
+      "retired": false,
+      "distance": 910770,
+      "converted_distance": 910.8
+    },
     "start_latlng": [51.5073518879075, 0.127758879597427],
     "end_latlng": [51.5073518879075, 0.127758879597427],
     "average_speed": 2.557,
@@ -108,16 +108,16 @@
     "visibility": "followers_only",
     "flagged": false,
     "gear_id": "b10137313",
-  "gear": {
-    "id": "b10137313",
-    "primary": false,
-    "name": "2021 Cannondale Synapse",
-    "nickname": "2021 Cannondale Synapse",
-    "resource_state": 2,
-    "retired": false,
-    "distance": 6602403,
-    "converted_distance": 6602.4
-  },
+    "gear": {
+      "id": "b10137313",
+      "primary": false,
+      "name": "2021 Cannondale Synapse",
+      "nickname": "2021 Cannondale Synapse",
+      "resource_state": 2,
+      "retired": false,
+      "distance": 6602403,
+      "converted_distance": 6602.4
+    },
     "start_latlng": [51.5073518879075, 0.127758879597427],
     "end_latlng": [51.5073518879075, 0.127758879597427],
     "average_speed": 5.924,
