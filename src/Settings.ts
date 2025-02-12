@@ -19,7 +19,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "calories",
   "icon",
   "gear_name",
-  "workout_type"
+  "workout_type",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -48,8 +48,8 @@ export const DEFAULT_SETTINGS: Settings = {
       "moving_time",
       "distance",
       "icon",
-	  "gear_name",
-	  "workout_type"
+      "gear_name",
+      "workout_type",
     ],
     template: DEFAULT_TEMPLATE,
   },

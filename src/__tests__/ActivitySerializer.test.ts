@@ -58,8 +58,8 @@ describe("ActivitySerializer", () => {
       elev_low: 10,
       elev_high: 60,
       calories: 500,
-	  gear_name: "Saucony Endorphin Speed",
-	  workout_type: "Workout"
+      gear_name: "Saucony Endorphin Speed",
+      workout_type: "Workout",
     };
   });
 

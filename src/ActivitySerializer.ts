@@ -14,64 +14,64 @@ const ILLEGAL_TRAILING_WHITESPACE_REGEX = /\s+$/;
 const DIR_CHAR = "/";
 
 export class ActivitySerializer {
-	app: App;
-	settings: Settings;
+  app: App;
+  settings: Settings;
 
-	constructor(app: App, settings: Settings) {
-		this.app = app;
-		this.settings = settings;
-	}
+  constructor(app: App, settings: Settings) {
+    this.app = app;
+    this.settings = settings;
+  }
 
-	async serialize(activity: Activity) {
-		let folderName = normalizePath(
-			new ActivityRenderer(
-				this.settings.sync.folder,
-				this.settings.sync.folderDateFormat,
-			).render(activity),
-		)
-			.replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR)
-			.replace(ILLEGAL_TRAILING_WHITESPACE_REGEX, "");
+  async serialize(activity: Activity) {
+    let folderName = normalizePath(
+      new ActivityRenderer(
+        this.settings.sync.folder,
+        this.settings.sync.folderDateFormat,
+      ).render(activity),
+    )
+      .replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR)
+      .replace(ILLEGAL_TRAILING_WHITESPACE_REGEX, "");
 
-		const folderNameSplit = folderName.split("/");
-		const d = DateTime.fromFormat(
-			folderNameSplit[folderNameSplit.length - 1],
-			"yyyy-MM-dd",
-		);
+    const folderNameSplit = folderName.split("/");
+    const d = DateTime.fromFormat(
+      folderNameSplit[folderNameSplit.length - 1],
+      "yyyy-MM-dd",
+    );
 
-		if (d.isValid) {
-			folderName = folderName.replace(/-/g, DIR_CHAR);
-		}
+    if (d.isValid) {
+      folderName = folderName.replace(/-/g, DIR_CHAR);
+    }
 
-		const folder = this.app.vault.getAbstractFileByPath(folderName);
-		if (!(folder instanceof TFolder)) {
-			await this.app.vault.createFolder(folderName);
-		}
+    const folder = this.app.vault.getAbstractFileByPath(folderName);
+    if (!(folder instanceof TFolder)) {
+      await this.app.vault.createFolder(folderName);
+    }
 
-		const fileName = normalizePath(
-			new ActivityRenderer(
-				this.settings.sync.filename,
-				this.settings.sync.filenameDateFormat,
-			).render(activity),
-		).replace(ILLEGAL_CHAR_REGEX_FILE, REPLACEMENT_CHAR);
+    const fileName = normalizePath(
+      new ActivityRenderer(
+        this.settings.sync.filename,
+        this.settings.sync.filenameDateFormat,
+      ).render(activity),
+    ).replace(ILLEGAL_CHAR_REGEX_FILE, REPLACEMENT_CHAR);
 
-		const filePath = `${folderName}/${fileName}.md`;
+    const filePath = `${folderName}/${fileName}.md`;
 
-		const fileContent = new ActivityRenderer(
-			this.settings.activity.template,
-			this.settings.activity.contentDateFormat,
-			this.settings.activity.frontMatterProperties,
-		).render(activity);
+    const fileContent = new ActivityRenderer(
+      this.settings.activity.template,
+      this.settings.activity.contentDateFormat,
+      this.settings.activity.frontMatterProperties,
+    ).render(activity);
 
-		try {
-			await this.app.vault.create(filePath, fileContent);
-		} catch (error) {
-			if (error.toString().includes("File already exists")) {
-				return false;
-			}
+    try {
+      await this.app.vault.create(filePath, fileContent);
+    } catch (error) {
+      if (error.toString().includes("File already exists")) {
+        return false;
+      }
 
-			throw error;
-		}
+      throw error;
+    }
 
-		return true;
-	}
+    return true;
+  }
 }
