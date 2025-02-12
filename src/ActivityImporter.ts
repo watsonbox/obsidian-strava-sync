@@ -55,7 +55,10 @@ export class ActivityImporter {
       private_note: stravaActivity.private_note || "",
       elapsed_time: stravaActivity.elapsed_time,
       moving_time: stravaActivity.moving_time,
+      distance_miles: stravaActivity.distance * 0.000621371,
       distance: stravaActivity.distance,
+      avg_pace_min_per_mile:
+        1 / (0.000621371 * 60 * stravaActivity.average_speed),
       max_heart_rate: stravaActivity.max_heartrate || 0,
       max_speed: stravaActivity.max_speed || 0,
       average_speed: stravaActivity.average_speed || 0,
@@ -63,8 +66,8 @@ export class ActivityImporter {
       elev_low: stravaActivity.elev_low || 0,
       elev_high: stravaActivity.elev_high || 0,
       calories: stravaActivity.calories || 0,
-      gear_name: stravaActivity.gear?.name || "",
-      workout_type: WorkoutTypes[stravaActivity.workout_type] || "",
+      gear_name: stravaActivity.gear?.name ?? "",
+      workout_type: WorkoutTypes[stravaActivity.workout_type] ?? "",
     };
   }
 }

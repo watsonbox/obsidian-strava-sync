@@ -35,7 +35,7 @@ export class ActivitySerializer {
     const folderNameSplit = folderName.split("/");
     const d = DateTime.fromFormat(
       folderNameSplit[folderNameSplit.length - 1],
-      "yyyy-MM-dd",
+      this.settings.sync.folderDateFormat,
     );
 
     if (d.isValid) {

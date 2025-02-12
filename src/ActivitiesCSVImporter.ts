@@ -75,6 +75,9 @@ export class ActivitiesCSVImporter {
           `Invalid date: ${record["Activity Date"]} ${TIME_ZONE}`,
         );
       }
+      const avg_pace =
+        Number.parseFloat(record["Moving Time"]) /
+        (0.000621371 * 60 * Number.parseFloat(record["Distance"]));
 
       return {
         id: Number.parseInt(record["Activity ID"]),
@@ -86,6 +89,8 @@ export class ActivitiesCSVImporter {
         elapsed_time: Number.parseFloat(record["Elapsed Time"]), // s
         moving_time: Number.parseFloat(record["Moving Time"]), // s
         distance: Number.parseFloat(record["Distance"]), // m
+        distance_miles: Number.parseFloat(record["Distance"]) * 0.000621371, // miles
+        avg_pace_min_per_mile: avg_pace, // min / mile
         max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
         max_speed: Number.parseFloat(record["Max Speed"]), // m/s (not kph)
         average_speed: Number.parseFloat(record["Average Speed"]), // m/s (not kph)

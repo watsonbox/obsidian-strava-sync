@@ -116,7 +116,7 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "If date is used as part of folder name, specify the format date for use. For best results in nested folder structure use 'yyyy-MM-dd'. Format ",
+            "If date is used as part of folder name, specify the format date for use. For best results in nested folder structure use 'yyyy-MM'. Format ",
             fragment.createEl("a", {
               text: "reference",
               href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens",

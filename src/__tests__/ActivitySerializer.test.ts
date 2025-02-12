@@ -51,6 +51,8 @@ describe("ActivitySerializer", () => {
       elapsed_time: 3600,
       moving_time: 3500,
       distance: 10000,
+      distance_miles: 6.213,
+      avg_pace_min_per_mile: 9.5,
       max_heart_rate: 180,
       max_speed: 5,
       average_speed: 3,
