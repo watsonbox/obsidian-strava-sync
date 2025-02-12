@@ -9,7 +9,7 @@ Maintained by jcochran93.
 
 This fork adds the following improvements:
 - Gear name attributes synced from activities
-- improved folder structure for import
+- Improved folder structure for import
 
 This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
 
