@@ -22,7 +22,7 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "BETA: Enter your Strava API client ID (",
+            "Enter your Strava API client ID (",
             fragment.createEl("a", {
               text: "instructions",
               href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
@@ -99,7 +99,7 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Folder")
       .setDesc(
-        "Enter the folder where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the folder name",
+        "Enter the folder where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the folder name.\n{{start_date}} at the end will create a nested folder structure. Ex: 'Exercise/Strava/{{start_date}}' -> 'Exercise/Strava/2025/01/01",
       )
       .addText((text) =>
         text
@@ -116,7 +116,7 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "If date is used as part of folder name, specify the format date for use. Format ",
+            "If date is used as part of folder name, specify the format date for use. For best results in nested folder structure use 'yyyy-MM-dd'. Format ",
             fragment.createEl("a", {
               text: "reference",
               href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens",

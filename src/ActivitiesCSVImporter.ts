@@ -93,7 +93,7 @@ export class ActivitiesCSVImporter {
         elev_low: Number.parseFloat(record["Elevation Low"]), // m
         elev_high: Number.parseFloat(record["Elevation High"]), // m
         calories: Number.parseFloat(record["Calories"]),
-		gear_name: record["Gear Name"],
+		gear_name: record["Activity Gear"],
 		workout_type: WorkoutTypes[0],
       };
     });

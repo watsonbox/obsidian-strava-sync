@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { type App, TFolder, normalizePath } from "obsidian";
 import type { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
@@ -8,6 +9,9 @@ import type { Settings } from "./Settings";
 const REPLACEMENT_CHAR = "-";
 const ILLEGAL_CHAR_REGEX_FILE = /[<>:"/\\|?*\u0000-\u001F]/g;
 const ILLEGAL_CHAR_REGEX_FOLDER = /[<>:"\\|?*\u0000-\u001F]/g;
+const ILLEGAL_TRAILING_WHITESPACE_REGEX = /\s+$/;
+
+const DIR_CHAR = "/";
 
 export class ActivitySerializer {
   app: App;
@@ -19,12 +23,20 @@ export class ActivitySerializer {
   }
 
   async serialize(activity: Activity) {
-    const folderName = normalizePath(
+    var folderName = normalizePath(
       new ActivityRenderer(
         this.settings.sync.folder,
         this.settings.sync.folderDateFormat,
       ).render(activity),
-    ).replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR);
+    ).replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR)
+	.replace(ILLEGAL_TRAILING_WHITESPACE_REGEX, "");
+
+	var folderNameSplit = folderName.split('/');
+	var d = DateTime.fromFormat(folderNameSplit[folderNameSplit.length - 1], "yyyy-MM-dd");
+
+	if (d.isValid){
+		folderName = folderName.replace(/-/g, DIR_CHAR);
+	}
 
     const folder = this.app.vault.getAbstractFileByPath(folderName);
     if (!(folder instanceof TFolder)) {
