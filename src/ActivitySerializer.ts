@@ -39,7 +39,11 @@ export class ActivitySerializer {
     );
 
     if (d.isValid) {
-      folderName = folderName.replace(/-/g, DIR_CHAR);
+      folderNameSplit[folderNameSplit.length - 1] = folderNameSplit[
+        folderNameSplit.length - 1
+      ].replace(/-/g, DIR_CHAR);
+      folderName = folderNameSplit.join("/");
+      console.log(folderNameSplit);
     }
 
     const folder = this.app.vault.getAbstractFileByPath(folderName);
