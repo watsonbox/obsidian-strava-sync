@@ -1,7 +1,7 @@
 {
   "id": "strava-sync",
   "name": "Extended Strava Sync",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "minAppVersion": "0.17.0",
   "description": "Sync activities from Strava.",
   "author": "Jared Cochran",
