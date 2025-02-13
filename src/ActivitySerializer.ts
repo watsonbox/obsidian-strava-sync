@@ -42,7 +42,7 @@ export class ActivitySerializer {
       folderNameSplit[folderNameSplit.length - 1] = folderNameSplit[
         folderNameSplit.length - 1
       ].replace(/-/g, DIR_CHAR);
-      folderName = folderNameSplit.join();
+      folderName = folderNameSplit.join("/");
       console.log(folderNameSplit);
     }
 
