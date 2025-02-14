@@ -1,5 +1,5 @@
-import { type App, Notice, PluginSettingTab, Setting } from "obsidian";
 import { DateTime } from "luxon";
+import { type App, Notice, PluginSettingTab, Setting } from "obsidian";
 import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 import type StravaSync from "./StravaSync";
 
