@@ -37,14 +37,14 @@ This plugin is currently in beta testing phase. The recommended installation met
 
 1. Install BRAT from the Community Plugins in Obsidian
 2. Open the command palette and run the command "BRAT: Add a beta plugin for testing"
-3. Paste `https://github.com/watsonbox/obsidian-strava-sync` into the modal that opens up
+3. Paste `https://github.com/jcochran93/obsidian-strava-sync` into the modal that opens up
 4. Click on Add Plugin 🎉
 
 ### Manually installing the plugin
 
 It's also possible to install the plugin manually:
 
-1. Download the latest release from [the releases page](https://github.com/watsonbox/obsidian-strava-sync/releases).
+1. Download the latest release from [the releases page](https://github.com/jcochran93/obsidian-strava-sync/releases).
 2. Copy `main.js`, `styles.css`, and `manifest.json` to your vault's `VaultFolder/.obsidian/plugins/obsidian-strava-sync/` directory.
 
 ### Sync Configuration
