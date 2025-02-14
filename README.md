@@ -1,5 +1,5 @@
-![GitHub manifest version](https://img.shields.io/github/manifest-json/v/watsonbox/obsidian-strava-sync)
- ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/watsonbox/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/watsonbox/obsidian-strava-sync/total)
+![GitHub manifest version](https://img.shields.io/github/manifest-json/v/jcochran93/obsidian-strava-sync)
+ ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jcochran93/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/jcochran93/obsidian-strava-sync/total)
 
 
 # Obsidian Strava Sync Fork
