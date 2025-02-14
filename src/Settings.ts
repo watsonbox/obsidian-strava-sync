@@ -22,6 +22,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "icon",
   "gear_name",
   "workout_type",
+  "splits",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -54,6 +55,7 @@ export const DEFAULT_SETTINGS: Settings = {
       "workout_type",
       "distance_miles",
       "avg_pace_min_per_mile",
+      "splits",
     ],
     template: DEFAULT_TEMPLATE,
   },

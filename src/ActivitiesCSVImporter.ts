@@ -100,6 +100,7 @@ export class ActivitiesCSVImporter {
         calories: Number.parseFloat(record["Calories"]),
         gear_name: record["Activity Gear"],
         workout_type: record["Workout Type"] ?? WorkoutTypes[0],
+        splits: [],
       };
     });
   }

@@ -1,3 +1,5 @@
+import type { Split } from "./Split";
+
 export interface Activity {
   id: number;
   start_date: Date;
@@ -19,6 +21,7 @@ export interface Activity {
   calories: number;
   gear_name: string;
   workout_type: string;
+  splits: Split[];
 
   [propName: string]: any;
 }
