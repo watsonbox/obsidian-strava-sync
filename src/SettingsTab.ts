@@ -1,4 +1,5 @@
 import { type App, Notice, PluginSettingTab, Setting } from "obsidian";
+import { DateTime } from "luxon";
 import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 import type StravaSync from "./StravaSync";
 
@@ -170,6 +171,34 @@ export class SettingsTab extends PluginSettingTab {
           .setValue(this.plugin.settings.sync.filenameDateFormat)
           .onChange(async (value) => {
             this.plugin.settings.sync.filenameDateFormat = value;
+            await this.plugin.saveSettings();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName("Date of Last Synced Activity")
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            "The date of the last synced activity. Update this if you need to redownload activities. Limited to the last 30 activities per the Strava API page limit. Import may need to be run several times if there are more than 30 activities after the entered date.",
+          );
+        }),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder("")
+          .setValue(
+            this.plugin.settings.sync.lastActivityTimestamp
+              ? DateTime.fromSeconds(
+                  this.plugin.settings.sync.lastActivityTimestamp,
+                ).toString()
+              : DateTime.now().minus({ days: 30 }).toString(),
+          )
+          .onChange(async (value) => {
+            this.plugin.settings.sync.lastActivityTimestamp = DateTime.fromISO(
+              value,
+              { zone: "utc" },
+            ).toSeconds();
             await this.plugin.saveSettings();
           }),
       );

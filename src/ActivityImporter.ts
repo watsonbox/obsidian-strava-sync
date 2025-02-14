@@ -68,6 +68,7 @@ export class ActivityImporter {
       calories: stravaActivity.calories || 0,
       gear_name: stravaActivity.gear?.name ?? "",
       workout_type: WorkoutTypes[stravaActivity.workout_type] ?? "",
+      splits: stravaActivity.splits_standard,
     };
   }
 }
