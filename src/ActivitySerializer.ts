@@ -1,3 +1,4 @@
+import { toGeoJSON } from "@mapbox/polyline";
 import { type App, TFolder, normalizePath } from "obsidian";
 import type { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
@@ -45,6 +46,27 @@ export class ActivitySerializer {
       this.settings.activity.contentDateFormat,
       this.settings.activity.frontMatterProperties,
     ).render(activity);
+
+    if (activity.summary_polyline) {
+      try {
+        await this.app.vault.create(
+          `${folderName}/${fileName}.geojson`,
+          JSON.stringify(
+            {
+              type: "Feature",
+              geometry: toGeoJSON(activity.summary_polyline),
+              properties: {},
+            },
+            null,
+            2,
+          ),
+        );
+      } catch (error) {
+        if (!error.toString().includes("File already exists")) {
+          throw error;
+        }
+      }
+    }
 
     try {
       await this.app.vault.create(filePath, fileContent);
