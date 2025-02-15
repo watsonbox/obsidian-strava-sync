@@ -29,7 +29,7 @@
     "id": "a12271989718",
     "polyline": "encoded_polyline",
     "resource_state": 3,
-    "summary_polyline": "encoded_polyline"
+    "summary_polyline": "encoded_summary_polyline"
   },
   "trainer": false,
   "commute": false,

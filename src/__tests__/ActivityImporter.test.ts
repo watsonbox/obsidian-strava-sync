@@ -65,6 +65,7 @@ describe("ActivityImporter", () => {
       start_date: new Date("2024-08-24T10:47:26Z"),
       elapsed_time: 1955,
       distance: 4551.3,
+      summary_polyline: "encoded_summary_polyline",
     });
 
     expect(activities[1]).toMatchObject({
@@ -74,6 +75,7 @@ describe("ActivityImporter", () => {
       start_date: new Date("2024-08-28T05:07:43Z"),
       elapsed_time: 38846,
       distance: 154081.0,
+      summary_polyline: "encoded_summary_polyline",
     });
 
     expect(activities[2]).toMatchObject({
@@ -84,5 +86,7 @@ describe("ActivityImporter", () => {
       elapsed_time: 1697,
       distance: 1000.0,
     });
+
+    expect(activities[2].summary_polyline).toBeUndefined();
   });
 });
