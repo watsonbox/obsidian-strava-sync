@@ -60,6 +60,9 @@ The default file path template is `Strava/{{start_date}}/{{id}} {{name}}`, which
 
 The date formats themselves can also be adjusted in the plugin settings.
 
+> [!TIP]
+> If you prefer to group files differently, that's possible too. For example, create a folder structure like `2024/09-September` (with all September's activities inside) by setting the folder date format to `yyyy/MM-MMMM`.
+
 #### Content
 
 The default content template is:
