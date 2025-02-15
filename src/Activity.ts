@@ -15,6 +15,7 @@ export interface Activity {
   elev_low: number;
   elev_high: number;
   calories: number;
+  summary_polyline?: string;
 
   [propName: string]: any;
 }
