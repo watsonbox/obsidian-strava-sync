@@ -51,6 +51,8 @@ describe("ActivitySerializer", () => {
       elapsed_time: 3600,
       moving_time: 3500,
       distance: 10000,
+      distance_miles: 6.213,
+      avg_pace_min_per_mile: 9.5,
       max_heart_rate: 180,
       max_speed: 5,
       average_speed: 3,
@@ -58,6 +60,32 @@ describe("ActivitySerializer", () => {
       elev_low: 10,
       elev_high: 60,
       calories: 500,
+      gear_name: "Saucony Endorphin Speed",
+      workout_type: "Workout",
+      splits: [
+        {
+          distance: 1609.4,
+          elapsed_time: 540,
+          elevation_difference: 0.0,
+          moving_time: 540,
+          split: 1,
+          average_speed: 2.98,
+          average_grade_adjusted_speed: 2.98,
+          average_heartrate: 162.4925925925926,
+          pace_zone: 1,
+        },
+        {
+          distance: 1609.7,
+          elapsed_time: 551,
+          elevation_difference: 0.0,
+          moving_time: 551,
+          split: 2,
+          average_speed: 2.92,
+          average_grade_adjusted_speed: 2.92,
+          average_heartrate: 165.61161524500906,
+          pace_zone: 1,
+        },
+      ],
     };
   });
 
