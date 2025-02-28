@@ -1,30 +1,8 @@
-![GitHub manifest version](https://img.shields.io/github/manifest-json/v/jcochran93/obsidian-strava-sync)
- ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jcochran93/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/jcochran93/obsidian-strava-sync/total)
+![GitHub manifest version](https://img.shields.io/github/manifest-json/v/watsonbox/obsidian-strava-sync)
+ ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/watsonbox/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/watsonbox/obsidian-strava-sync/total)
 
 
-# Obsidian Strava Sync Fork
-
-This is a fork of [Obsidian Strava Sync ](https://github.com/watsonbox/obsidian-strava-sync) by watsonbox.
-Maintained by jcochran93.
-
-This fork adds the following improvements:
-- Gear name attributes synced from activities
-    distance_miles
-    avg_pace_min_per_mile
-    workout_type
-    gear_name
-    splits:
-        distance
-        elapsed_time
-        elevation_difference
-        moving_time
-        split
-        average_speed
-        average_grade_adjusted_speed
-        average_heartrate
-        pace_zone
-
-- Improved folder structure for import
+# Obsidian Strava Sync
 
 This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
 
@@ -52,14 +30,14 @@ This plugin is currently in beta testing phase. The recommended installation met
 
 1. Install BRAT from the Community Plugins in Obsidian
 2. Open the command palette and run the command "BRAT: Add a beta plugin for testing"
-3. Paste `https://github.com/jcochran93/obsidian-strava-sync` into the modal that opens up
+3. Paste `https://github.com/watsonbox/obsidian-strava-sync` into the modal that opens up
 4. Click on Add Plugin 🎉
 
 ### Manually installing the plugin
 
 It's also possible to install the plugin manually:
 
-1. Download the latest release from [the releases page](https://github.com/jcochran93/obsidian-strava-sync/releases).
+1. Download the latest release from [the releases page](https://github.com/watsonbox/obsidian-strava-sync/releases).
 2. Copy `main.js`, `styles.css`, and `manifest.json` to your vault's `VaultFolder/.obsidian/plugins/obsidian-strava-sync/` directory.
 
 ### Sync Configuration
@@ -166,6 +144,7 @@ workout_type: "General"
 distance_miles: 6.2577030667999995
 avg_pace_min_per_mile: 8.762629303563996
 ---
+
 ```
 
 The property `id` is always added.
