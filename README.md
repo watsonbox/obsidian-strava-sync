@@ -9,6 +9,21 @@ Maintained by jcochran93.
 
 This fork adds the following improvements:
 - Gear name attributes synced from activities
+    distance_miles
+    avg_pace_min_per_mile
+    workout_type
+    gear_name
+    splits:
+        distance
+        elapsed_time
+        elevation_difference
+        moving_time
+        split
+        average_speed
+        average_grade_adjusted_speed
+        average_heartrate
+        pace_zone
+
 - Improved folder structure for import
 
 This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
