@@ -18,6 +18,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elev_high",
   "calories",
   "icon",
+  "gear_name",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
