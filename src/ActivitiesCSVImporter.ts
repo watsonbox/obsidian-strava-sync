@@ -1,5 +1,6 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import type { Activity } from "./Activity";
+import { paceFromSpeedMS, paceFromSpeedMS_mile, formatPace } from "./ActivityMetrics";
 
 const TIME_ZONE = "UTC";
 
