@@ -86,7 +86,7 @@ export class ActivitiesCSVImporter {
         distance: Number.parseFloat(record["Distance"]), // m
         max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
         max_speed: Number(Number.parseFloat(record["Max Speed"]).toFixed(3)), // m/s (not kph)
-        average_speed: Number.parseFloat(record["Average Speed"]), // m/s (not kph)
+        average_speed: Number(Number.parseFloat(record["Average Speed"]).toFixed(3)), // m/s (not kph)
         total_elevation_gain: Number.parseFloat(record["Elevation Gain"]), // m
         elev_low: Number.parseFloat(record["Elevation Low"]), // m
         elev_high: Number.parseFloat(record["Elevation High"]), // m
