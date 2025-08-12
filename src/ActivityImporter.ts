@@ -60,6 +60,7 @@ export class ActivityImporter {
       moving_time: stravaActivity.moving_time,
       distance: stravaActivity.distance,
       distance_km: Number((stravaActivity.distance / 1000).toFixed(2)),
+      distance_mile: Number((stravaActivity.distance / 1609.344).toFixed(2)),
       max_heart_rate: stravaActivity.max_heartrate || 0,
       max_speed: stravaActivity.max_speed || 0,
       average_speed: stravaActivity.average_speed || 0,

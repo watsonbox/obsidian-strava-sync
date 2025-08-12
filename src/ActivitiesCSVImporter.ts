@@ -90,7 +90,12 @@ export class ActivitiesCSVImporter {
         elapsed_time: Number.parseFloat(record["Elapsed Time"]), // s
         moving_time: Number.parseFloat(record["Moving Time"]), // s
         distance: Number.parseFloat(record["Distance"]), // m
-        distance_km: Number((Number.parseFloat(record["Distance"]) / 1000).toFixed(2)),
+        distance_km: Number(
+          (Number.parseFloat(record["Distance"]) / 1000).toFixed(2),
+        ),
+        distance_mile: Number(
+          (Number.parseFloat(record["Distance"]) / 1609.344).toFixed(2),
+        ),
         max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
         max_speed: Number(Number.parseFloat(record["Max Speed"]).toFixed(3)), // m/s (not kph)
         average_speed: Number(
