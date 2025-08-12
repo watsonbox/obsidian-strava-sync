@@ -89,6 +89,9 @@ export class ActivitiesCSVImporter {
         description: record["Activity Description"],
         private_note: record["Activity Private Note"],
         elapsed_time: Number.parseFloat(record["Elapsed Time"]), // s
+        elapsed_time_hms: formatSecondsToHMS(
+          Number.parseFloat(record["Elapsed Time"]),
+        ),
         moving_time: Number.parseFloat(record["Moving Time"]), // s
         distance: Number.parseFloat(record["Distance"]), // m
         distance_km: Number(

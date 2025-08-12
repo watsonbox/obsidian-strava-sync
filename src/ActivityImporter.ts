@@ -58,6 +58,7 @@ export class ActivityImporter {
       description: stravaActivity.description || "",
       private_note: stravaActivity.private_note || "",
       elapsed_time: stravaActivity.elapsed_time,
+      elapsed_time_hms: formatSecondsToHMS(stravaActivity.elapsed_time),
       moving_time: stravaActivity.moving_time,
       distance: stravaActivity.distance,
       distance_km: Number((stravaActivity.distance / 1000).toFixed(2)),

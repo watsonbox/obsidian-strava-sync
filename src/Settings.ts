@@ -8,6 +8,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "description",
   "private_note",
   "elapsed_time",
+  "elapsed_time_hms",
   "moving_time",
   "distance",
   "distance_km",
