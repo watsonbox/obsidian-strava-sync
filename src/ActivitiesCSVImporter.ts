@@ -20,6 +20,7 @@ const REQUIRED_COLUMNS = [
   "Elevation Low",
   "Elevation High",
   "Calories",
+  "Activity Gear",
 ];
 
 export class CSVImportError extends Error {
