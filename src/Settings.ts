@@ -19,6 +19,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "calories",
   "icon",
   "gear_name",
+  "pace",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {

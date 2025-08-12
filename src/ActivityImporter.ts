@@ -1,6 +1,10 @@
 import type { Activity } from "./Activity";
+import {
+  formatPace,
+  paceFromSpeedMS,
+  paceFromSpeedMS_mile,
+} from "./ActivityMetrics";
 import type { StravaApi } from "./StravaApi";
-import { paceFromSpeedMS, paceFromSpeedMS_mile, formatPace } from "./ActivityMetrics";
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
 export class ActivityImporter {

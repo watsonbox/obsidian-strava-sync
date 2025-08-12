@@ -12,10 +12,9 @@ export function paceFromSpeedMS_mile(speedMS: number): number | null {
 
 // Format pace as mm:ss
 export function formatPace(secondsPerUnit: number | null): string | null {
-  if (secondsPerUnit == null || !isFinite(secondsPerUnit)) return null;
+  if (secondsPerUnit == null || !Number.isFinite(secondsPerUnit)) return null;
   const total = Math.round(secondsPerUnit);
   const m = Math.floor(total / 60);
   const s = total % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
-
