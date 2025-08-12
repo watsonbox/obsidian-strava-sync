@@ -10,6 +10,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elapsed_time",
   "elapsed_time_hms",
   "moving_time",
+  "moving_time_hms",
   "distance",
   "distance_km",
   "distance_mile",

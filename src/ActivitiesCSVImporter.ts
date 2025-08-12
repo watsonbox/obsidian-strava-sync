@@ -93,6 +93,9 @@ export class ActivitiesCSVImporter {
           Number.parseFloat(record["Elapsed Time"]),
         ),
         moving_time: Number.parseFloat(record["Moving Time"]), // s
+        moving_time_hms: formatSecondsToHMS(
+          Number.parseFloat(record["Moving Time"]),
+        ),
         distance: Number.parseFloat(record["Distance"]), // m
         distance_km: Number(
           (Number.parseFloat(record["Distance"]) / 1000).toFixed(2),

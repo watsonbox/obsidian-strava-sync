@@ -60,6 +60,7 @@ export class ActivityImporter {
       elapsed_time: stravaActivity.elapsed_time,
       elapsed_time_hms: formatSecondsToHMS(stravaActivity.elapsed_time),
       moving_time: stravaActivity.moving_time,
+      moving_time_hms: formatSecondsToHMS(stravaActivity.moving_time),
       distance: stravaActivity.distance,
       distance_km: Number((stravaActivity.distance / 1000).toFixed(2)),
       distance_mile: Number((stravaActivity.distance / 1609.344).toFixed(2)),
