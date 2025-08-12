@@ -10,6 +10,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elapsed_time",
   "moving_time",
   "distance",
+  "distance_km",
   "max_heart_rate",
   "max_speed",
   "average_speed",
