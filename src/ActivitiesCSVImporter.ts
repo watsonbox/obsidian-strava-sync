@@ -104,6 +104,9 @@ export class ActivitiesCSVImporter {
           (Number.parseFloat(record["Distance"]) / 1609.344).toFixed(2),
         ),
         max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
+        average_heart_rate: Number(
+          Number.parseFloat(record["Average Heart Rate"]).toFixed(1),
+        ),
         max_speed: Number(Number.parseFloat(record["Max Speed"]).toFixed(3)), // m/s (not kph)
         average_speed: Number(
           Number.parseFloat(record["Average Speed"]).toFixed(3),

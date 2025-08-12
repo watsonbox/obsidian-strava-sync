@@ -15,6 +15,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "distance_km",
   "distance_mile",
   "max_heart_rate",
+  "average_heart_rate",
   "max_speed",
   "average_speed",
   "total_elevation_gain",
