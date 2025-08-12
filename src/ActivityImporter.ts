@@ -1,6 +1,7 @@
 import type { Activity } from "./Activity";
 import {
   formatPace,
+  formatSecondsToHMS,
   paceFromSpeedMS,
   paceFromSpeedMS_mile,
 } from "./ActivityMetrics";
