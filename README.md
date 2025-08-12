@@ -108,15 +108,23 @@ The templating language used is [Handlebars.js](https://handlebarsjs.com/guide/)
 | `description`         | "Great weather and company"       | Description of the activity                |
 | `private_note`        | "Take two inner tubes next time"  | Private note for the activity              |
 | `elapsed_time`        | 38846                             | Total elapsed time in seconds              |
+| `elapsed_time_hms`    | 1:05:34                           | Total elapsed time in HH:mm:ss             |
 | `moving_time`         | 26010                             | Moving time in seconds                     |
+| `moving_time_hms`     | 57:33                             | Moving time in HH:mm:ss                    |
 | `distance`            | 154081.0                          | Distance in meters                         |
+| `distance_km`         | 154.08                            | Distance in kilometers                     |
+| `distance_mile`       | 95.74                             | Distance in miles                          |
 | `max_heart_rate`      | 180                               | Maximum heart rate                         |
+| `average_heart_rate`  | 156                               | Average heart rate                         |
 | `max_speed`           | 18.8                              | Maximum speed in meters per second         |
 | `average_speed`       | 11.1                              | Average speed in meters per second         |
 | `total_elevation_gain`| 1338.0                            | Total elevation gain in meters             |
 | `elev_low`            | 50.7                              | Lowest elevation in meters                 |
 | `elev_high`           | 60.2                              | Highest elevation in meters                |
 | `calories`            | 1234                              | Calories burned                            |
+| `gear_name`           | Mizuno Wave Rider 27              | Name of gear used                          |
+| `pace`                | 5:21                              | Average pace in mm:ss per km               |
+| `pace_mile`           | 8:36                              | Average pace in mm:ss per mile             |
 | `icon`                | 🚴‍♂️🏃🏊⛷️🏸🛶🏋️🚶🚵⛳🦽🥾<br>⛸️🛼🏄🏓🧘🧗🚣⛵🛹🏂⚽🎾 | Activity icon         |
 
 #### Properties
