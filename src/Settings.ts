@@ -20,6 +20,7 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "icon",
   "gear_name",
   "pace",
+  "pace_mile",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {

@@ -103,6 +103,9 @@ export class ActivitiesCSVImporter {
         pace: formatPace(
           paceFromSpeedMS(Number.parseFloat(record["Average Speed"])),
         ), // min/km
+        pace_mile: formatPace(
+          paceFromSpeedMS_mile(Number.parseFloat(record["Average Speed"])),
+        ), // min/mile
       };
     });
   }

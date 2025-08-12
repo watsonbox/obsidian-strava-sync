@@ -68,6 +68,9 @@ export class ActivityImporter {
       calories: stravaActivity.calories || 0,
       gear_name: stravaActivity.gear?.name ?? "",
       pace: formatPace(paceFromSpeedMS(stravaActivity.average_speed || 0)),
+      pace_mile: formatPace(
+        paceFromSpeedMS_mile(stravaActivity.average_speed || 0),
+      ),
     };
   }
 }
