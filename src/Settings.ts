@@ -22,10 +22,10 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elev_low",
   "elev_high",
   "calories",
-  "icon",
   "gear_name",
   "pace",
   "pace_mile",
+  "icon",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
