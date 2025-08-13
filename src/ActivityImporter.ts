@@ -72,7 +72,7 @@ export class ActivityImporter {
       elev_low: stravaActivity.elev_low || 0,
       elev_high: stravaActivity.elev_high || 0,
       calories: stravaActivity.calories || 0,
-      gear_name: stravaActivity.gear?.name ?? "",
+      gear_name: stravaActivity.gear?.name || "",
       pace: formatPace(paceFromSpeedMS(stravaActivity.average_speed || 0)),
       pace_mile: formatPace(
         paceFromSpeedMS_mile(stravaActivity.average_speed || 0),
