@@ -27,19 +27,34 @@ export class ActivityImporter {
 
       const activities = await this.stravaApi.listActivities(params);
 
-      const detailedActivities = await Promise.all(
-        activities.map(async (activity: any) => {
-          const detailedActivity = await this.stravaApi.getActivity(
-            activity.id,
-          );
-          return this.mapStravaActivityToActivity(detailedActivity);
-        }),
-      );
+      // Process activities with rate limiting to avoid 429 errors
+      const detailedActivities = [];
+      for (const activity of activities) {
+        try {
+          const detailedActivity = await this.stravaApi.getActivity(activity.id);
+          detailedActivities.push(this.mapStravaActivityToActivity(detailedActivity));
+          
+          // Add a small delay between requests to respect rate limits
+          // Strava allows 100 requests per 15 minutes, so ~400ms between requests is safe
+          await new Promise(resolve => setTimeout(resolve, 500));
+        } catch (error) {
+          if (error.message?.includes('429')) {
+            console.warn(`Rate limit hit while fetching activity ${activity.id}. Stopping import.`);
+            break; // Stop processing more activities if we hit rate limit
+          }
+          throw error; // Re-throw other errors
+        }
+      }
 
       return detailedActivities;
     } catch (error) {
       console.error("Error fetching activities from Strava:", error);
-      throw new Error("Failed to import activities from Strava");
+      
+      if (error.message?.includes('429')) {
+        throw new Error("Strava API rate limit exceeded. Please wait 15 minutes before trying again, or disable 'Rewrite existing activities' to import only new activities.");
+      }
+      
+      throw new Error(`Failed to import activities from Strava: ${error.message || error}`);
     }
   }
 

@@ -1,4 +1,4 @@
-import { type App, TFolder, normalizePath } from "obsidian";
+import { type App, TFile, TFolder, normalizePath } from "obsidian";
 import type { Activity } from "./Activity";
 import { ActivityRenderer } from "./ActivityRenderer";
 import type { Settings } from "./Settings";
@@ -46,16 +46,21 @@ export class ActivitySerializer {
       this.settings.activity.frontMatterProperties,
     ).render(activity);
 
+    const existingFile = this.app.vault.getAbstractFileByPath(filePath);
+    
     try {
-      await this.app.vault.create(filePath, fileContent);
-    } catch (error) {
-      if (error.toString().includes("File already exists")) {
-        return false;
+      if (existingFile && existingFile instanceof TFile) {
+        // File exists, update it
+        await this.app.vault.modify(existingFile, fileContent);
+        return false; // File was updated, not created
+      } else {
+        // File doesn't exist, create it
+        await this.app.vault.create(filePath, fileContent);
+        return true; // File was created
       }
-
+    } catch (error) {
+      console.error(`Error serializing activity to ${filePath}:`, error);
       throw error;
     }
-
-    return true;
   }
 }

@@ -1,16 +1,15 @@
 ![GitHub manifest version](https://img.shields.io/github/manifest-json/v/watsonbox/obsidian-strava-sync)
- ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/watsonbox/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/watsonbox/obsidian-strava-sync/total)
-
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/watsonbox/obsidian-strava-sync/ci.yaml) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/watsonbox/obsidian-strava-sync/total)
 
 # Obsidian Strava Sync
 
 This plugin synchronizes activities from [Strava](https://www.strava.com/) into [Obsidian](https://obsidian.md).
 
-- 🗄️ Import [Strava bulk export](https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#h_01GG58HC4F1BGQ9PQZZVANN6WF) CSV files for historical activities
-- 📅 Sync recent activities from Strava via the [Strava API](https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities)
-- 📝 [Handlebars.js](https://handlebarsjs.com/guide/) templates for imported activities
-- 💿 Customizable properties / front matter allowing for [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/) integration
-- 🏃 Per-sport icons for use with [Iconize](https://florianwoelki.github.io/obsidian-iconize/)
+-   🗄️ Import [Strava bulk export](https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#h_01GG58HC4F1BGQ9PQZZVANN6WF) CSV files for historical activities
+-   📅 Sync recent activities from Strava via the [Strava API](https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities)
+-   📝 [Handlebars.js](https://handlebarsjs.com/guide/) templates for imported activities
+-   💿 Customizable properties / front matter allowing for [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/) integration
+-   🏃 Per-sport icons for use with [Iconize](https://florianwoelki.github.io/obsidian-iconize/)
 
 The purpose of this plugin is not to provide a data backup, or to replace the functionality of the Strava apps. It's simply to allow activities to be more easily referenced, tracked and visualized within Obsidian, especially through integration with existing plugins like [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/).
 
@@ -48,6 +47,22 @@ In order to configure the plugin, you will need to obtain an access token from S
 
 Once that's done, copy the Client ID and Client Secret into the plugin settings, and click "Connect with Strava". You will be redirected to Strava to login and authorize access. After successful authorization, you will be redirected back to your Obsidian vault and can close the browser window.
 
+## API Rate Limits
+
+Strava enforces the following rate limits on their API:
+
+### Overall Rate Limits
+
+-   **200 requests every 15 minutes**
+-   **2,000 requests daily**
+
+### Read Rate Limits
+
+-   **100 requests every 15 minutes**
+-   **1,000 requests daily**
+
+These limits apply to all API requests made by the plugin when syncing activities from Strava. The plugin respects these limits to ensure reliable operation and compliance with Strava's terms of service.
+
 ## Basic Usage
 
 Typically, once the plugin is enabled and configured, you'll want to set up templates for the activities as you import them. This can be done for the file path, the content itself, and the properties to be added.
@@ -78,8 +93,7 @@ Description: {{description}}
 {{#if private_note}}
 
 > [!NOTE] Private note
-> {{private_note}}
-{{/if}}
+> {{private_note}} > {{/if}}
 
 #Strava
 ```
@@ -99,25 +113,25 @@ Description: This is a description
 
 The templating language used is [Handlebars.js](https://handlebarsjs.com/guide/). The available fields are as follows (more info [here](https://developers.strava.com/docs/reference/#api-models-DetailedActivity)):
 
-| Field                 | Example(s)                        | Description                                |
-|-----------------------|-----------------------------------|--------------------------------------------|
-| `id`                  | 1218940553                        | Unique identifier for the activity         |
-| `start_date`          | "2024-08-28 05:07:43"             | Start date and time of the activity        |
-| `name`                | "Dynamo Challenge 2024"           | Name of the activity                       |
-| `sport_type`          | "Ride", "Run", "Swim", etc.       | Type of sport                              |
-| `description`         | "Great weather and company"       | Description of the activity                |
-| `private_note`        | "Take two inner tubes next time"  | Private note for the activity              |
-| `elapsed_time`        | 38846                             | Total elapsed time in seconds              |
-| `moving_time`         | 26010                             | Moving time in seconds                     |
-| `distance`            | 154081.0                          | Distance in meters                         |
-| `max_heart_rate`      | 180                               | Maximum heart rate                         |
-| `max_speed`           | 18.8                              | Maximum speed in meters per second         |
-| `average_speed`       | 11.1                              | Average speed in meters per second         |
-| `total_elevation_gain`| 1338.0                            | Total elevation gain in meters             |
-| `elev_low`            | 50.7                              | Lowest elevation in meters                 |
-| `elev_high`           | 60.2                              | Highest elevation in meters                |
-| `calories`            | 1234                              | Calories burned                            |
-| `icon`                | 🚴‍♂️🏃🏊⛷️🏸🛶🏋️🚶🚵⛳🦽🥾<br>⛸️🛼🏄🏓🧘🧗🚣⛵🛹🏂⚽🎾 | Activity icon         |
+| Field                  | Example(s)                                           | Description                         |
+| ---------------------- | ---------------------------------------------------- | ----------------------------------- |
+| `id`                   | 1218940553                                           | Unique identifier for the activity  |
+| `start_date`           | "2024-08-28 05:07:43"                                | Start date and time of the activity |
+| `name`                 | "Dynamo Challenge 2024"                              | Name of the activity                |
+| `sport_type`           | "Ride", "Run", "Swim", etc.                          | Type of sport                       |
+| `description`          | "Great weather and company"                          | Description of the activity         |
+| `private_note`         | "Take two inner tubes next time"                     | Private note for the activity       |
+| `elapsed_time`         | 38846                                                | Total elapsed time in seconds       |
+| `moving_time`          | 26010                                                | Moving time in seconds              |
+| `distance`             | 154081.0                                             | Distance in meters                  |
+| `max_heart_rate`       | 180                                                  | Maximum heart rate                  |
+| `max_speed`            | 18.8                                                 | Maximum speed in meters per second  |
+| `average_speed`        | 11.1                                                 | Average speed in meters per second  |
+| `total_elevation_gain` | 1338.0                                               | Total elevation gain in meters      |
+| `elev_low`             | 50.7                                                 | Lowest elevation in meters          |
+| `elev_high`            | 60.2                                                 | Highest elevation in meters         |
+| `calories`             | 1234                                                 | Calories burned                     |
+| `icon`                 | 🚴‍♂️🏃🏊⛷️🏸🛶🏋️🚶🚵⛳🦽🥾<br>⛸️🛼🏄🏓🧘🧗🚣⛵🛹🏂⚽🎾 | Activity icon                       |
 
 #### Properties
 
@@ -170,76 +184,225 @@ The following are some examples of what you can do with Dataview and the Strava 
     WHERE icontains(private_note, "knee")
     ```
 
-### List all activities for the current month in a callout
+### List all activities with month selection
 
-    > [!EXAMPLE] This Month's Activities
-    >
-    > ```dataview
-    > TABLE WITHOUT id
-    >   link(file.path, name) AS Activity,
-    >   dateformat(localtime(start_date), "yyyy-MM-dd") AS Date,
-    >   dur(round(elapsed_time/60) + "m") as Duration,
-    >   choice(length(private_note) > 0, "📝", "") AS "📝",
-    >   choice(icontains(private_note, "pain"), "🤕", "") AS "🤕"
-    > FROM "Strava"
-    > WHERE dateformat(start_date, "yyyy-MM") = dateformat(date(now),"yyyy-MM")
-    > ```
+```dataviewjs
+let activities = dv.pages('"Strava"').sort(a => a.start_date, 'desc');
+let container = dv.container;
+
+// Create main container with better styling
+container.style.fontFamily = "var(--font-interface)";
+container.style.fontSize = "var(--font-size-small)";
+
+// Dropdown container with styling
+let dropdownContainer = container.createEl("div");
+dropdownContainer.style.marginBottom = "16px";
+dropdownContainer.style.display = "flex";
+dropdownContainer.style.alignItems = "center";
+dropdownContainer.style.gap = "8px";
+
+let label = dropdownContainer.createEl("span", { text: "Filter by month:" });
+label.style.fontWeight = "500";
+
+let select = dropdownContainer.createEl("select");
+select.style.padding = "4px 8px";
+select.style.borderRadius = "4px";
+select.style.border = "1px solid var(--background-modifier-border)";
+select.style.backgroundColor = "var(--background-primary)";
+select.style.color = "var(--text-normal)";
+
+let allOption = select.createEl("option", { text: "All" });
+allOption.value = "all";
+
+let months = Array.from(new Set(activities.map(a => a.start_date.toFormat("yyyy-MM"))));
+months.sort((a,b) => b.localeCompare(a));
+months.forEach(m => {
+    let opt = select.createEl("option", { text: m });
+    opt.value = m;
+});
+
+// Count div with better styling
+let countDiv = container.createEl("div");
+countDiv.style.marginBottom = "12px";
+countDiv.style.padding = "8px";
+countDiv.style.backgroundColor = "var(--background-secondary)";
+countDiv.style.borderRadius = "4px";
+countDiv.style.fontWeight = "500";
+
+// Table container
+let tableDiv = container.createEl("div");
+tableDiv.style.overflowX = "auto";
+
+// Render table function
+function renderTable(month) {
+    let filtered = month === "all" ? activities : activities.filter(a => a.start_date.toFormat("yyyy-MM") === month);
+
+    // Update count
+    countDiv.innerHTML = `<strong>Total activities:</strong> ${filtered.length}`;
+
+    // Clear previous content
+    tableDiv.innerHTML = "";
+
+    if (filtered.length === 0) {
+        tableDiv.innerHTML = "<p style='text-align: center; color: var(--text-muted); padding: 20px;'>No activities found for this period.</p>";
+        return;
+    }
+
+    // Create table with better styling
+    let table = tableDiv.createEl("table");
+    table.style.width = "100%";
+    table.style.borderCollapse = "collapse";
+    table.style.marginTop = "8px";
+    table.style.backgroundColor = "var(--background-primary)";
+    table.style.borderRadius = "6px";
+    table.style.overflow = "hidden";
+    table.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+
+    // Header with improved styling
+    let thead = table.createEl("thead");
+    thead.style.backgroundColor = "var(--background-secondary)";
+    let headerRow = thead.insertRow();
+
+    ["Activity", "Date", "Duration"].forEach(text => {
+        let th = document.createElement("th");
+        th.textContent = text;
+        th.style.border = "1px solid var(--background-modifier-border)";
+        th.style.padding = "12px 8px";
+        th.style.textAlign = "left";
+        th.style.fontWeight = "600";
+        th.style.color = "var(--text-normal)";
+        th.style.fontSize = "var(--font-size-small)";
+        headerRow.appendChild(th);
+    });
+
+    // Body
+    let tbody = table.createEl("tbody");
+
+    filtered.forEach((a, index) => {
+        let row = tbody.insertRow();
+        row.style.backgroundColor = index % 2 === 0 ? "var(--background-primary)" : "var(--background-secondary-alt)";
+        row.style.transition = "background-color 0.2s ease";
+
+        // Hover effect
+        row.addEventListener("mouseenter", () => {
+            row.style.backgroundColor = "var(--background-modifier-hover)";
+        });
+        row.addEventListener("mouseleave", () => {
+            row.style.backgroundColor = index % 2 === 0 ? "var(--background-primary)" : "var(--background-secondary-alt)";
+        });
+
+        // Activity cell with proper Obsidian link
+        let cell1 = row.insertCell();
+        cell1.style.border = "1px solid var(--background-modifier-border)";
+        cell1.style.padding = "8px";
+
+        let link = document.createElement("a");
+        link.textContent = a.name.replace(/^\d+\s*/, ''); // Remove ID from beginning
+        link.className = "internal-link";
+        link.style.color = "var(--link-color)";
+        link.style.textDecoration = "none";
+
+        // Create proper Obsidian internal link
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Use app.workspace.openLinkText for proper internal linking
+            if (app && app.workspace) {
+                app.workspace.openLinkText(a.file.name, "", false);
+            } else {
+                // Fallback to obsidian:// protocol
+                window.open(`obsidian://open?vault=${encodeURIComponent(app.vault.getName())}&file=${encodeURIComponent(a.file.path)}`, '_self');
+            }
+        });
+
+        cell1.appendChild(link);
+
+        // Date cell
+        let cell2 = row.insertCell();
+        cell2.textContent = a.start_date.toFormat("yyyy-MM-dd");
+        cell2.style.border = "1px solid var(--background-modifier-border)";
+        cell2.style.padding = "8px";
+        cell2.style.fontFamily = "var(--font-monospace)";
+
+        // Duration cell with better formatting
+        let cell3 = row.insertCell();
+        let hours = Math.floor(a.elapsed_time / 3600);
+        let minutes = Math.floor((a.elapsed_time % 3600) / 60);
+        let durationText = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+        cell3.textContent = durationText;
+        cell3.style.border = "1px solid var(--background-modifier-border)";
+        cell3.style.padding = "8px";
+        cell3.style.fontFamily = "var(--font-monospace)";
+    });
+}
+
+// Initial render
+renderTable("all");
+
+// Handle dropdown change
+select.addEventListener("change", () => {
+    renderTable(select.value);
+});
+```
 
 ### Show a chart of total distance per year by activity type
 
 Using DataviewJS gives us much more flexibility, for example the ability to use the [Charts](https://charts.phib.ro/Meta/Charts/Charts+Documentation) plugin to visualize historical activity data.
 
-    ```dataviewjs
-```js
-const pages = dv.pages('#Strava')
-const dates = pages.map(p => p.start_date).values
+```dataviewjs
+
+js
+const pages = dv.pages("#Strava");
+const dates = pages.map((p) => p.start_date).values;
 const yearData = {};
 
-pages.forEach(page => {
-  const year = moment(page.start_date.ts).startOf('week').format('YYYY');
-  const ridingDistance = page.sport_type === 'Ride' ? page.distance : 0;
-  const runningDistance = page.sport_type === 'Run' ? page.distance : 0;
+pages.forEach((page) => {
+	const year = moment(page.start_date.ts).startOf("week").format("YYYY");
+	const ridingDistance = page.sport_type === "Ride" ? page.distance : 0;
+	const runningDistance = page.sport_type === "Run" ? page.distance : 0;
 
-  if (!yearData.hasOwnProperty(year)) {
-    yearData[year] = {
-      ridingDistance: 0,
-      runningDistance: 0
-    };
-  }
+	if (!yearData.hasOwnProperty(year)) {
+		yearData[year] = {
+			ridingDistance: 0,
+			runningDistance: 0,
+		};
+	}
 
-  yearData[year].ridingDistance += ridingDistance;
-  yearData[year].runningDistance += runningDistance;
+	yearData[year].ridingDistance += ridingDistance;
+	yearData[year].runningDistance += runningDistance;
 });
 
 const years = Object.keys(yearData);
-const ridingDistance = Object.values(yearData).map(data => data.ridingDistance);
-const runningDistance = Object.values(yearData).map(data => data.runningDistance);
+const ridingDistance = Object.values(yearData).map(
+	(data) => data.ridingDistance
+);
+const runningDistance = Object.values(yearData).map(
+	(data) => data.runningDistance
+);
 
 const chartData = {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      {
-        label: '🚴 Riding distance',
-        data: ridingDistance,
-        backgroundColor: [ 'rgba(255, 99, 132, 0.2)' ],
-        borderColor: [ 'rgba(255, 99, 132, 1)' ],
-        borderWidth: 1
-      },
-      {
-        label: '🏃 Running distance',
-        data: runningDistance,
-        backgroundColor: [ 'rgba(54, 162, 235, 0.2)' ],
-    borderColor: [ 'rgba(54, 162, 235, 1)' ],
-        borderWidth: 1
-      }
-    ]
-  }
-}
-window.renderChart(chartData, this.container)
+	type: "bar",
+	data: {
+		labels: years,
+		datasets: [
+			{
+				label: "🚴 Riding distance",
+				data: ridingDistance,
+				backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+				borderColor: ["rgba(255, 99, 132, 1)"],
+				borderWidth: 1,
+			},
+			{
+				label: "🏃 Running distance",
+				data: runningDistance,
+				backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+				borderColor: ["rgba(54, 162, 235, 1)"],
+				borderWidth: 1,
+			},
+		],
+	},
+};
+window.renderChart(chartData, this.container);
 ```
-    ```
 
 ### Display a contribution heat map with Contribution Graph
 
@@ -288,34 +451,153 @@ Not technically a Dataview integration. This example requires that the [Contribu
       minHeight: 10px
     ```
 
-## Development Guidelines
+## Contributing
 
-- Clone this repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/obsidian-strava-sync` folder.
-- Install NodeJS, then run `yarn install` in the command line under the repo folder.
-- Run `yarn dev` to compile the plugin to `main.js`. Changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of the plugin.
-- Enable the plugin in the settings window.
+We welcome contributions to the Obsidian Strava Sync plugin! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
-### Live Reloading
+### Getting Started
 
-In order to avoid reloading Obsidian every time you make a change, you can use the [Hot-Reload plugin](https://github.com/pjeby/hot-reload) as [they suggest](https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin#Step+5+Update+the+source+code).
+#### Prerequisites
 
-### Releasing
+-   **Node.js** (version 14 or higher)
+-   **npm** or **yarn** package manager
+-   **Obsidian** installed for testing
 
-Run `yarn version` after updating `minAppVersion` manually in `manifest.json`. The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+#### Development Setup
 
-Run `yarn version`, enter a new version number, then push to build and prepare a draft release on GitHub.
+1. **Fork and Clone the Repository**
+
+    ```bash
+    git clone https://github.com/your-username/obsidian-strava-sync.git
+    cd obsidian-strava-sync
+    ```
+
+2. **Install Dependencies**
+
+    ```bash
+    npm install
+    # or if you prefer yarn
+    yarn install
+    ```
+
+3. **Development Build**
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+    This will start the TypeScript compiler in watch mode, automatically recompiling when you make changes.
+
+4. **Testing in Obsidian**
+    - For convenience, you can create a symbolic link from your development folder to your Obsidian plugins directory:
+
+        ```bash
+        # Windows (run as administrator)
+        mklink /D "path\to\your\vault\.obsidian\plugins\obsidian-strava-sync" "path\to\your\dev\folder"
+
+        # macOS/Linux
+        ln -s /path/to/your/dev/folder /path/to/your/vault/.obsidian/plugins/obsidian-strava-sync
+        ```
+
+    - Alternatively, copy `main.js`, `styles.css`, and `manifest.json` to your vault's `.obsidian/plugins/obsidian-strava-sync/` directory after each build.
+    - Reload Obsidian or restart the plugin to test your changes.
+
+### Development Workflow
+
+#### Available Scripts
+
+-   `npm run dev` / `yarn dev` - Start development build with watch mode
+-   `npm run build` / `yarn build` - Create production build
+-   `npm test` / `yarn test` - Run test suite
+-   `npm run lint` / `yarn lint` - Run ESLint
+-   `npm run format` / `yarn format` - Format code with Prettier
+
+#### Live Reloading
+
+For faster development, install the [Hot-Reload plugin](https://github.com/pjeby/hot-reload) in Obsidian:
+
+1. Install the Hot-Reload plugin from the community plugins
+2. Enable it in your plugin settings
+3. Your plugin will automatically reload when you make changes (no need to restart Obsidian)
+
+#### Code Style
+
+-   This project uses TypeScript
+-   Code formatting is handled by Prettier
+-   Linting is done with ESLint
+-   Run `npm run lint` and `npm run format` before committing
+
+#### Testing
+
+-   Write tests for new features in the `src/__tests__/` directory
+-   Run `npm test` to execute the test suite
+-   Ensure all tests pass before submitting a pull request
+
+### Submitting Changes
+
+1. **Create a Feature Branch**
+
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+
+2. **Make Your Changes**
+
+    - Write clean, documented code
+    - Add tests for new functionality
+    - Update documentation as needed
+
+3. **Test Your Changes**
+
+    - Run the test suite: `npm test`
+    - Test manually in Obsidian
+    - Check that the plugin builds successfully
+
+4. **Commit and Push**
+
+    ```bash
+    git add .
+    git commit -m "feat: add your feature description"
+    git push origin feature/your-feature-name
+    ```
+
+5. **Create a Pull Request**
+    - Provide a clear description of your changes
+    - Reference any related issues
+    - Include screenshots if applicable
+
+### Releasing (Maintainers Only)
+
+1. Update `minAppVersion` manually in `manifest.json` if needed
+2. Run `yarn version` and enter the new version number
+3. Push the changes to trigger the build and create a draft release on GitHub
 
 > [!NOTE]
 > You may need to run `yarn config set version-tag-prefix ""` before running `yarn version` to ensure the version tag is created correctly.
 
+### Project Structure
+
+```
+├── src/                    # Source TypeScript files
+│   ├── __tests__/         # Test files
+│   ├── __mocks__/         # Mock files for testing
+│   └── *.ts               # Plugin source code
+├── assets/                # Images and example files
+├── main.js                # Compiled plugin (generated)
+├── manifest.json          # Plugin manifest
+├── package.json           # Node.js dependencies and scripts
+└── tsconfig.json          # TypeScript configuration
+```
+
 ## Resources
 
-- [Strava Developers - Authentication](https://developers.strava.com/docs/authentication/)
-- [Strava Developers - API Reference](https://developers.strava.com/docs/reference/)
-- [Strava Developers - Getting Started + Auth](https://developers.strava.com/docs/getting-started/)
-- [Strava Developers - Rate limiting](https://developers.strava.com/docs/rate-limits/)
-- [Challenges when Testing Plugins | Obsidian Collection](https://www.moritzjung.dev/obsidian-collection/plugin-dev/testing/challengeswhentestingplugins/)
-- [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/)
+-   [Strava Developers - Authentication](https://developers.strava.com/docs/authentication/)
+-   [Strava Developers - API Reference](https://developers.strava.com/docs/reference/)
+-   [Strava Developers - Getting Started + Auth](https://developers.strava.com/docs/getting-started/)
+-   [Strava Developers - Rate limiting](https://developers.strava.com/docs/rate-limits/)
+-   [Challenges when Testing Plugins | Obsidian Collection](https://www.moritzjung.dev/obsidian-collection/plugin-dev/testing/challengeswhentestingplugins/)
+-   [Obsidian Dataview](https://blacksmithgu.github.io/obsidian-dataview/)
 
 ![Powered by Strava](https://cdn.jsdelivr.net/gh/watsonbox/obsidian-strava-sync@latest/assets/api_logo_pwrdBy_strava_horiz_light.png)
