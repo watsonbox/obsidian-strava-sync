@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { type App, Notice, PluginSettingTab, Setting } from "obsidian";
 import { DEFAULT_SETTINGS, VALID_FRONT_MATTER_PROPERTIES } from "./Settings";
 import type StravaSync from "./StravaSync";
@@ -25,7 +26,7 @@ export class SettingsTab extends PluginSettingTab {
             "Enter your Strava API client ID (",
             fragment.createEl("a", {
               text: "instructions",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
             }),
             ")",
           );
@@ -49,7 +50,7 @@ export class SettingsTab extends PluginSettingTab {
             "Enter your Strava API client secret (",
             fragment.createEl("a", {
               text: "instructions",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#sync-configuration",
             }),
             ")",
           );
@@ -99,7 +100,7 @@ export class SettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Folder")
       .setDesc(
-        "Enter the folder where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the folder name",
+        "Enter the folder where the data will be stored. {{id}}, {{name}} and {{start_date}} can be used in the folder name.\n{{start_date}} at the end will create a nested folder structure. Ex: 'Exercise/Strava/{{start_date}}' -> 'Exercise/Strava/2025/01/01",
       )
       .addText((text) =>
         text
@@ -116,7 +117,7 @@ export class SettingsTab extends PluginSettingTab {
       .setDesc(
         createFragment((fragment) => {
           fragment.append(
-            "If date is used as part of folder name, specify the format date for use. Format ",
+            "If date is used as part of folder name, specify the format date for use. For best results in nested folder structure use 'yyyy-MM'. Format ",
             fragment.createEl("a", {
               text: "reference",
               href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens",
@@ -170,6 +171,34 @@ export class SettingsTab extends PluginSettingTab {
           .setValue(this.plugin.settings.sync.filenameDateFormat)
           .onChange(async (value) => {
             this.plugin.settings.sync.filenameDateFormat = value;
+            await this.plugin.saveSettings();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName("Date of Last Synced Activity")
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            "The date of the last synced activity. Update this if you need to redownload activities. Limited to the last 30 activities per the Strava API page limit. Import may need to be run several times if there are more than 30 activities after the entered date.",
+          );
+        }),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder("")
+          .setValue(
+            this.plugin.settings.sync.lastActivityTimestamp
+              ? DateTime.fromSeconds(
+                  this.plugin.settings.sync.lastActivityTimestamp,
+                ).toString()
+              : DateTime.now().minus({ days: 30 }).toString(),
+          )
+          .onChange(async (value) => {
+            this.plugin.settings.sync.lastActivityTimestamp = DateTime.fromISO(
+              value,
+              { zone: "utc" },
+            ).toSeconds();
             await this.plugin.saveSettings();
           }),
       );
@@ -275,7 +304,7 @@ export class SettingsTab extends PluginSettingTab {
             fragment.createEl("br"),
             fragment.createEl("a", {
               text: "More information",
-              href: "https://github.com/watsonbox/obsidian-strava-sync?tab=readme-ov-file#content",
+              href: "https://github.com/jcochran93/obsidian-strava-sync?tab=readme-ov-file#content",
             }),
           );
         }),

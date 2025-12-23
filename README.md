@@ -110,6 +110,10 @@ The templating language used is [Handlebars.js](https://handlebarsjs.com/guide/)
 | `elapsed_time`        | 38846                             | Total elapsed time in seconds              |
 | `moving_time`         | 26010                             | Moving time in seconds                     |
 | `distance`            | 154081.0                          | Distance in meters                         |
+| `distance_miles`      | 9.569116                          | Distance in miles							 |
+| `avg_pace_min_mile`   | 8.769116                          | Pace of the activity						 |
+| `gear_name`	        | "Altra Torin"						| The name of the gear used					 |
+| `workout_type`        | "Long Run"						| The type of workout    					 |
 | `max_heart_rate`      | 180                               | Maximum heart rate                         |
 | `max_speed`           | 18.8                              | Maximum speed in meters per second         |
 | `average_speed`       | 11.1                              | Average speed in meters per second         |
@@ -121,21 +125,29 @@ The templating language used is [Handlebars.js](https://handlebarsjs.com/guide/)
 
 #### Properties
 
-Finally, you can also specify any of these fields to be added to the [properties](https://help.obsidian.md/Editing+and+formatting/Properties) / front matter of each imported activity. By default the properties are `name`, `start_date`, `sport_type`, `description`, `private_note`, `elapsed_time`, `moving_time`, `distance`, and `icon`, for example:
+Finally, you can also specify any of these fields to be added to the [properties](https://help.obsidian.md/Editing+and+formatting/Properties) / front matter of each imported activity. By default the properties are `name`, `start_date`, `sport_type`, `description`, `private_note`, `elapsed_time`, `moving_time`, `distance`, `icon`, `distance_miles`, `gear_name`, `avg_pace_min_per_mile`, and `workout_type`, for example:
 
 ```
 ---
-id: 1014355555
+id: 13613368392
 name: Evening Run
-start_date: 2024-06-02T18:31:27.000Z
+start_date: 2025-02-13T00:38:38.000Z
 sport_type: Run
-distance: 4372.5
-elapsed_time: 1651
-moving_time: 1511
-description: "Great run"
-private_note: "Push it to 10km next time"
+description: |-
+  Temperature: 54°F  - 54°F 
+  Humidity: 82% - 82% 
+  Feels like: 50°F - 50°F 
+private_note: ""
+elapsed_time: 3290
+moving_time: 3290
+distance: 10070.8
 icon: 🏃
+gear_name: "Altra Torin 7 #4"
+workout_type: "General"
+distance_miles: 6.2577030667999995
+avg_pace_min_per_mile: 8.762629303563996
 ---
+
 ```
 
 The property `id` is always added.

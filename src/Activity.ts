@@ -1,3 +1,5 @@
+import type { Split } from "./Split";
+
 export interface Activity {
   id: number;
   start_date: Date;
@@ -8,6 +10,8 @@ export interface Activity {
   elapsed_time: number;
   moving_time: number;
   distance: number;
+  distance_miles: number;
+  avg_pace_min_per_mile: number;
   max_heart_rate: number;
   max_speed: number;
   average_speed: number;
@@ -15,6 +19,9 @@ export interface Activity {
   elev_low: number;
   elev_high: number;
   calories: number;
+  gear_name: string;
+  workout_type: string;
+  splits: Split[];
 
   [propName: string]: any;
 }

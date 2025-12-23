@@ -39,6 +39,34 @@ describe("ActivityRenderer", () => {
       elev_low: 50,
       elev_high: 150,
       calories: 500,
+      gear_name: "Altra Torin",
+      workout_type: "General",
+      distance_miles: 6.21371,
+      avg_pace_min_per_mile: 9.5,
+      splits: [
+        {
+          distance: 1609.4,
+          elapsed_time: 540,
+          elevation_difference: 0.0,
+          moving_time: 540,
+          split: 1,
+          average_speed: 2.98,
+          average_grade_adjusted_speed: 2.98,
+          average_heartrate: 162.4925925925926,
+          pace_zone: 1,
+        },
+        {
+          distance: 1609.7,
+          elapsed_time: 551,
+          elevation_difference: 0.0,
+          moving_time: 551,
+          split: 2,
+          average_speed: 2.92,
+          average_grade_adjusted_speed: 2.92,
+          average_heartrate: 165.61161524500906,
+          pace_zone: 1,
+        },
+      ],
     };
   });
 
