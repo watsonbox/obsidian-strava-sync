@@ -44,6 +44,7 @@ export class ActivitySerializer {
       this.settings.activity.template,
       this.settings.activity.contentDateFormat,
       this.settings.activity.frontMatterProperties,
+      this.settings.activity.frontmatterTemplate,
     ).render(activity);
 
     try {
