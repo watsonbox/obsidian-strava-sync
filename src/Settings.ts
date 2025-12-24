@@ -48,6 +48,7 @@ export const DEFAULT_SETTINGS: Settings = {
       "icon",
     ],
     template: DEFAULT_TEMPLATE,
+    frontmatterTemplate: "",
   },
 };
 
@@ -71,6 +72,7 @@ interface ActivitySettings {
   contentDateFormat: string;
   frontMatterProperties: string[];
   template: string;
+  frontmatterTemplate: string;
 }
 
 export interface Settings {

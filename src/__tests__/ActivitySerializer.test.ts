@@ -36,6 +36,7 @@ describe("ActivitySerializer", () => {
         contentDateFormat: "yyyy-MM-dd HH:mm:ss",
         frontMatterProperties: [],
         template: "# {{name}}",
+        frontmatterTemplate: "",
       },
     };
 

@@ -242,6 +242,34 @@ export class SettingsTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
+      .setName("Front matter template")
+      .setDesc(
+        createFragment((fragment) => {
+          fragment.append(
+            "Enter template to render frontmatter with. If set, this overrides the Properties list above. ",
+            fragment.createEl("br"),
+            "Note: Do not include the '---' fences, they will be added automatically.",
+            fragment.createEl("br"),
+            fragment.createEl("a", {
+              text: "Handlebars documentation",
+              href: "https://handlebarsjs.com/",
+            }),
+          );
+        }),
+      )
+      .addTextArea((text) => {
+        text
+          .setPlaceholder("id: {{id}}\nname: {{name}}")
+          .setValue(this.plugin.settings.activity.frontmatterTemplate)
+          .onChange(async (value) => {
+            this.plugin.settings.activity.frontmatterTemplate = value;
+            await this.plugin.saveSettings();
+          });
+        text.inputEl.setAttr("rows", 10);
+        text.inputEl.setAttr("cols", 50);
+      });
+
+    new Setting(containerEl)
       .setName("Activity date format")
       .setDesc(
         createFragment((fragment) => {
