@@ -23,15 +23,18 @@ export class ActivityRenderer {
   template: string;
   dateFormat: string;
   frontMatterProperties?: string[];
+  frontmatterTemplate?: string;
 
   constructor(
     template: string,
     dateFormat: string,
     frontMatterProperties?: string[],
+    frontmatterTemplate?: string,
   ) {
     this.template = template;
     this.dateFormat = dateFormat;
     this.frontMatterProperties = frontMatterProperties;
+    this.frontmatterTemplate = frontmatterTemplate;
   }
 
   render(activity: Activity) {
@@ -46,12 +49,25 @@ export class ActivityRenderer {
     });
 
     return (
-      (this.frontMatterProperties ? this.renderFrontMatter(activity) : "") +
-      bodyContent
+      (this.frontmatterTemplate || this.frontMatterProperties
+        ? this.renderFrontMatter(activity)
+        : "") + bodyContent
     );
   }
 
   renderFrontMatter(activity: Activity) {
+    if (this.frontmatterTemplate) {
+      const start_date = DateTime.fromJSDate(
+        new Date(activity.start_date),
+      ).toFormat(this.dateFormat);
+      const frontMatter = Handlebars.compile(this.frontmatterTemplate)({
+        ...activity,
+        start_date: start_date,
+        icon: this.getActivityIcon(activity.sport_type),
+      });
+      return `---\n${frontMatter}\n---\n`;
+    }
+
     const frontMatter: { [id: string]: unknown } = {
       id: activity.id,
     };

@@ -58,6 +58,7 @@ export const DEFAULT_SETTINGS: Settings = {
       "splits",
     ],
     template: DEFAULT_TEMPLATE,
+    frontmatterTemplate: "",
   },
 };
 
@@ -81,6 +82,7 @@ interface ActivitySettings {
   contentDateFormat: string;
   frontMatterProperties: string[];
   template: string;
+  frontmatterTemplate: string;
 }
 
 export interface Settings {
