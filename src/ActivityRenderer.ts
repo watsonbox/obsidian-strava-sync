@@ -46,6 +46,7 @@ export class ActivityRenderer {
       ...activity,
       start_date: start_date,
       icon: this.getActivityIcon(activity.sport_type),
+      sport_category: this.getSportCategory(activity.sport_type),
     });
 
     return (
@@ -64,6 +65,7 @@ export class ActivityRenderer {
         ...activity,
         start_date: start_date,
         icon: this.getActivityIcon(activity.sport_type),
+        sport_category: this.getSportCategory(activity.sport_type),
       });
       return `---\n${frontMatter}\n---\n`;
     }
@@ -72,12 +74,17 @@ export class ActivityRenderer {
       id: activity.id,
     };
 
-    this.frontMatterProperties?.forEach((property) => {
-      frontMatter[property] =
-        property === "icon"
-          ? this.getActivityIcon(activity.sport_type)
-          : activity[property];
-    });
+    if (this.frontMatterProperties) {
+      this.frontMatterProperties.forEach((property) => {
+        if (property === "icon") {
+          frontMatter[property] = this.getActivityIcon(activity.sport_type);
+        } else if (property === "sport_category") {
+          frontMatter[property] = this.getSportCategory(activity.sport_type);
+        } else {
+          frontMatter[property] = activity[property];
+        }
+      });
+    }
 
     return `---\n${stringifyYaml(frontMatter)}---\n`;
   }
@@ -162,6 +169,89 @@ export class ActivityRenderer {
         return "🏊";
       default:
         return "🏅";
+    }
+  }
+
+  private getSportCategory(sportType: string): string {
+    switch (sportType.toLowerCase()) {
+      case "alpineski":
+      case "backcountryski":
+      case "nordicski":
+      case "rollerski":
+        return "skiing";
+      case "badminton":
+        return "badminton";
+      case "canoeing":
+      case "kayaking":
+        return "canoeing";
+      case "crossfit":
+      case "weighttraining":
+      case "workout":
+        return "workout";
+      case "ebikeride":
+      case "ride":
+      case "gravelride":
+      case "velomobile":
+      case "virtualride":
+        return "cycling";
+      case "elliptical":
+      case "stairstepper":
+      case "walk":
+        return "walking";
+      case "emountainbikeride":
+      case "mountainbikeride":
+        return "mtb";
+      case "golf":
+        return "golfing";
+      case "handcycle":
+      case "wheelchair":
+        return "wheelchair";
+      case "highintensityintervaltraining":
+        return "hiit";
+      case "hike":
+        return "hiking";
+      case "iceskate":
+        return "ice-skating";
+      case "inlineskate":
+        return "inline-skating";
+      case "kitesurf":
+      case "windsurf":
+      case "standuppaddling":
+      case "surfing":
+        return "surfing";
+      case "pickleball":
+      case "tabletennis":
+        return "table-tennis";
+      case "pilates":
+      case "yoga":
+        return "yoga";
+      case "rockclimbing":
+        return "climbing";
+      case "rowing":
+      case "virtualrow":
+        return "rowing";
+      case "run":
+      case "trailrun":
+      case "virtualrun":
+        return "running";
+      case "sail":
+        return "sailing";
+      case "skateboard":
+        return "skateboarding";
+      case "snowboard":
+        return "snowboarding";
+      case "snowshoe":
+        return "snowshoeing";
+      case "soccer":
+        return "soccer";
+      case "squash":
+      case "racquetball":
+      case "tennis":
+        return "tennis";
+      case "swim":
+        return "swimming";
+      default:
+        return "other";
     }
   }
 }

@@ -284,4 +284,95 @@ Description: Great run in the park
 
     expect(result).toBe(expected);
   });
+
+  test("renders sport_category in frontmatter and content", () => {
+    const customTemplate = `
+# {{sport_category}} {{name}}
+Sport Type: {{sport_type}}
+`;
+    const renderer = new ActivityRenderer(
+      customTemplate,
+      "yyyy-MM-dd HH:mm:ss",
+      ["sport_category"],
+    );
+    const result = renderer.render(activity);
+
+    const expected = `---
+id: 123456789
+sport_category: running
+---
+
+# running Morning Run
+Sport Type: Run
+`;
+
+    expect(result).toBe(expected);
+  });
+
+  test("renders correct sport_category for different sport types", () => {
+    const template = "{{sport_category}} {{sport_type}}";
+    const renderer = new ActivityRenderer(template, "yyyy-MM-dd HH:mm:ss");
+
+    const testCases = [
+      { sport_type: "Run", expectedCategory: "running" },
+      { sport_type: "Ride", expectedCategory: "cycling" },
+      { sport_type: "Swim", expectedCategory: "swimming" },
+      { sport_type: "AlpineSki", expectedCategory: "skiing" },
+      { sport_type: "Golf", expectedCategory: "golfing" },
+      { sport_type: "Hike", expectedCategory: "hiking" },
+      { sport_type: "Walk", expectedCategory: "walking" },
+      { sport_type: "Snowboard", expectedCategory: "snowboarding" },
+      { sport_type: "Workout", expectedCategory: "workout" },
+      { sport_type: "Yoga", expectedCategory: "yoga" },
+      { sport_type: "UnknownActivity", expectedCategory: "other" },
+      { sport_type: "Badminton", expectedCategory: "badminton" },
+      { sport_type: "Canoeing", expectedCategory: "canoeing" },
+      { sport_type: "MountainBikeRide", expectedCategory: "mtb" },
+      { sport_type: "RockClimbing", expectedCategory: "climbing" },
+      { sport_type: "Rowing", expectedCategory: "rowing" },
+      { sport_type: "Sail", expectedCategory: "sailing" },
+      { sport_type: "Skateboard", expectedCategory: "skateboarding" },
+      { sport_type: "Snowshoe", expectedCategory: "snowshoeing" },
+      { sport_type: "Soccer", expectedCategory: "soccer" },
+      { sport_type: "Tennis", expectedCategory: "tennis" },
+      { sport_type: "Surfing", expectedCategory: "surfing" },
+      { sport_type: "Kitesurf", expectedCategory: "surfing" },
+    ];
+
+    testCases.forEach(({ sport_type, expectedCategory }) => {
+      const testActivity = { ...activity, sport_type };
+      const result = renderer.render(testActivity);
+      expect(result).toBe(`${expectedCategory} ${sport_type}`);
+    });
+  });
+
+  test("renders sport_category with frontmatter template", () => {
+    const frontmatterTemplate =
+      "id: {{id}}\nsport_category: {{sport_category}}";
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+      undefined,
+      frontmatterTemplate,
+    );
+    const result = renderer.render(activity);
+
+    const expected = `---
+id: 123456789
+sport_category: running
+---
+# Morning Run
+
+[https://www.strava.com/activities/123456789](https://www.strava.com/activities/123456789)
+
+Description: Great run in the park
+
+> [!NOTE] Private note
+> Felt strong today
+
+#Strava
+`;
+
+    expect(result).toBe(expected);
+  });
 });
