@@ -225,4 +225,35 @@ Sport Type: Run
       expect(result).toBe(`${expectedIcon} ${sport_type}`);
     });
   });
+
+  test("renders front matter with custom template", () => {
+    const frontmatterTemplate =
+      'id: {{id}}\nname: "{{name}}"\ncustom_date: {{start_date}}';
+    const renderer = new ActivityRenderer(
+      DEFAULT_TEMPLATE,
+      "yyyy-MM-dd HH:mm:ss",
+      undefined,
+      frontmatterTemplate,
+    );
+    const result = renderer.render(activity);
+
+    const expected = `---
+id: 123456789
+name: "Morning Run"
+custom_date: 2023-04-15 10:30:00
+---
+# Morning Run
+
+[https://www.strava.com/activities/123456789](https://www.strava.com/activities/123456789)
+
+Description: Great run in the park
+
+> [!NOTE] Private note
+> Felt strong today
+
+#Strava
+`;
+
+    expect(result).toBe(expected);
+  });
 });

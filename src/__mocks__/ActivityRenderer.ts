@@ -3,6 +3,7 @@ export class ActivityRenderer {
     public template: string,
     public dateFormat: string,
     public frontMatterProperties?: string[],
+    public frontmatterTemplate?: string,
   ) {}
 
   render = jest.fn().mockImplementation(() => {

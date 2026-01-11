@@ -124,9 +124,36 @@ The templating language used is [Handlebars.js](https://handlebarsjs.com/guide/)
 | `calories`            | 1234                              | Calories burned                            |
 | `icon`                | 🚴‍♂️🏃🏊⛷️🏸🛶🏋️🚶🚵⛳🦽🥾<br>⛸️🛼🏄🏓🧘🧗🚣⛵🛹🏂⚽🎾 | Activity icon         |
 
+#### Front Matter Template
+
+By default, the plugin will render properties as a simple list. However, you can also customize the front matter using a Handlebars template, just like the content. This is useful if you want to conditionally include properties, or format them in a specific way.
+
+When a front matter template is provided, it overrides the "Properties / Front matter" list setting.
+
+Example front matter template:
+
+```handlebars
+tags: [sport/activity, sport/{{sport_type}}]
+id: {{id}}
+name: "{{name}}"
+start_date: {{start_date}}
+sport_type: {{sport_type}}
+{{#if description}}
+description: |
+  {{description}}
+{{/if}}
+{{#if private_note}}
+private_note: "{{private_note}}"
+{{/if}}
+icon: {{icon}}
+url: https://www.strava.com/activities/{{id}}
+```
+
+The available fields are the same as for the content template.
+
 #### Properties
 
-Finally, you can also specify any of these fields to be added to the [properties](https://help.obsidian.md/Editing+and+formatting/Properties) / front matter of each imported activity. By default the properties are `name`, `start_date`, `sport_type`, `description`, `private_note`, `elapsed_time`, `moving_time`, `distance`, and `icon`, for example:
+If you don't use a custom front matter template, you can specify any of these fields to be added to the  [properties](https://help.obsidian.md/Editing+and+formatting/Properties) / front matter of each imported activity. By default the properties are `name`, `start_date`, `sport_type`, `description`, `private_note`, `elapsed_time`, `moving_time`, `distance`, and `icon`, for example:
 
 ```
 ---
