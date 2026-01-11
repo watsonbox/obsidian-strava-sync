@@ -1,4 +1,10 @@
 import type { Activity } from "./Activity";
+import {
+  formatPace,
+  formatSecondsToHMS,
+  paceFromSpeedMS,
+  paceFromSpeedMS_mile,
+} from "./ActivityMetrics";
 import type { StravaApi } from "./StravaApi";
 
 // The default “non-upload” rate limit allows 100 requests every 15 minutes, with up to 1,000 requests per day.
@@ -52,15 +58,25 @@ export class ActivityImporter {
       description: stravaActivity.description || "",
       private_note: stravaActivity.private_note || "",
       elapsed_time: stravaActivity.elapsed_time,
+      elapsed_time_hms: formatSecondsToHMS(stravaActivity.elapsed_time),
       moving_time: stravaActivity.moving_time,
+      moving_time_hms: formatSecondsToHMS(stravaActivity.moving_time),
       distance: stravaActivity.distance,
+      distance_km: Number((stravaActivity.distance / 1000).toFixed(2)),
+      distance_mile: Number((stravaActivity.distance / 1609.344).toFixed(2)),
       max_heart_rate: stravaActivity.max_heartrate || 0,
+      average_heart_rate: stravaActivity.average_heartrate || 0,
       max_speed: stravaActivity.max_speed || 0,
       average_speed: stravaActivity.average_speed || 0,
       total_elevation_gain: stravaActivity.total_elevation_gain || 0,
       elev_low: stravaActivity.elev_low || 0,
       elev_high: stravaActivity.elev_high || 0,
       calories: stravaActivity.calories || 0,
+      gear_name: stravaActivity.gear?.name || "",
+      pace: formatPace(paceFromSpeedMS(stravaActivity.average_speed || 0)),
+      pace_mile: formatPace(
+        paceFromSpeedMS_mile(stravaActivity.average_speed || 0),
+      ),
     };
   }
 }

@@ -1,5 +1,11 @@
 import { parse } from "csv-parse/browser/esm/sync";
 import type { Activity } from "./Activity";
+import {
+  formatPace,
+  formatSecondsToHMS,
+  paceFromSpeedMS,
+  paceFromSpeedMS_mile,
+} from "./ActivityMetrics";
 
 const TIME_ZONE = "UTC";
 
@@ -20,6 +26,7 @@ const REQUIRED_COLUMNS = [
   "Elevation Low",
   "Elevation High",
   "Calories",
+  "Activity Gear",
 ];
 
 export class CSVImportError extends Error {
@@ -82,15 +89,39 @@ export class ActivitiesCSVImporter {
         description: record["Activity Description"],
         private_note: record["Activity Private Note"],
         elapsed_time: Number.parseFloat(record["Elapsed Time"]), // s
+        elapsed_time_hms: formatSecondsToHMS(
+          Number.parseFloat(record["Elapsed Time"]),
+        ),
         moving_time: Number.parseFloat(record["Moving Time"]), // s
+        moving_time_hms: formatSecondsToHMS(
+          Number.parseFloat(record["Moving Time"]),
+        ),
         distance: Number.parseFloat(record["Distance"]), // m
+        distance_km: Number(
+          (Number.parseFloat(record["Distance"]) / 1000).toFixed(2),
+        ),
+        distance_mile: Number(
+          (Number.parseFloat(record["Distance"]) / 1609.344).toFixed(2),
+        ),
         max_heart_rate: Number.parseFloat(record["Max Heart Rate"]), // bpm
-        max_speed: Number.parseFloat(record["Max Speed"]), // m/s (not kph)
-        average_speed: Number.parseFloat(record["Average Speed"]), // m/s (not kph)
+        average_heart_rate: Number(
+          Number.parseFloat(record["Average Heart Rate"]).toFixed(1),
+        ),
+        max_speed: Number(Number.parseFloat(record["Max Speed"]).toFixed(3)), // m/s (not kph)
+        average_speed: Number(
+          Number.parseFloat(record["Average Speed"]).toFixed(3),
+        ), // m/s (not kph)
         total_elevation_gain: Number.parseFloat(record["Elevation Gain"]), // m
         elev_low: Number.parseFloat(record["Elevation Low"]), // m
         elev_high: Number.parseFloat(record["Elevation High"]), // m
         calories: Number.parseFloat(record["Calories"]),
+        gear_name: record["Activity Gear"],
+        pace: formatPace(
+          paceFromSpeedMS(Number.parseFloat(record["Average Speed"])),
+        ), // min/km
+        pace_mile: formatPace(
+          paceFromSpeedMS_mile(Number.parseFloat(record["Average Speed"])),
+        ), // min/mile
       };
     });
   }
