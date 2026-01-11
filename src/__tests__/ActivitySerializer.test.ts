@@ -31,6 +31,7 @@ describe("ActivitySerializer", () => {
         folderDateFormat: "yyyy-MM-dd",
         filename: "{{id}} {{name}}",
         filenameDateFormat: "yyyy-MM-dd",
+        rewriteExistingActivities: false,
       },
       activity: {
         contentDateFormat: "yyyy-MM-dd HH:mm:ss",

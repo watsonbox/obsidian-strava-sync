@@ -115,12 +115,12 @@ export default class StravaSync extends Plugin {
 
       this.activities = await new ActivityImporter(
         this.stravaApi,
-        this.settings.sync.lastActivityTimestamp,
+        this.settings.sync.rewriteExistingActivities ? undefined : this.settings.sync.lastActivityTimestamp,
       ).importLatestActivities();
 
-      await this.serializeActivities(true);
+      await this.serializeActivities(!this.settings.sync.rewriteExistingActivities);
 
-      if (this.activities.length > 0) {
+      if (this.activities.length > 0 && !this.settings.sync.rewriteExistingActivities) {
         this.settings.sync.lastActivityTimestamp = Math.max(
           ...this.activities.map(
             (activity) => activity.start_date.getTime() / 1000,
@@ -131,8 +131,9 @@ export default class StravaSync extends Plugin {
       await this.saveSettings();
     } catch (error) {
       console.error("Unexpected error during Strava import:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       new Notice(
-        "🛑 An unexpected error occurred during import. Check the console for details.",
+        `🛑 Import failed: ${errorMessage}. Check the console for full details.`,
         ERROR_NOTICE_DURATION,
       );
     }
@@ -163,7 +164,8 @@ export default class StravaSync extends Plugin {
     let message = `🏃 ${createdCount} ${newLabel ? "new " : ""}activities created`;
 
     if (updatedCount > 0) {
-      message += `, ${updatedCount} already existing`;
+      const action = this.settings.sync.rewriteExistingActivities ? "updated" : "already existing";
+      message += `, ${updatedCount} ${action}`;
     }
 
     new Notice(`${message}.`, SUCCESS_NOTICE_DURATION);

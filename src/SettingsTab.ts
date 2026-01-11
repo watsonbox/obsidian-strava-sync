@@ -209,6 +209,20 @@ export class SettingsTab extends PluginSettingTab {
           }),
       );
 
+    new Setting(containerEl)
+      .setName("Rewrite existing activities")
+      .setDesc(
+        "When enabled, all activities will be downloaded and rewritten, ignoring the last activity timestamp. This will download all activities from Strava, even if they were previously imported. Warning: This may hit Strava's rate limits (100 requests per 15 minutes) if you have many activities."
+      )
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.sync.rewriteExistingActivities)
+          .onChange(async (value) => {
+            this.plugin.settings.sync.rewriteExistingActivities = value;
+            await this.plugin.saveSettings();
+          }),
+      );
+
     new Setting(containerEl).setName("Activity").setHeading();
 
     new Setting(containerEl)

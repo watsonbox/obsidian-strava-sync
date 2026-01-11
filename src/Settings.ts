@@ -33,6 +33,7 @@ export const DEFAULT_SETTINGS: Settings = {
     folderDateFormat: "yyyy-MM-dd",
     filename: "{{id}} {{name}}",
     filenameDateFormat: "yyyy-MM-dd",
+    rewriteExistingActivities: false,
   },
   activity: {
     contentDateFormat: "yyyy-MM-dd HH:mm:ss",
@@ -65,6 +66,7 @@ interface SyncSettings {
   filename: string;
   filenameDateFormat: string;
   lastActivityTimestamp?: number;
+  rewriteExistingActivities: boolean;
 }
 
 interface ActivitySettings {
