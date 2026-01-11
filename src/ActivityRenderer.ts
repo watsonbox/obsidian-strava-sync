@@ -57,10 +57,12 @@ export class ActivityRenderer {
     };
 
     this.frontMatterProperties?.forEach((property) => {
-      frontMatter[property] =
-        property === "icon"
-          ? this.getActivityIcon(activity.sport_type)
-          : activity[property];
+      if (activity[property] !== undefined || property === "icon") {
+        frontMatter[property] =
+          property === "icon"
+            ? this.getActivityIcon(activity.sport_type)
+            : activity[property];
+      }
     });
 
     return `---\n${stringifyYaml(frontMatter)}---\n`;

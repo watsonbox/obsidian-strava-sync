@@ -44,7 +44,7 @@ export class ActivityImporter {
   }
 
   private mapStravaActivityToActivity(stravaActivity: any): Activity {
-    return {
+    const data: Activity = {
       id: stravaActivity.id,
       start_date: new Date(stravaActivity.start_date),
       name: stravaActivity.name,
@@ -62,5 +62,11 @@ export class ActivityImporter {
       elev_high: stravaActivity.elev_high || 0,
       calories: stravaActivity.calories || 0,
     };
+
+    if (stravaActivity.map.summary_polyline !== "") {
+      data["summary_polyline"] = stravaActivity.map.summary_polyline;
+    }
+
+    return data;
   }
 }
