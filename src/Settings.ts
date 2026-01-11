@@ -10,6 +10,8 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elapsed_time",
   "moving_time",
   "distance",
+  "distance_miles",
+  "avg_pace_min_per_mile",
   "max_heart_rate",
   "max_speed",
   "average_speed",
@@ -18,6 +20,9 @@ export const VALID_FRONT_MATTER_PROPERTIES = [
   "elev_high",
   "calories",
   "icon",
+  "gear_name",
+  "workout_type",
+  "splits",
 ];
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -30,7 +35,7 @@ export const DEFAULT_SETTINGS: Settings = {
   },
   sync: {
     folder: "Strava/{{start_date}}",
-    folderDateFormat: "yyyy-MM-dd",
+    folderDateFormat: "yyyy-MM",
     filename: "{{id}} {{name}}",
     filenameDateFormat: "yyyy-MM-dd",
   },
@@ -46,6 +51,11 @@ export const DEFAULT_SETTINGS: Settings = {
       "moving_time",
       "distance",
       "icon",
+      "gear_name",
+      "workout_type",
+      "distance_miles",
+      "avg_pace_min_per_mile",
+      "splits",
     ],
     template: DEFAULT_TEMPLATE,
   },
